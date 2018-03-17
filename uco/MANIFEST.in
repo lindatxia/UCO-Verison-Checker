@@ -1,0 +1,3 @@
+graft/uco/templates
+graft/uco/static
+include uco/schema.sql

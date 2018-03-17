@@ -1,0 +1,139 @@
+<!DOCTYPE html> 
+<html lang="en">
+
+<head> 
+
+	<title> CMU Contracts Versioning Prototype </title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/diff.js') }}"></script>
+
+	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+ 
+</head>
+
+<body>
+
+<div class="container">
+	<br/><br/>
+	<h2> CMU Contracts Versioning Prototype </h2>
+	<p>
+		(Demo for basic versioning functionality)
+	</p>
+
+	<br/><br/>
+
+	<script> 
+
+	var color = '',
+	    span = null;
+
+	var oldTerms = '';
+	var newTerms = ''; 
+
+	/* Creates a fileReader instance and saves the text from the 
+	uploaded text file into a variable called textFromFileLoaded.
+	*/
+	function loadFileAsText(){
+		var fileToLoad = document.getElementById("fileToLoad").files[0];
+		var fileReader = new FileReader();
+
+		fileReader.onload = function(fileLoadedEvent){
+			var textFromFileLoaded = fileLoadedEvent.target.result;
+			/* Call on the callback */ 
+			getLoadedText(textFromFileLoaded);
+		};
+
+		fileReader.readAsText(fileToLoad);
+
+		/* Callback definition */ 
+		var getLoadedText = function(data) {			
+			oldTerms = data;
+		}
+	}
+
+	/* Makes a JQuery AJAX request to Python code (for now, this is asana_test.py). 
+	Need to generalize this later. 
+	*/ 
+	function runPyScript(){
+        var jqXHR = $.ajax({
+            type: "POST",
+            url: "/compare",
+            async: false,
+        });
+    }
+
+	/* Need a better way to do this. Currently indirectly reads in updated contract terms from the text file that 
+	the Scrapy spider creates from web scraping.  */
+	function readNewContract() { 
+		var fileToLoad = document.getElementById("newFileToLoad").files[0];
+		var fileReader = new FileReader(); 
+
+		fileReader.onload = function(fileLoadedEvent){
+			var textFromFileLoaded = fileLoadedEvent.target.result;
+			getLoadedText(textFromFileLoaded);
+		};
+	  	
+	  	fileReader.readAsText(fileToLoad);
+
+	  	/* Callback definition */ 
+		var getLoadedText = function(data) {
+			console.log(data);
+			newTerms = data;
+			displayDifferences();
+		}
+	}
+
+	/* Uses JsDiff library to show textual differences in old and new contracts. 
+	Documentation: https://www.npmjs.com/package/diff
+	*/ 
+	function displayDifferences() { 
+		var diff = JsDiff.diffWords(oldTerms, newTerms),
+	    	display = document.getElementById('display'),
+	    	fragment = document.createDocumentFragment();
+
+	    diff.forEach(function(part){
+	    	color = part.added ? 'green' : part.removed ? 'red' : 'grey'; 
+	    	span = document.createElement('span');
+	    	span.style.color = color;
+	    	span.appendChild(document.createTextNode(part.value));
+	    	fragment.appendChild(span);
+	    });
+
+	    display.appendChild(fragment);
+	}
+
+	</script> 
+
+
+	<tr>
+	    <td>Select old contract text file: </td>
+	    <td><input type="file" id="fileToLoad"></td>
+	    <td><button onclick="loadFileAsText()">Load selected file</button><td>
+	</tr>
+
+	<br/><br/>
+
+	<tr> 
+	    <td> Compare with this link: </td> 
+	    <td><input type="text" id="linkToLoad"></td>
+	    <br/><br/>
+	    <td><button onclick="runPyScript()" id="compareText"> Compare contract text</button><td>
+	</tr>
+
+	<br/><br/>
+
+	<tr> 
+		<td>Select NEW contract text file: </td>
+		<td><input type="file" id="newFileToLoad"></td>
+	    <td><button onclick="readNewContract()">Load selected file</button><td>
+	</tr>
+
+	<pre id="display"></pre>
+
+	
+</div>
+
+</body>
+
+
+</html>
