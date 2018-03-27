@@ -13,7 +13,12 @@ def main():
 @app.route('/compare', methods=['GET', 'POST'])
 def compare(): 
 	message = None
-	os.system('scrapy runspider asana_test.py')
+	# command = '''scrapy runspider scrape.py 
+	# -a link=https://asana.com/terms 
+	# start="Asana User Terms of Service"
+	# end="an integral link."
+	# '''
+	os.system('''scrapy runspider scrape.py -a link=https://asana.com/terms -a start='Asana User Terms of Service' -a end='an integral link.' ''')
 
 	# if request.method == 'POST':
 	# 	datafromjs = request.form['mydata']

@@ -8,18 +8,26 @@ from scrapy.spiders import Spider
 from difflib import Differ
 from pprint import pprint
 
+import sys
+
 class S1(Spider):
     name = 's1'
     custom_settings = {
             'DOWNLOAD_DELAY': 0.5
             }
-    allowed_domains = ['asana.com']
-    start_urls = ["https://asana.com/terms"]
+    # allowed_domains = ['asana.com']
+    # start_urls = ["https://asana.com/terms"]
+
+    def __init__(self, category=None, *args, **kwargs):
+        super(S1, self).__init__(*args, **kwargs)
+        self.start_urls = ['%s' % self.link]
+        self.start = self.start
+        self.end = self.end
 
     def parse(self, response):
         text = response.xpath("//body//text()").extract()
         text = ''.join(text)
-        text = clean_text(text,"Asana User Terms of Service", "an integral link.")
+        text = clean_text(text,self.start,self.end)
         f= open("asana.txt","w+")
         for line in text:
             f.write(str(line))
