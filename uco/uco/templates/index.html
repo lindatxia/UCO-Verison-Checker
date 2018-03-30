@@ -38,8 +38,11 @@
 		var fileReader = new FileReader();
 
 		fileReader.onload = function(fileLoadedEvent){
+			console.log("loading file")
 			var textFromFileLoaded = fileLoadedEvent.target.result;
 			/* Call on the callback */ 
+			// console.log(textFromFileLoaded)
+			oldTerms = textFromFileLoaded
 			getLoadedText(textFromFileLoaded);
 		};
 
@@ -49,87 +52,93 @@
 		var getLoadedText = function(data) {			
 			oldTerms = data;
 		}
+		// console.log("text from file")
+		// console.log(textFromFileLoaded)
+		// console.log("Old Terms")
+		// console.log(oldTerms)
 	}
 
 	/* Makes a JQuery AJAX request to Python code (for now, this is asana_test.py). 
 	Need to generalize this later. 
 	*/ 
 	function runPyScript(){
+		// console.log("old terms")
+		// console.log(oldTerms[:10])
+		// var text = textFromFileLoaded
+		// var old = oldTerms
+		var name = $('#name').val();
+		var link = $('#link').val();
+		var start = $('#start').val();
+		var end = $('#end').val();
         var jqXHR = $.ajax({
             type: "POST",
             url: "/compare",
             async: false,
-        })};
+            data: $('form').serialize()
+    })};
 
 	/* Need a better way to do this. Currently indirectly reads in updated contract terms from the text file that 
 	the Scrapy spider creates from web scraping.  */
-	function readNewContract() { 
-		var fileToLoad = document.getElementById("newFileToLoad").files[0];
-		var fileReader = new FileReader(); 
+	// function readNewContract() { 
+	// 	var fileToLoad = document.getElementById("newFileToLoad").files[0];
+	// 	var fileReader = new FileReader(); 
 
-		fileReader.onload = function(fileLoadedEvent){
-			var textFromFileLoaded = fileLoadedEvent.target.result;
-			getLoadedText(textFromFileLoaded);
-		};
+	// 	fileReader.onload = function(fileLoadedEvent){
+	// 		var textFromFileLoaded = fileLoadedEvent.target.result;
+	// 		getLoadedText(textFromFileLoaded);
+	// 	};
 	  	
-	  	fileReader.readAsText(fileToLoad);
+	//   	fileReader.readAsText(fileToLoad);
 
-	  	/* Callback definition */ 
-		var getLoadedText = function(data) {
-			console.log(data);
-			newTerms = data;
-			displayDifferences();
-		}
-	}
+	//   	/* Callback definition */ 
+	// 	var getLoadedText = function(data) {
+	// 		console.log(data);
+	// 		newTerms = data;
+	// 		displayDifferences();
+	// 	}
+	// }
 
 	/* Uses JsDiff library to show textual differences in old and new contracts. 
 	Documentation: https://www.npmjs.com/package/diff
 	*/ 
-	function displayDifferences() { 
-		var diff = JsDiff.diffWords(oldTerms, newTerms),
-	    	display = document.getElementById('display'),
-	    	fragment = document.createDocumentFragment();
+	// function displayDifferences() { 
+	// 	var diff = JsDiff.diffWords(oldTerms, newTerms),
+	//     	display = document.getElementById('display'),
+	//     	fragment = document.createDocumentFragment();
 
-	    diff.forEach(function(part){
-	    	color = part.added ? 'green' : part.removed ? 'red' : 'grey'; 
-	    	span = document.createElement('span');
-	    	span.style.color = color;
-	    	span.appendChild(document.createTextNode(part.value));
-	    	fragment.appendChild(span);
-	    });
+	//     diff.forEach(function(part){
+	//     	color = part.added ? 'green' : part.removed ? 'red' : 'grey'; 
+	//     	span = document.createElement('span');
+	//     	span.style.color = color;
+	//     	span.appendChild(document.createTextNode(part.value));
+	//     	fragment.appendChild(span);
+	//     });
 
-	    display.appendChild(fragment);
-	}
+	//     display.appendChild(fragment);
+	// }
 
 	</script> 
 
 
-	<tr>
-	    <td>Select old contract text file: </td>
-	    <td><input type="file" id="fileToLoad"></td>
-	    <td><button onclick="loadFileAsText()">Load selected file</button><td>
-	</tr>
+	<h2>Select old terms and conditions</h2>
+	<input type="file" id="fileToLoad">
+	<button onclick="loadFileAsText()">Load selected file</button>
+
+	</br></br>
+
+	<form role="form">
+		<!-- <h2>Select old terms and conditions</h2>
+		<input type="file" id="old_file" name="old_file"> -->
+        <h2>Compare with this link</h2>
+        <input type="text" id="name" name="name" placeholder="Software Name" required>
+        <input type="text" id="link" name="link" placeholder="Link" required>
+        <input type="text" id="start" name="start" placeholder="Start" required>
+        <input type="text" id="end" name="end" placeholder="End" required>
+        
+        <button onclick="runPyScript()" id="compareText"> Compare contract text</button>
+    </form>
 
 	<br/><br/>
-
-	<tr> 
-	    <td> Compare with this link: </td> 
-	    <td><input type="text" id="linkToLoad"></td>
-	    <br/><br/>
-	    <td><button onclick="runPyScript()" id="compareText"> Compare contract text</button><td>
-	</tr>
-
-	<br/><br/>
-
-	<tr> 
-		<td>Select NEW contract text file: </td>
-		<td><input type="file" id="newFileToLoad"></td>
-	    <td><button onclick="readNewContract()">Load selected file</button><td>
-	</tr>
-
-	<pre id="display"></pre>
-	{% block changes %}{% endblock %}
-
 	
 </div>
 

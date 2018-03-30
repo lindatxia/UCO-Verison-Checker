@@ -1,24 +1,31 @@
 import os 
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request, json
 
 app = Flask('uco')
 
-
 @app.route('/')
 def main():
-    return render_template('index.html')
-
+	return render_template('index.html')
 
 @app.route('/compare', methods=['GET', 'POST'])
 def compare(): 
 	message = None
-	# command = '''scrapy runspider scrape.py 
-	# -a link=https://asana.com/terms 
-	# start="Asana User Terms of Service"
-	# end="an integral link."
-	# '''
-	os.system('''scrapy runspider scrape.py -a link=https://asana.com/terms -a start='Asana User Terms of Service' -a end='an integral link.' ''')
+	print("starting compare")
+	name = request.form['name']
+	print(name)
+	link = request.form['link'];
+	print(link)
+	start = request.form['start'];
+	print(start)
+	end = request.form['end'];
+	print(end)
+	print("finished compare")
+	# print('old_file' in request.files)
+	# old_terms = request.files['old_file'];
+	# print(old_terms)
+	
+	os.system('''scrapy runspider scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end))
 
 	# if request.method == 'POST':
 	# 	datafromjs = request.form['mydata']

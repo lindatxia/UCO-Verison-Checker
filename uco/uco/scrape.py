@@ -15,24 +15,23 @@ class S1(Spider):
     custom_settings = {
             'DOWNLOAD_DELAY': 0.5
             }
-    # allowed_domains = ['asana.com']
-    # start_urls = ["https://asana.com/terms"]
 
     def __init__(self, category=None, *args, **kwargs):
         super(S1, self).__init__(*args, **kwargs)
         self.start_urls = ['%s' % self.link]
-        self.start = self.start
-        self.end = self.end
+        # for now hardcoded to asana_old.txt, but once file input works this will change
+        self.old_terms = "asana_old.txt"
 
     def parse(self, response):
         text = response.xpath("//body//text()").extract()
         text = ''.join(text)
         text = clean_text(text,self.start,self.end)
-        f= open("asana.txt","w+")
+        new_filename = self.name+".txt"
+        f= open(new_filename,"w+")
         for line in text:
             f.write(str(line))
         f.close()
-        compare("asana_old.txt","asana.txt","templates/changes_table.html")
+        compare(self.old_terms,new_filename,"templates/changes_table.html")
 
 # takes away all text before start and after end
 def clean_text(s,start,end):
@@ -51,8 +50,8 @@ def clean_text(s,start,end):
 
 # compares a and b and outputs a HTML table of the changes. 
 
-def compare(a,b,filename):
-    out = get_differences(a,b)
+def compare(old,new,filename):
+    out = get_differences(old,new)
     make_html_table(out,filename)
 
 # using the Differ module of the difflib library to compare 
@@ -60,11 +59,12 @@ def compare(a,b,filename):
 # the changes of the form [[added/removed, line]]
 # - -> line was removed
 # + -> line was added
-def get_differences(a,b):
-    a_list = split_txt(a)
-    b_list = split_txt(b)
+def get_differences(old,new):
+    # old_list = old.split("\n")
+    old_list = split_txt(old)
+    new_list = split_txt(new)
     d = Differ()
-    result = list(d.compare(a_list,b_list))
+    result = list(d.compare(old_list,new_list))
     for i in range(0,len(result)):
         result[i]=result[i].split()
     return result
