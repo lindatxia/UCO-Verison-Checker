@@ -1,4 +1,5 @@
 import os 
+import subprocess
 
 from flask import Flask, render_template, request, json
 
@@ -7,6 +8,11 @@ app = Flask('uco')
 @app.route('/')
 def main():
 	return render_template('index.html')
+
+@app.route('/test')
+def test():
+	print("running test")
+	return render_template('changes.html')
 
 @app.route('/compare', methods=['GET', 'POST'])
 def compare(): 
@@ -33,7 +39,8 @@ def compare():
 	# 	resp = make_response('{"response": '+result+'}')
 	# 	resp.headers['Content-Type'] = "application/json"
 	# 	return resp
-	return render_template('changes.html', message='')
+	print("finished scrapy call")
+	return "finished scrapy call"
 
 if __name__ == '__main__':
     app.run()

@@ -70,12 +70,46 @@
 		var link = $('#link').val();
 		var start = $('#start').val();
 		var end = $('#end').val();
-        var jqXHR = $.ajax({
+        $.ajax({
             type: "POST",
             url: "/compare",
             async: false,
-            data: $('form').serialize()
+            dataType: "html",
+            data: $('form').serialize(),
+            success: function(response) {
+            	console.log(response)
+            	console.log("SUCCESS")
+            	("#container").load("changes.html");
+        	},
+        	error: function (xhr, status, error) {
+            	console.log("ERROR");
+        	}
     })};
+
+   //  function compareText(){
+   //  	$('compareText').click(function() {
+   //  		console.log("clicked button")
+   //  		var name = $('#name').val();
+			// var link = $('#link').val();
+			// var start = $('#start').val();
+			// var end = $('#end').val();
+	  //       $.ajax({
+	  //           type: "POST",
+	  //           url: "/compare",
+	  //           async: false,
+	  //           dataType: "html",
+	  //           data: $('form').serialize(),
+	  //           success: function(response) {
+	  //           	console.log(response)
+	  //           	console.log("SUCCESS")
+	  //           	("#container").load("changes.html");
+	  //       	},
+	  //       	error: function (xhr, status, error) {
+	  //           	console.log("ERROR");
+	  //       	}
+   //  		});
+   //  	});
+   //  };
 
 	/* Need a better way to do this. Currently indirectly reads in updated contract terms from the text file that 
 	the Scrapy spider creates from web scraping.  */
@@ -135,10 +169,15 @@
         <input type="text" id="start" name="start" placeholder="Start" required>
         <input type="text" id="end" name="end" placeholder="End" required>
         
-        <button onclick="runPyScript()" id="compareText"> Compare contract text</button>
+        <p><a onclick="runPyScript()" href="{{url_for('test')}}">Compare Text</a></p>
     </form>
 
+
+
 	<br/><br/>
+
+	<div id="changes">
+	<div>
 	
 </div>
 
