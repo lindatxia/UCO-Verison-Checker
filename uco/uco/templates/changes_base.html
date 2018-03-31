@@ -8,6 +8,11 @@
 	<script type="text/javascript" src="{{ url_for('static', filename='js/diff.js') }}"></script>
 
 	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<style type="text/css">
+        td.added {background-color: #68FF7C}
+        td.removed {background-color: #FF8977}
+    </style>
  
 </head>
 
@@ -15,7 +20,7 @@
 
 <div class="container">
 	
-	<h1>Hello World</h1>
+	<h1>Changes</h1>
 	{% block body %}{% endblock %}
 	
 </div>

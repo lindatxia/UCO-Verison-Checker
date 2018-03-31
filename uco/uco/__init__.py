@@ -9,10 +9,9 @@ app = Flask('uco')
 def main():
 	return render_template('index.html')
 
-@app.route('/test')
-def test():
-	print("running test")
-	return render_template('changes.html')
+@app.route('/results')
+def results():
+	return render_template('changes_table.html')
 
 @app.route('/compare', methods=['GET', 'POST'])
 def compare(): 

@@ -78,7 +78,7 @@ def split_txt(txt):
 # created an html table that assigns a class to the rows
 # that have been added and removed
 def make_html_table(l,name):
-    ans = ['''{% extends "changes.html" %}\n''','''{% block body %}\n''','<table>\n']
+    ans = ['''{% extends "changes_base.html" %}\n''','''{% block body %}\n''','<table>\n']
     for line in l:
         front = '\t<tr>\n\t\t<td>'
         if len(line) == 0 :
