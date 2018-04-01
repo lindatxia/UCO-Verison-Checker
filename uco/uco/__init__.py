@@ -16,21 +16,13 @@ def results():
 @app.route('/compare', methods=['GET', 'POST'])
 def compare(): 
 	message = None
-	print("starting compare")
 	name = request.form['name']
-	print(name)
 	link = request.form['link'];
-	print(link)
 	start = request.form['start'];
-	print(start)
 	end = request.form['end'];
-	print(end)
-	print("finished compare")
-	# print('old_file' in request.files)
-	# old_terms = request.files['old_file'];
-	# print(old_terms)
+	textFile = request.form['textFile']
 	
-	os.system('''scrapy runspider scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end))
+	os.system('''scrapy runspider scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' -a textFile='%s' ''' % (name,link,start,end,textFile))
 
 	# if request.method == 'POST':
 	# 	datafromjs = request.form['mydata']
@@ -38,8 +30,7 @@ def compare():
 	# 	resp = make_response('{"response": '+result+'}')
 	# 	resp.headers['Content-Type'] = "application/json"
 	# 	return resp
-	print("finished scrapy call")
-	return "finished scrapy call"
+	return ""
 
 if __name__ == '__main__':
     app.run()

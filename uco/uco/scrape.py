@@ -1,6 +1,6 @@
 # run this file as
 #
-# scrapy runspider asana.py
+# scrapy runspider scrape.py
 
 from scrapy import Request
 from scrapy.spiders import Spider
@@ -19,8 +19,7 @@ class S1(Spider):
     def __init__(self, category=None, *args, **kwargs):
         super(S1, self).__init__(*args, **kwargs)
         self.start_urls = ['%s' % self.link]
-        # for now hardcoded to asana_old.txt, but once file input works this will change
-        self.old_terms = "asana_old.txt"
+        self.old_terms = self.textFile
 
     def parse(self, response):
         text = response.xpath("//body//text()").extract()
@@ -60,8 +59,8 @@ def compare(old,new,filename):
 # - -> line was removed
 # + -> line was added
 def get_differences(old,new):
-    # old_list = old.split("\n")
-    old_list = split_txt(old)
+    old = old.replace("\r","")
+    old_list = old.split("\n")
     new_list = split_txt(new)
     d = Differ()
     result = list(d.compare(old_list,new_list))

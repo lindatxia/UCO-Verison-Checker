@@ -1,0 +1,10 @@
+Index Page:
+- need some user feedback when hittin the load file button
+- way to not allow them to submit form without loading file
+- scraping takes a long time so could add in progress bar
+
+Scraping:
+- way to save new file to someones computer
+
+Changes Page:
+- need return to form button
