@@ -3,6 +3,8 @@ import subprocess
 
 from flask import Flask, render_template, request, json
 
+import comparison
+
 app = Flask('uco')
 
 @app.route('/')
@@ -16,13 +18,17 @@ def results():
 @app.route('/compare', methods=['GET', 'POST'])
 def compare(): 
 	message = None
-	name = request.form['name']
+	name = request.form['name'];
 	link = request.form['link'];
 	start = request.form['start'];
 	end = request.form['end'];
-	textFile = request.form['textFile']
+	textFile = request.form['textFile'];
+	new_filename = name+".txt"
 	
-	os.system('''scrapy runspider scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' -a textFile='%s' ''' % (name,link,start,end,textFile))
+	scrapy_call = '''scrapy runspider scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
+	print(scrapy_call)
+	os.system(scrapy_call)
+	comparison.compare(textFile,new_filename,"templates/changes_table.html")
 
 	# if request.method == 'POST':
 	# 	datafromjs = request.form['mydata']
@@ -33,4 +39,4 @@ def compare():
 	return ""
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
