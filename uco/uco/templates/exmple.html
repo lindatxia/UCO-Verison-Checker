@@ -1,0 +1,28 @@
+<!DOCTYPE html> 
+<html lang="en">
+
+<head> 
+
+	<title> CMU Contracts Versioning Prototype </title>
+    <script type="text/javascript">
+    function download(filename, text) {
+	    var pom = document.createElement('a');
+	    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+	    pom.setAttribute('download', filename);
+
+	    if (document.createEvent) {
+	        var event = document.createEvent('MouseEvents');
+	        event.initEvent('click', true, true);
+	        pom.dispatchEvent(event);
+	    }
+	    else {
+	        pom.click();
+	    }
+	}
+    </script>
+ 
+</head>
+
+<body>
+	<a href = "../asana.txt" download>Click Me</a>
+</body>

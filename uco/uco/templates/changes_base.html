@@ -13,6 +13,23 @@
         td.added {background-color: #68FF7C}
         td.removed {background-color: #FF8977}
     </style>
+
+    <script type="text/javascript">
+ //    function download(filename, text) {
+	//     var pom = document.createElement('a');
+	//     pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+	//     pom.setAttribute('download', filename);
+
+	//     if (document.createEvent) {
+	//         var event = document.createEvent('MouseEvents');
+	//         event.initEvent('click', true, true);
+	//         pom.dispatchEvent(event);
+	//     }
+	//     else {
+	//         pom.click();
+	//     }
+	// }
+    </script>
  
 </head>
 
@@ -21,6 +38,8 @@
 <div class="container">
 	
 	<h1>Changes</h1>
+	<!-- <button href = "/return_files/">Download</button> -->
+	<a href = "/return_files/" target="blank">Download New Terms</a>
 	{% block body %}{% endblock %}
 	
 </div>
