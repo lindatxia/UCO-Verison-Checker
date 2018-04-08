@@ -32,7 +32,6 @@ class S1(Spider):
         for line in text:
             f.write(str(line))
         f.close()
-        print("wrote file to "+new_filename)
 
 # takes away all text before start and after end
 def clean_text(s,start,end):

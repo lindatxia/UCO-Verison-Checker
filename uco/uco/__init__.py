@@ -12,7 +12,24 @@ app = Flask('uco')
 
 @app.route('/')
 def main():
-	return render_template('index.html')
+	return render_template('index.html') 
+
+@app.route('/scrape_only', methods=['GET','POST'])
+def scrape_only():
+	message = None
+	global name
+	name = request.form['name'];
+	link = request.form['link'];
+	start = request.form['start'];
+	end = request.form['end'];
+	textFile = request.form['textFile'];
+	date = datetime.date.today()
+	global new_filename
+	new_filename = name+date.strftime("%m_%d_%y")+".txt"
+	
+	scrapy_call = '''scrapy runspider scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
+	os.system(scrapy_call)
+	return ""
 
 @app.route('/results')
 def results():
@@ -34,26 +51,11 @@ def compare():
 	scrapy_call = '''scrapy runspider scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
 	os.system(scrapy_call)
 	comparison.compare(textFile,new_filename,"templates/changes_table.html")
-
-	# if request.method == 'POST':
-	# 	datafromjs = request.form['mydata']
-	# 	result = 'return this'
-	# 	resp = make_response('{"response": '+result+'}')
-	# 	resp.headers['Content-Type'] = "application/json"
-	# 	return resp
 	return ""
 
 @app.route('/return_files/')
 def return_files_tut():
-	try:
-		# response = make_response(new_filename)
-		# cd = 'attachment; filename=%s' % new_filename
-		# response.headers['Content-Disposition'] = cd 
-		# response.mimetype='text/txt'
-		# return response
-		return send_file('%s' % new_filename , attachment_filename=new_filename, as_attachment = True)
-	except Exception as e:
-		return str("It failed yo..."+e)
+	return send_file('%s' % new_filename , attachment_filename=new_filename, as_attachment = True)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -4,7 +4,8 @@ Index Page:
 - scraping takes a long time so could add in progress bar
 
 Scraping:
-- way to save new file to someones computer
+- way to save new file to folder on someone's computer
+- individual changes insetead of line by line
 
 Changes Page:
 - need return to form button
