@@ -1,5 +1,7 @@
 import os 
 import subprocess
+import datetime
+import time
 
 from flask import Flask, render_template, request, json, send_file, make_response
 
@@ -25,11 +27,11 @@ def compare():
 	start = request.form['start'];
 	end = request.form['end'];
 	textFile = request.form['textFile'];
+	date = datetime.date.today()
 	global new_filename
-	new_filename = name+".txt"
+	new_filename = name+date.strftime("%m_%d_%y")+".txt"
 	
 	scrapy_call = '''scrapy runspider scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
-	print(scrapy_call)
 	os.system(scrapy_call)
 	comparison.compare(textFile,new_filename,"templates/changes_table.html")
 
@@ -49,7 +51,7 @@ def return_files_tut():
 		# response.headers['Content-Disposition'] = cd 
 		# response.mimetype='text/txt'
 		# return response
-		return send_file('%s' % new_filename , attachment_filename='%s.txt' % name, as_attachment = True)
+		return send_file('%s' % new_filename , attachment_filename=new_filename, as_attachment = True)
 	except Exception as e:
 		return str("It failed yo..."+e)
 

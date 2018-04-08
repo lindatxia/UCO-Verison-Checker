@@ -2,6 +2,9 @@
 #
 # scrapy runspider scrape.py
 
+import datetime
+import time
+
 from scrapy import Request
 from scrapy.spiders import Spider
 
@@ -24,11 +27,12 @@ class S1(Spider):
         text = response.xpath("//body//text()").extract()
         text = ''.join(text)
         text = clean_text(text,self.start,self.end)
-        new_filename = self.name+".txt"
+        new_filename = self.name+datetime.date.today().strftime("%m_%d_%y")+".txt"
         f= open(new_filename,"w+")
         for line in text:
             f.write(str(line))
         f.close()
+        print("wrote file to "+new_filename)
 
 # takes away all text before start and after end
 def clean_text(s,start,end):
