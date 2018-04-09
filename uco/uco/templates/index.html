@@ -82,20 +82,17 @@
             type: "POST",
             url: "/compare",
             async: false,
-            dataType: "html",
+            dataType: "json",
             data: $('form').serialize(), 
             success: function(data) { 
             	// console.log(data);
             	console.log("possible data passed back");
             	oldTerms = data.oldStuff; 
-            	newTerms = data.newStuff; 
+            	newTerms = data.newStuff;
+            	alert(oldTerms);
 
             	// Why can't I access d here????
 
-            	alert("{{textFile}}");
-        
-
-            	debugger;
 
     			// {% set oldT = oldTerms %}
 				// {% set newT = newTerms %}
@@ -103,18 +100,20 @@
 				// {% set oldT = textFile %}
 				// {% set newT = 'lol' %}
 
-					$('#compareButton').append(
-			$('<a/>').attr('onclick', 'runPyScript()')
-				.attr('href', "{{ url_for('results', oldStuff=textFile|safe, newStuff='why'|safe) }}")
-				.text("Compare Text"));
+			// 		$('#compareButton').append(
+			// $('<a/>').attr('onclick', 'runPyScript()')
+			// 	.attr('href', "{{ url_for('results', oldStuff=textFile|safe, newStuff='why'|safe) }}")
+			// 	.text("Compare Text"));
 
-				window.location.href = 'results';
-
+				window.location.href = `results?oldStuff=${oldTerms}&newStuff=${newTerms}`;
+	
 
      		}, 
 
-     		error: function(jqxhr, status, exception) {
-             alert('Exception:', exception);
+     		error: function(xhr, ajaxOptions, thrownError) {
+     			alert(xhr.status);
+     			alert(xhr.responseText);
+     			alert(thrownError);
          	}
     	});
 

@@ -3,7 +3,7 @@ import subprocess
 import datetime
 import time
 
-from flask import Flask, render_template, request, json, send_file, make_response
+from flask import Flask, render_template, request, json, send_file, make_response, jsonify
 
 import comparison
 
@@ -36,6 +36,8 @@ def results():
 	oldStuff = request.args.get('oldStuff',None)
 	newStuff= request.args.get('newStuff',None)
 
+	print("This is old stuff" + oldStuff) 
+
 	return render_template('changes_table.html',oldTerms=oldStuff, newTerms=newStuff)
 
 	# return render_template('changes_table.html')
@@ -55,10 +57,19 @@ def compare():
 	
 	scrapy_call = '''scrapy runspider scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
 	os.system(scrapy_call)
+
+	def split_txt(txt):
+	    f = open(txt,"r+")
+	    ans = f.read().splitlines()
+	    f.close()
+	    return ans
+	
+	newFile = split_txt(new_filename)
+
+
 	#comparison.compare(textFile,new_filename,"templates/changes_table.html")
 
-
-	return ''
+	return jsonify({'oldStuff':textFile, 'newStuff':newFile})
 
 @app.route('/return_files/')
 def return_files_tut():
