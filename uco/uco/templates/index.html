@@ -7,7 +7,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/diff.js') }}"></script>
 
-	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet"> -->
  
 </head>
 
@@ -23,18 +23,11 @@
 	<script> 
 
 
-	$(document).ready(function() {
+	$(document).ready(function() {	
+
+	
+
 		
-		{% set oldT = 'this?' %}
-		{% set newT = 'lol' %}
-
-		$('#compareButton').append(
-		$('<a/>').attr('onclick', 'runPyScript()')
-				.attr('href', "{{ url_for('results', oldStuff=oldT|safe, newStuff=newT|safe) }}")
-				.text("Compare Text")
-	);	
-
-
 	// 	var a = document.createElement('a');
  //    	var linkText = document.createTextNode("CREATE NEW");
  //    	a.href = "{{url_for('results', oldStuff="+oldTerms+", newStuff="+newTerms+")}}";
@@ -44,9 +37,13 @@
 	// 	para.appendChild(node);
 	});
 
+	function myFunc(vars) { 
+		return vars;
+	}
+
 	
 
- //    document.write(`<a onclick="runPyScript()" href="{{url_for("results", oldStuff='${oldTerms}', newStuff='${newTerms}')}}">Compare Text</a>`);
+    // document.write(`<a onclick="runPyScript()" href="{{url_for("results", oldStuff='${oldTerms}', newStuff='${newTerms}')}}">Compare Text</a>`);
 
     // var content='';
     // content = content.concat("<a onclick='runPyScript()' href='{{url_for('results', oldStuff=",${oldTerms},", newStuff=",${newTerms},")}}'>Compare Text</a>");
@@ -80,30 +77,49 @@
 		var end = $('#end').val();
 		var textFile = $('#textFile').val();
 
-
+		debugger;
         $.ajax({
             type: "POST",
             url: "/compare",
             async: false,
-            dataType: "json",
+            dataType: "html",
             data: $('form').serialize(), 
             success: function(data) { 
-            	console.log(data);
+            	// console.log(data);
             	console.log("possible data passed back");
             	oldTerms = data.oldStuff; 
             	newTerms = data.newStuff; 
 
-            	{% set oldT = oldTerms %}
-				{% set newT = newTerms %}
+            	// Why can't I access d here????
 
-				debugger;
+            	alert("{{textFile}}");
+        
 
-				alert(data.oldStuff);
+            	debugger;
+
+    			// {% set oldT = oldTerms %}
+				// {% set newT = newTerms %}
+
+				// {% set oldT = textFile %}
+				// {% set newT = 'lol' %}
+
+					$('#compareButton').append(
+			$('<a/>').attr('onclick', 'runPyScript()')
+				.attr('href', "{{ url_for('results', oldStuff=textFile|safe, newStuff='why'|safe) }}")
+				.text("Compare Text"));
+
+				window.location.href = 'results';
 
 
-            	// document.write('<a href="'+desiredLink+'">'+desiredText+'</a>');
-     		}
-    })};
+     		}, 
+
+     		error: function(jqxhr, status, exception) {
+             alert('Exception:', exception);
+         	}
+    	});
+
+        debugger;
+    };
 
     // used for scraping a new software
     function runPyScript2(){
@@ -207,9 +223,11 @@
 	<input type="file" id="fileToLoad" name="fileToLoad">
 	<button onclick="loadFileAsText()">Load selected file</button>
 
-	<p><a   href="{{url_for('results', oldStuff='lol', newStuff='lololol')}}">Compare Text</a></p>
 
-	 <!-- <button onclick="runPyScript()" id="compareText"> Compare contract text</button> -->
+
+	<!-- <p><a onclick="runPyScript()" href="{{url_for('results', oldStuff=textFile, newStuff='lololol')}}">Compare Text</a></p> -->
+
+	 <button onclick="runPyScript()" id="compareText"> Compare contract text</button>
 	
 	<br/><br/>
 	

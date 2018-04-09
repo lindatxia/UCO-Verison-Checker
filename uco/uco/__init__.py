@@ -33,7 +33,12 @@ def scrape_only():
 
 @app.route('/results')
 def results():
-	return render_template('changes_table.html')
+	oldStuff = request.args.get('oldStuff',None)
+	newStuff= request.args.get('newStuff',None)
+
+	return render_template('changes_table.html',oldTerms=oldStuff, newTerms=newStuff)
+
+	# return render_template('changes_table.html')
 
 @app.route('/compare', methods=['GET', 'POST'])
 def compare(): 
@@ -51,7 +56,9 @@ def compare():
 	scrapy_call = '''scrapy runspider scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
 	os.system(scrapy_call)
 	#comparison.compare(textFile,new_filename,"templates/changes_table.html")
-	return jsonify({'oldStuff':textFile, 'newStuff':newFile})
+
+
+	return ''
 
 @app.route('/return_files/')
 def return_files_tut():
@@ -59,3 +66,6 @@ def return_files_tut():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
