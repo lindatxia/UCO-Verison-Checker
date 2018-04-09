@@ -50,8 +50,8 @@ def compare():
 	
 	scrapy_call = '''scrapy runspider scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
 	os.system(scrapy_call)
-	comparison.compare(textFile,new_filename,"templates/changes_table.html")
-	return ""
+	#comparison.compare(textFile,new_filename,"templates/changes_table.html")
+	return jsonify({'oldStuff':textFile, 'newStuff':newFile})
 
 @app.route('/return_files/')
 def return_files_tut():
