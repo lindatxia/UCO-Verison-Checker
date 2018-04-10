@@ -36,11 +36,6 @@
 	// 	var node = document.createTextNode("This is new.");
 	// 	para.appendChild(node);
 	});
-
-	function myFunc(vars) { 
-		return vars;
-	}
-
 	
 
     // document.write(`<a onclick="runPyScript()" href="{{url_for("results", oldStuff='${oldTerms}', newStuff='${newTerms}')}}">Compare Text</a>`);
@@ -77,7 +72,6 @@
 		var end = $('#end').val();
 		var textFile = $('#textFile').val();
 
-		debugger;
         $.ajax({
             type: "POST",
             url: "/compare",
@@ -89,16 +83,9 @@
             	console.log("possible data passed back");
             	oldTerms = data.oldStuff; 
             	newTerms = data.newStuff;
+
             	alert(oldTerms);
-
-            	// Why can't I access d here????
-
-
-    			// {% set oldT = oldTerms %}
-				// {% set newT = newTerms %}
-
-				// {% set oldT = textFile %}
-				// {% set newT = 'lol' %}
+            	alert(newTerms);
 
 			// 		$('#compareButton').append(
 			// $('<a/>').attr('onclick', 'runPyScript()')
@@ -106,7 +93,6 @@
 			// 	.text("Compare Text"));
 
 				window.location.href = `results?oldStuff=${oldTerms}&newStuff=${newTerms}`;
-	
 
      		}, 
 
@@ -117,7 +103,6 @@
          	}
     	});
 
-        debugger;
     };
 
     // used for scraping a new software
@@ -221,7 +206,6 @@
 	<h5>Select old terms and conditions</h5>
 	<input type="file" id="fileToLoad" name="fileToLoad">
 	<button onclick="loadFileAsText()">Load selected file</button>
-
 
 
 	<!-- <p><a onclick="runPyScript()" href="{{url_for('results', oldStuff=textFile, newStuff='lololol')}}">Compare Text</a></p> -->

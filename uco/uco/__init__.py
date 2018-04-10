@@ -7,8 +7,7 @@ from flask import Flask, render_template, request, json, send_file, make_respons
 
 import comparison
 
-app = Flask('uco')
-
+app = Flask(__name__)
 
 @app.route('/')
 def main():
@@ -36,11 +35,7 @@ def results():
 	oldStuff = request.args.get('oldStuff',None)
 	newStuff= request.args.get('newStuff',None)
 
-	print("This is old stuff" + oldStuff) 
-
 	return render_template('changes_table.html',oldTerms=oldStuff, newTerms=newStuff)
-
-	# return render_template('changes_table.html')
 
 @app.route('/compare', methods=['GET', 'POST'])
 def compare(): 
@@ -51,6 +46,7 @@ def compare():
 	start = request.form['start'];
 	end = request.form['end'];
 	textFile = request.form['textFile'];
+
 	date = datetime.date.today()
 	global new_filename
 	new_filename = name+date.strftime("%m_%d_%y")+".txt"
@@ -60,12 +56,11 @@ def compare():
 
 	def split_txt(txt):
 	    f = open(txt,"r+")
-	    ans = f.read().splitlines()
+	    ans = f.read()
 	    f.close()
 	    return ans
 	
 	newFile = split_txt(new_filename)
-
 
 	#comparison.compare(textFile,new_filename,"templates/changes_table.html")
 
@@ -76,7 +71,7 @@ def return_files_tut():
 	return send_file('%s' % new_filename , attachment_filename=new_filename, as_attachment = True)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, threaded=True)
 
 
 
