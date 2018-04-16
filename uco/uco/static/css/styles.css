@@ -1,0 +1,117 @@
+body {
+  margin: 0;
+  font-family: 'Whitney HTF ', sans-serif;
+  src: url('..static/Whitney/Whitney HTF Book.otf');
+  color: #414141;
+  font-size: 0.9em;
+  background-color: #FBFDFF;
+}
+
+
+/*@font-face { 
+  font-family: 'Whitney'; 
+  src: url('../fonts/AvenirNextLTPro-Regular.otf'); 
+} */
+
+
+/*CONTAINER/GRIDS */
+.box {
+	background-color: #ffffff;
+	width: 100%;
+	margin: auto;
+	margin-top: 40px;
+	padding: 20px;
+	/*vertical-align: middle;*/
+	border-radius: 1px;
+	box-shadow: 1.5px 5px 14px #B2B2B2;
+}
+
+.box a {
+	/*color: white;*/
+	text-decoration: none;
+	/*font-weight: bold;*/
+}
+
+box a:hover {
+	color: #7fb6f7;
+}
+
+#container {
+	margin: auto;
+	margin-top: 40px;
+	width: 50%;
+}
+
+/* HEADERS */
+
+
+
+/*BUTTONS */
+
+		/*to do: make hover and click states*/
+
+.button {
+	border-radius: 3px;
+	display: inline-block;
+	color: #FFFFFF;
+	background-color: #A7B2C1;
+	padding: .7em;
+	text-align: center;
+	letter-spacing: .07em;
+	width: 120px;
+	font-size: 0.9em;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	color: white;
+}
+
+.button a {
+	color: white;
+}
+
+
+.button:hover {
+	background-color: #8B97A8;
+}
+
+.is-small {
+	width: 80px;
+}
+
+.is-green {
+	background-color: #56D379;
+}
+
+.is-button .is-green a {
+	color: white;
+}
+
+
+.is-green:hover {
+	/*background-color: #49B166;*/
+	background-color: #69ea8d;
+}
+
+.is-wide {
+	width: 220px;
+}
+
+/*FORMS*/
+
+input {
+	width: 30%;
+	padding: 12px 20px;
+    margin: 8px 0;
+    border: none;
+    border-bottom: 2px solid #D1D4DD;
+    /*box-sizing: border-box;*/
+    /*border: 2px grey;*/
+    /*border-radius: 3px;*/
+}
+
+label {
+	color: #747476;
+	/*font-weight: bold;*/
+	font-size: 1.2em;
+}
+
