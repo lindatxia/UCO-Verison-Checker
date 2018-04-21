@@ -54,7 +54,7 @@ def compare():
 	return ""
 
 @app.route('/return_files/')
-def return_files_tut():
+def return_files():
 	return send_file('%s' % new_filename , attachment_filename=new_filename, as_attachment = True)
 
 if __name__ == '__main__':
