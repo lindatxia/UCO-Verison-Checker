@@ -36,6 +36,7 @@ def compute_word_diffs(out):
     # out is of the format
     # [['-','text removed'],['+','text added'],['#','text unchanged']]
     ans = []
+    dividing_point = 0.75
     i=-1
     while i < len(out)-2:
         i+=1
@@ -44,17 +45,17 @@ def compute_word_diffs(out):
         s = SequenceMatcher(None, ''.join(line[1]), ''.join(next[1]))
         # calculate similarity score of two lines
         ratio = s.ratio()
-        if ratio < 0.75:
+        # don't do anything if lines are different
+        if ratio < dividing_point:
             ans.append(line)
+        # if lines are reasonably similar assume they are the same line that's been changed
         else:
-            # print(ratio)
-            # print(''.join(line[1])+"\n")
-            # print(''.join(next[1])+"\n")
             new_line = ["+/-", word_by_word_changes(line[1],next[1])]
             ans.append(new_line)
             i +=1
     return ans
 
+# splits the output into ["+/-/#", "text"]
 def split_changes(out):
     ans = []
     for line in out:
@@ -66,6 +67,9 @@ def split_changes(out):
             ans.append(['#',' '.join(line)])
     return ans
 
+# takes in a line of old text and new text
+# calculates what's been removed and added 
+# returns a string with + in front of additions and - in front of deletions
 def word_by_word_changes(old,new):
     ans=[]
     old = old.split(" ")
@@ -100,10 +104,13 @@ def make_html_table(l,name):
     for line in l:
         front = '\t<tr>\n\t\t<td>'
         words = line[1]
+        # if a line that's been removed
         if line[0] == "-":
             front = '\t<tr>\n\t\t<td class ='+'"removed">'
+        # if a line that's been added
         elif line[0] == "+":
             front = '\t<tr>\n\t\t<td class ='+'"added">'
+        # if a line that's been changed
         elif line[0] == "+/-":
             words = calc_line(line[1])
         ans.append(str(add_line(words,front)))
@@ -111,8 +118,10 @@ def make_html_table(l,name):
     ans.append('''{% endblock %}''')
     write_file(ans,name)
 
+# write the html line if there are additions and deletions in a line
 def calc_line(line):
     ans = []
+    # add a <p> for each word that's been added or deleted
     for word in line.split(" "):
         if word[0] == "+":
             word = '<p class = '+'"added">'+word[1:]+'</p>'
