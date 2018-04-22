@@ -1,7 +1,7 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 
-<head> 
+<head>
 
 	<title> CMU Contracts Versioning Prototype </title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -13,17 +13,21 @@
         td.added {background-color: #68FF7C}
         td.removed {background-color: #FF8977}
     </style>
- 
+
 </head>
 
 <body>
 
 <div class="container">
-	
+
 	<h1>Changes</h1>
-	<a href = "/return_files/" target="blank">Download New Terms</a>
+	<form action="/returndownload" method="post" enctype="multipart/form-data">
+        <input type="submit" name="Download new terms"/>
+	    <!--<a href = "{{url_for('returndownload')}}">Download New Terms</a>-->
+	</form>
+
 	{% block body %}{% endblock %}
-	
+
 </div>
 
 </body>

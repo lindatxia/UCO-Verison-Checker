@@ -1,13 +1,14 @@
 from difflib import Differ
 
-# compares a and b and outputs a HTML table of the changes. 
+# compares a and b and outputs a HTML table of the changes.
 
 def compare(old,new,filename):
+    print("it's reaching here")
     out = get_differences(old,new)
     make_html_table(out,filename)
 
-# using the Differ module of the difflib library to compare 
-# outputs a generator object that is converted into a list of 
+# using the Differ module of the difflib library to compare
+# outputs a generator object that is converted into a list of
 # the changes of the form [[added/removed, line]]
 # - -> line was removed
 # + -> line was added
