@@ -4,13 +4,13 @@ import datetime
 import time
 
 from flask import Flask, render_template, request, json, send_file, make_response, send_from_directory, Response, session
-from flask import SQLAlchemy
-from models import db
+from flask_sqlalchemy import SQLAlchemy
+from flask_app import db
 
 from . import comparison
 
 app = Flask(__name__)
-db = SQLAlchemy()
+db = SQLAlchemy(app)
 
 POSTGRES = {
     'user': 'developer',
@@ -86,4 +86,5 @@ def return_files():
     return ''
 
 if __name__ == '__main__':
+	db.create_all()
     app.run()
