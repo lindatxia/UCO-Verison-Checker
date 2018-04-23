@@ -4,31 +4,64 @@
 <head> 
 
 	<title> CMU Contracts Versioning Prototype </title>
+	<!-- <script rel="stylesheet" media="all" type="text/css" src="{{ url_for('static', filename='css/styles.css') }}"></script>
+	<script rel="stylesheet" media="all" type="text/css" src="{{ url_for('static', filename='js/release/side-comments.css') }}"></script>
+	<script rel="stylesheet" media="all" type="text/css" src="{{ url_for('static', filename='js/release/themes/default-theme.css') }}"></script> -->
+
+	<link rel="stylesheet" media="all" type="text/css" href="/static/css/styles.css" />
+	<link rel="stylesheet" media="all" type="text/css" href="/static/js/release/side-comments.css">
+	<link rel="stylesheet" media="all" type="text/css" href="/static/js/release/themes/default-theme.css">
+
+	<script type="text/javascript" src="{{ url_for('static', filename='js/release/side-comments.js') }}"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script type="text/javascript" src="{{ url_for('static', filename='js/diff.js') }}"></script>
+	<!-- <script type="text/javascript" src="{{ url_for('static', filename='js/diff.js') }}"></script> -->
 
 	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-
-	<style type="text/css">
-        td.added {background-color: #68FF7C}
-        td.removed {background-color: #FF8977}
-        p.added {background-color: #68FF7C;
-        			display: inline;}
-		p.removed {background-color: #FF8977;
-        			display: inline;}
-    </style>
  
 </head>
 
 <body>
 
 <div class="container">
-	
-	<h1>Changes</h1>
-	<a href = "/return_files/" target="blank">Download New Terms</a>
-	{% block body %}{% endblock %}
-	
+	<div id="commentable-area">
+		<h1>Changes</h1>
+		<a href = "/return_files/" target="blank">Download New Terms</a>
+		{% block body %}{% endblock %}
+	</div>
 </div>
+
+<script>
+	var SideComments = require ('side-comments');
+
+	var currentUser = {
+		id: 1,
+		avatarUrl: "",
+  		name: "You"
+	};
+
+	var existingComments = [
+		  {
+		    "sectionId": "1",
+		    "comments": [
+		      {
+		        "authorAvatarUrl": "",
+		        "authorName": "Jon Sno",
+		        "comment": "I'm Ned Stark's bastard. Related: I know nothing."
+		      },
+		      {
+		        "authorAvatarUrl": "",
+		        "authorName": "Donald Draper",
+		        "comment": "I need a scotch."
+		      }
+		    ]
+		  },
+		];
+
+	sideComments = new SideComments('#commentable-area', currentUser, existingComments);
+
+	console.log(sideComments);
+
+</script>
 
 </body>
 

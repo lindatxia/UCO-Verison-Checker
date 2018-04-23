@@ -99,21 +99,29 @@ def calc_additions(old,new, ans):
 # created an html table that assigns a class to the rows
 # that have been added and removed
 def make_html_table(l,name):
-    print(l[0:10])
     ans = ['''{% extends "changes_base.html" %}\n''','''{% block body %}\n''','<table>\n']
+    section_id = 1
     for line in l:
         front = '\t<tr>\n\t\t<td>'
         words = line[1]
+        # skip if change only involves a blank line
+        if len(words) == 0:
+            continue
         # if a line that's been removed
         if line[0] == "-":
-            front = '\t<tr>\n\t\t<td class ='+'"removed">'
+            # front = '\t<tr>\n\t\t<td><p class="removed">'
+            ans.append(str(add_line(words,front,section_id,"-")))
         # if a line that's been added
         elif line[0] == "+":
-            front = '\t<tr>\n\t\t<td class ='+'"added">'
+            # front = '\t<tr>\n\t\t<td><p class="added">'
+            ans.append(str(add_line(words,front,section_id,"+")))
         # if a line that's been changed
         elif line[0] == "+/-":
             words = calc_line(line[1])
-        ans.append(str(add_line(words,front)))
+            ans.append(str(add_line(words,front,section_id,"+/-")))
+        else:
+            ans.append(str(add_line(words,front,section_id,"#")))
+        section_id+=1
     ans.append('</table>\n')
     ans.append('''{% endblock %}''')
     write_file(ans,name)
@@ -124,14 +132,20 @@ def calc_line(line):
     # add a <p> for each word that's been added or deleted
     for word in line.split(" "):
         if word[0] == "+":
-            word = '<p class = '+'"added">'+word[1:]+'</p>'
+            word = '<div class = '+'"added">'+word[1:]+'</div>'
         elif word[0] == "-":
-            word = '<p class = '+'"removed">'+word[1:]+'</p>'
+            word = '<div class = '+'"removed">'+word[1:]+'</div>'
         ans.append(word)
     return ' '.join(ans)
 
-def add_line(line,front):
-    end = '</td>\n\t</tr>\n'
+def add_line(line,front,section_id,category):
+    if category == "+":
+        front = front+'<p data-section-id = "%s" class="commentable-section added">' % section_id
+    elif category == "-":
+        front = front+'<p data-section-id = "%s" class="commentable-section removed">' % section_id 
+    else:
+        front = front+'<p data-section-id = "%s" class="commentable-section">' % section_id
+    end = '</p></td>\n\t</tr>\n'
     return front+line+end
 
 def write_file(l,name):
