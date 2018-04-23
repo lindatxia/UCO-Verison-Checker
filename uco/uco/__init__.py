@@ -5,9 +5,11 @@ import time
 
 from flask import Flask, render_template, request, json, send_file, make_response
 
+# On PythonAnywhere, this needs to be 
+# from uco.uco import comparison
 import comparison
 
-app = Flask('uco')
+app = Flask(__name__)
 
 
 @app.route('/')
@@ -48,6 +50,8 @@ def compare():
 	global new_filename
 	new_filename = name+date.strftime("%m_%d_%y")+".txt"
 	
+	# In PythonAnywhere, this needs to be: 
+	# scrapy runspider uco/scrape.py... etc. 
 	scrapy_call = '''scrapy runspider scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
 	os.system(scrapy_call)
 	comparison.compare(textFile,new_filename,"templates/changes_table.html")
@@ -58,4 +62,4 @@ def return_files():
 	return send_file('%s' % new_filename , attachment_filename=new_filename, as_attachment = True)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
