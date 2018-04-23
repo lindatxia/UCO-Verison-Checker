@@ -4,17 +4,29 @@ import datetime
 import time
 
 from flask import Flask, render_template, request, json, send_file, make_response, send_from_directory, Response, session
+from flask import SQLAlchemy
+from models import db
 
 from . import comparison
 
 app = Flask(__name__)
+db = SQLAlchemy()
 
+POSTGRES = {
+    'user': 'developer',
+    'pw': 'developer',
+    'db': 'ucodb',
+    'host': 'localhost',
+    'port': '10740',
+}
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\
+%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
+db.init_app(app)	
 
 @app.route('/')
 def main():
 	return render_template('index.html')
 
-# should this be only get?
 @app.route('/scrape_only', methods=['GET','POST'])
 def scrape_only():
 	message = None
