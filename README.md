@@ -37,3 +37,13 @@
 6. Try http://uco.pythonanywhere.com/ and see your latest changes! 
 
 7. (Optional) If you're running into sad error/internal server messages, use error.log and server.log. 
+
+
+### Modules that we used 
+
+- Scrapy spiders to scrape text from web pages (https://doc.scrapy.org/en/latest/topics/spiders.html) 
+- Python diff for text comparison (https://docs.python.org/2/library/difflib.html)
+- Sidecomments.js for text commenting (http://aroc.github.io/side-comments-demo/) 
+- PythonAnywhere for web hosting (https://help.pythonanywhere.com/pages/Flask/) 
+- Flask framework (http://flask.pocoo.org/) 
+- Postgres for database (https://blog.pythonanywhere.com/103/)
