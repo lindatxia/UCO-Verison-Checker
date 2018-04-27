@@ -9,18 +9,20 @@ from flask_sqlalchemy import SQLAlchemy
 from . import comparison
 
 app = Flask(__name__)
+
+SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
+    username="uco",
+    password="ucodreamteam",
+    hostname="uco.mysql.pythonanywhere-services.com",
+    databasename="uco$versioning",
+)
+app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
+app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+# Connects to the MySQL database
 db = SQLAlchemy(app)
 
-POSTGRES = {
-    'user': 'developer',
-    'pw': 'developer',
-    'db': 'ucodb',
-    'host': 'localhost',
-    'port': '10740',
-}
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\
-%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
-db.init_app(app)	
 
 @app.route('/')
 def main():
