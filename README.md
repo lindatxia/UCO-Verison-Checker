@@ -20,19 +20,19 @@
 1. Login to the University Contract Office's PythonAnywhere account. 
 2. Click on the "Files" tab, navigate to the top directory `/home/uco`, and delete the existing repository `UCO-Version-Checker`. If there isn't one, don't worry about it. 
 
-![alt text](doc_images/delete_folder)
+![alt text](doc_images/delete_folder.png)
 
 3. Click on the "Consoles" tab and open up a Bash console.
 
-![alt text](doc_images/start_bash)
+![alt text](doc_images/start_bash.png)
 
 4. `git clone -b branch_name https://github.com/lindatxia/UCO-Verison-Checker.git` 
 
-![alt text](doc_images/bash_console_type)
+![alt text](doc_images/bash_console_type.png)
 
 5. You're almost there! Go back to the "Web" tab and click the green "Reload" button. 
 
-![alt text](doc_images/reload)
+![alt text](doc_images/reload.png)
 
 6. Try http://uco.pythonanywhere.com/ and see your latest changes! 
 
