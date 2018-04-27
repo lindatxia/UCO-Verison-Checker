@@ -5,7 +5,6 @@ import time
 
 from flask import Flask, render_template, request, json, send_file, make_response, send_from_directory, Response, session
 from flask_sqlalchemy import SQLAlchemy
-from flask_app import db
 
 from . import comparison
 
