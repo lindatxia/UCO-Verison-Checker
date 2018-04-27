@@ -70,6 +70,7 @@ def compare():
 	comparison.compare(textFile,new_filename,"uco/uco/templates/changes_table.html")
 	return ""
 
+<<<<<<< HEAD
 @app.route('/returndownload', methods=['GET', 'POST'])
 def returndownload():
     # name = session.get('name')
@@ -84,6 +85,11 @@ def return_files():
     # new_filename = name+date.strftime("%m_%d_%y")+".txt"
     # return send_file('%s' % new_filename , attachment_filename=new_filename, as_attachment = True)
     return ''
+=======
+@app.route('/return_files/')
+def return_files():
+	return send_file('%s' % new_filename , attachment_filename=new_filename, as_attachment = True)
+>>>>>>> 82e4407183dc9dd17cab628f7aed592c31693dfd
 
 if __name__ == '__main__':
 	db.create_all()
