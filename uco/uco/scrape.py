@@ -10,6 +10,7 @@ from scrapy.spiders import Spider
 
 from difflib import Differ
 from pprint import pprint
+from selenium import webdriver
 
 import sys
 
@@ -28,9 +29,10 @@ class S1(Spider):
         text = ''.join(text)
         text = clean_text(text,self.start,self.end)
         new_filename = self.name+datetime.date.today().strftime("%m_%d_%y")+".txt"
+
         f= open(new_filename,"w+")
         for line in text:
-            f.write(str(line))
+            f.write(line.encode('utf-8'))
         f.close()
 
 # takes away all text before start and after end
