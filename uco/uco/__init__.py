@@ -23,6 +23,14 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # Connects to the MySQL database
 db = SQLAlchemy(app)
 
+class Software(db.Model):
+    __tablename__ = "softwares"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(4096))
+    isApproved = db.Column(db.Boolean)
+    date_added = db.Column(db.DateTime)
+
 
 @app.route('/')
 def main():
