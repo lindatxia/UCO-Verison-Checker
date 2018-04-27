@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 
-<head>
+<head> 
 
 	<title> CMU Contracts Versioning Prototype </title>
 	<!-- <script rel="stylesheet" media="all" type="text/css" src="{{ url_for('static', filename='css/styles.css') }}"></script>
@@ -17,27 +17,17 @@
 	<!-- <script type="text/javascript" src="{{ url_for('static', filename='js/diff.js') }}"></script> -->
 
 	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-
-	<style type="text/css">
-        td.added {background-color: #68FF7C}
-        td.removed {background-color: #FF8977}
-    </style>
-
  
 </head>
+
+<style type="text/css">
+	td.added {background-color: #68FF7C}
+	td.removed {background-color: #FF8977}
+</style>
 
 <body>
 
 <div class="container">
-
-	<h1>Changes</h1>
-	<form action="/returndownload" method="post" enctype="multipart/form-data">
-        <input type="submit" name="Download new terms"/>
-	    <!--<a href = "{{url_for('returndownload')}}">Download New Terms</a>-->
-	</form>
-
-	{% block body %}{% endblock %}
-
 	<div id="commentable-area">
 		<h1>Changes</h1>
 		<a href = "/return_files/" target="blank">Download New Terms</a>
