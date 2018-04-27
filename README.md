@@ -22,17 +22,22 @@
 
 ![alt text](doc_images/delete_folder.png | width=100)
 
+<img src="doc_images/delete_folder.png" width="100">
+
 3. Click on the "Consoles" tab and open up a Bash console.
 
 ![alt text](doc_images/start_bash.png | width=100)
+<img src="doc_images/start_bash.png" width="100">
 
 4. `git clone -b branch_name https://github.com/lindatxia/UCO-Verison-Checker.git` 
 
 ![alt text](doc_images/bash_console_type.png | width=100)
+<img src="doc_images/bash_console_type.png" width="100">
 
 5. You're almost there! Go back to the "Web" tab and click the green "Reload" button. 
 
 ![alt text](doc_images/reload.png | width=100)
+<img src="doc_images/reload.png" width="100">
 
 6. Try http://uco.pythonanywhere.com/ and see your latest changes! 
 
