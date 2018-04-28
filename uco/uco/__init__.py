@@ -37,7 +37,7 @@ class Version(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     software_id = db.Column(db.Integer, db.ForeignKey('software.id'),
-        nullable=False, uselist=False)
+        nullable=False)
 
     date_last_checked = db.Column(db.DateTime)
     date_last_updated = db.Column(db.DateTime)
