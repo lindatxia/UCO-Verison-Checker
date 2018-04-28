@@ -50,23 +50,23 @@ class Version(db.Model):
 
 class Comment(db.Model):
 	__tablename__ = "comments"
-    id = db.Column(db.Integer, primary_key=True)
-    version_id = db.Column(db.Integer, db.ForeignKey('version.id'), nullable=False)
+	id = db.Column(db.Integer, primary_key=True)
+	version_id = db.Column(db.Integer, db.ForeignKey('version.id'), nullable=False)
 
-    comment_text = db.Column(db.Text)
-    line_number = db.Column(db.Integer)
+	comment_text = db.Column(db.Text)
+	line_number = db.Column(db.Integer)
     
 
 class Link(db.Model):
 	__tablename__ = "links"
 
-    id = db.Column(db.Integer, primary_key=True)
-    version_id = db.Column(db.Integer, db.ForeignKey('version.id'), nullable=False)
+	id = db.Column(db.Integer, primary_key=True)
+	version_id = db.Column(db.Integer, db.ForeignKey('version.id'), nullable=False)
 
-    link_type = db.Column(db.String(4096))
-    address = db.Column(db.Text)
-    start_text = db.Column(db.Text)
-    end_text = db.Column(db.Text)
+	link_type = db.Column(db.String(4096))
+	address = db.Column(db.Text)
+	start_text = db.Column(db.Text)
+	end_text = db.Column(db.Text)
 
     
 @app.route('/')
