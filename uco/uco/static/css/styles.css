@@ -1,16 +1,18 @@
 body {
   margin: 0;
-  font-family: 'Whitney HTF ', sans-serif;
-  src: url('..static/Whitney/Whitney HTF Book.otf');
-  color: #414141;
+  font-family: 'Fira Sans';
+/*  src: {{ url_for('static', filename= 'FiraSans-Book.otf') }}; 
+*/color: #414141;
   font-size: 0.9em;
   background-color: #FBFDFF;
+  
 }
 
 
 /*@font-face { 
-  font-family: 'Whitney'; 
-  src: url('../fonts/AvenirNextLTPro-Regular.otf'); 
+  font-family: Fira; 
+  src: {{ url_for('static', filename= 'FiraSans-Book.otf') }}; 
+  src: url('FiraSans-Book.otf');
 } */
 
 
@@ -20,7 +22,7 @@ body {
 	width: 100%;
 	margin: auto;
 	margin-top: 40px;
-	padding: 20px;
+	padding: 20px 25px;
 	/*vertical-align: middle;*/
 	border-radius: 1px;
 	box-shadow: 1.5px 5px 14px #B2B2B2;
@@ -39,12 +41,42 @@ box a:hover {
 #container {
 	margin: auto;
 	margin-top: 40px;
-	width: 50%;
+	width: 55%;
 }
+
+.changes {
+	line-height: 24px;
+}
+
+.changes th {
+	height: 150px;
+}
+
+
 
 /* HEADERS */
 
+h1 {
+	font-weight: 400;
+}
 
+
+h2 {
+
+}
+
+h3 {
+	font-weight: 400;
+}
+
+h4 {
+	/*color: #FB9D13;*/
+}
+
+.orange {
+	color: #FB9D13;
+	display: inline;
+}
 
 /*BUTTONS */
 
@@ -78,8 +110,8 @@ box a:hover {
 	width: 80px;
 }
 
-.is-green {
-	background-color: #56D379;
+.is-orange {
+	background-color: #FB9D13;
 }
 
 .is-button .is-green a {
@@ -114,4 +146,44 @@ label {
 	/*font-weight: bold;*/
 	font-size: 1.2em;
 }
+
+/** NAV BAR **/
+
+.sidenav {
+	height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 250px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #FFFFFF; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+    box-shadow:  1.5px 1.5px 7px 0px #9B9B9B;
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 28px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #818181;
+    display: block;
+
+}
+
+.sidenav-content {
+	padding-top: 30px;
+	padding-left: 15px;
+	line-height: 24px;
+}
+
+
+/** IMAGES **/
+
+.sidenav .logo {
+	width: 90%;
+	padding: 12px;
+}
+
+/** HEADERS **/
 

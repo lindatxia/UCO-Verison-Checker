@@ -7,22 +7,26 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/diff.js') }}"></script>
 
-	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+
 
 	<style type="text/css">
         td.added {background-color: #68FF7C}
         td.removed {background-color: #FF8977}
+        /*th {height: 150px;}*/
     </style>
  
 </head>
 
 <body>
 
-<div class="container">
+<div id="container">
+	<div class = "changes">
 	
 	<h1>Changes</h1>
 	<a href = "/return_files/" target="blank">Download New Terms</a>
 	{% block body %}{% endblock %}
+</div>
 	
 </div>
 

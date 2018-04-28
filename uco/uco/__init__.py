@@ -62,4 +62,4 @@ def return_files_tut():
 	return send_file('%s' % new_filename , attachment_filename=new_filename, as_attachment = True)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
