@@ -24,7 +24,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 class Software(db.Model):
-    __tablename__ = "softwares"
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(4096))
@@ -35,11 +34,10 @@ class Software(db.Model):
 
 
 class Version(db.Model):
-    __tablename__ = "versions"
 
     id = db.Column(db.Integer, primary_key=True)
     software_id = db.Column(db.Integer, db.ForeignKey('software.id'),
-        nullable=False)
+        nullable=False, uselist=False)
 
     date_last_checked = db.Column(db.DateTime)
     date_last_updated = db.Column(db.DateTime)
@@ -49,7 +47,7 @@ class Version(db.Model):
 
 
 class Comment(db.Model):
-	__tablename__ = "comments"
+
 	id = db.Column(db.Integer, primary_key=True)
 	version_id = db.Column(db.Integer, db.ForeignKey('version.id'), nullable=False)
 
@@ -58,7 +56,7 @@ class Comment(db.Model):
     
 
 class Link(db.Model):
-	__tablename__ = "links"
+
 
 	id = db.Column(db.Integer, primary_key=True)
 	version_id = db.Column(db.Integer, db.ForeignKey('version.id'), nullable=False)
