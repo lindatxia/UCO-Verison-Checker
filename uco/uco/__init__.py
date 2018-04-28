@@ -31,7 +31,44 @@ class Software(db.Model):
     isApproved = db.Column(db.Boolean)
     date_added = db.Column(db.DateTime)
 
+    versions = db.relationship('Version', backref='software', lazy=True)
 
+
+class Version(db.Model):
+    __tablename__ = "versions"
+
+    id = db.Column(db.Integer, primary_key=True)
+    software_id = db.Column(db.Integer, db.ForeignKey('software.id'),
+        nullable=False)
+
+    date_last_checked = db.Column(db.DateTime)
+    date_last_updated = db.Column(db.DateTime)
+    parsed_text = db.Column(db.Text)
+    
+    comments = db.relationship('Comment', backref='version', lazy=True)
+
+
+class Comment(db.Model):
+	__tablename__ = "comments"
+    id = db.Column(db.Integer, primary_key=True)
+    version_id = db.Column(db.Integer, db.ForeignKey('version.id'), nullable=False)
+
+    comment_text = db.Column(db.Text)
+    line_number = db.Column(db.Integer)
+    
+
+class Link(db.Model):
+	__tablename__ = "links"
+
+    id = db.Column(db.Integer, primary_key=True)
+    version_id = db.Column(db.Integer, db.ForeignKey('version.id'), nullable=False)
+
+    link_type = db.Column(db.String(4096))
+    address = db.Column(db.Text)
+    start_text = db.Column(db.Text)
+    end_text = db.Column(db.Text)
+
+    
 @app.route('/')
 def main():
 	return render_template('index.html')
