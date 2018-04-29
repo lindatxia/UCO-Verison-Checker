@@ -4,7 +4,7 @@ import datetime
 import time
 
 from datetime import datetime
-from flask import Flask, render_template, request, json, send_file, make_response, send_from_directory, Response, session
+from flask import Flask, render_template, request, json, send_file, make_response, send_from_directory, Response, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 from . import comparison
@@ -136,14 +136,16 @@ def create():
 	cursor.execute("SELECT id FROM software WHERE name='%s'" % (name,))
 	result = [item[0] for item in cursor.fetchall()][0]
 
-	version = Version(software_id=result, parsed_text=text)
+	version = Version(software_id=result, parsed_text=text, date_last_checked=datetime.now())
 
 	db.session.add(software)
 	db.session.add(version)
 	db.session.commit()
 
-	
-	# Just need to get this text saved into the database
+	return redirect(url_for('list'))
+
+@app.route('/list')
+def list(): 
 	return render_template('list.html')
 
 

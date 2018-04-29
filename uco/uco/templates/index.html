@@ -36,7 +36,7 @@
 		<img class = "logo" src = "/static/white.png">
 		<div class = "sidenav-content">
 			<a href="#"><i class="fas fa-home"></i>  Home</a>
-			<a href="{{url_for('new')}}"><i class="fas fa-list-ul"></i>  Software List</a>
+			<a href="{{url_for('list')}}"><i class="fas fa-list-ul"></i>  Software List</a>
 			<a href="#"><i class="fas fa-question-circle"></i>  Help</a>
 		</div>
 	</div>
@@ -132,6 +132,7 @@
 	<!-- <p><a onclick="runPyScript()" href="{{url_for('results', my_var=name|safe)}}">Compare Text</a></p> -->
 	<p><a class = "button is-medium is-orange" onclick="runPyScript()" href="{{url_for('results')}}">Compare Text</a>
 	</br></br>
+
 
 	<div id = "loading"><p><img src="/static/91.gif" /> Please Wait</p></div>
 	<p><a href="{{url_for('new')}}">Add new software</a></p>
