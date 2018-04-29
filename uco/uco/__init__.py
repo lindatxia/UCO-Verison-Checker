@@ -80,7 +80,7 @@ def scrape_only():
 	start = request.form['start'];
 	end = request.form['end'];
 	textFile = request.form['textFile'];
-	date = datetime.date.today()
+	date = datetime.today()
 	global new_filename
 	new_filename = name+date.strftime("%m_%d_%y")+".txt"
 
@@ -100,18 +100,27 @@ def new():
 @app.route('/create', methods=['GET','POST'])
 def create(): 
 
-	software = Software(name=request.form["name"], date_added=datetime.now())
-
 	name = request.form['name']
 	link = request.form['link'];
 	start = request.form['start'];
 	end = request.form['end'];
 	textFile = request.form['textFile'];
-	db.session.add(software)
-	db.session.commit()
 
 	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
 	os.system(scrapy_call)
+
+	date = datetime.today()
+	new_filename = name+date.strftime("%m_%d_%y")+".txt"
+
+
+	software = Software(name=request.form["name"], date_added=datetime.now())
+	version = Version(software_id=1, parsed_text="lol")
+
+	db.session.add(software)
+	db.session.add(version)
+	db.session.commit()
+
+	
 
 	# Just need to get this text saved into the database
 	return render_template('list.html')
@@ -126,7 +135,7 @@ def compare():
 	start = request.form['start'];
 	end = request.form['end'];
 	textFile = request.form['textFile'];
-	date = datetime.date.today()
+	date = datetime.today()
 	
 	global new_filename
 	new_filename = name+date.strftime("%m_%d_%y")+".txt"
@@ -138,7 +147,7 @@ def compare():
 
 @app.route('/returndownload', methods=['GET', 'POST'])
 def returndownload():
-    date = datetime.date.today()
+    date = datetime.today()
     new_filename = name+date.strftime("%m_%d_%y")+".txt"
     return Response('',mimetype="text/plain", headers={"Content-Disposition":
                                     "attachment; filename=%s" % new_filename})
