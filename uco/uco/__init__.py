@@ -110,10 +110,6 @@ def create():
 	db.session.add(software)
 	db.session.commit()
 
-	date = datetime.date.today()
-	global new_filename
-	new_filename = name+date.strftime("%m_%d_%y")+".txt"
-
 	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
 	os.system(scrapy_call)
 
