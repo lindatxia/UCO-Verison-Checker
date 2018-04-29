@@ -108,17 +108,18 @@
 	</script>
 
 	<div class = "box">
-	<h3>Step 1: Add Software Info</h3>	
+	
 
 	<form role="form" name="myform">
-        <h3>Software Info</h3>
+	<h3>Step 1: Add Software Info</h3>	
         <input type="text" id="name" name="name" placeholder="Software Name" required>
         <input type="text" id="link" name="link" placeholder="Link" required>
+    <h3> Select the beginning and end of the text</h3>
         <input type="text" id="start" name="start" placeholder="Start" required>
         <input type="text" id="end" name="end" placeholder="End" required>
         <input type="hidden" id="textFile" name="textFile" type="text" value="0" />
 
-        <p><a onclick="runPyScript2()" href = "/return_files" target="_blank">Download</a></p>
+        <p><a class = "button is-medium" onclick="runPyScript2()" href = "/return_files" target="_blank">Download</a></p>
 
     </form>
 
@@ -132,8 +133,7 @@
 	<p><a class = "button is-medium is-orange" onclick="runPyScript()" href="{{url_for('results')}}">Compare Text</a>
 	</br></br>
 
-	<div id = "loading"><p><img src="/static/91.gif" /> Please Wait</p></div>
-	<p><a href={{url_for('new')}}>Add new software</a></p>
+<!-- 	<p><a href={{url_for('new')}}>Add new software</a></p> -->
 
 	<br/><br/>
 
