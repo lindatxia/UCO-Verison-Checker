@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from . import comparison
 
 app = Flask(__name__)
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 db = SQLAlchemy(app)
 
 POSTGRES = {
