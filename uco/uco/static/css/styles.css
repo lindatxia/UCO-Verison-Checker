@@ -73,9 +73,27 @@ h4 {
 	/*color: #FB9D13;*/
 }
 
+h5 {
+	color: #FB9D13;
+}
+
 .orange {
 	color: #FB9D13;
 	display: inline;
+}
+
+.center-text {
+	text-align: center;
+}
+
+.description {
+	text-align: center;
+	font-size: 14px;
+}
+
+.description a {
+	color: #FB9D13;
+	text-decoration: none;
 }
 
 /*BUTTONS */

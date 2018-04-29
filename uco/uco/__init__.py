@@ -5,9 +5,9 @@ import time
 
 from datetime import datetime
 from flask import Flask, render_template, request, json, send_file, make_response, send_from_directory, Response, session
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
 
-from . import comparison
+import comparison
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -23,60 +23,60 @@ app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Connects to the MySQL database
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 
-import mysql.connector
-cnx = mysql.connector.connect(user='uco', 
-                        password='ucodreamteam',
-                        host='uco.mysql.pythonanywhere-services.com',
-                        database='uco$versioning')
-cursor = cnx.cursor() 
+# import mysql.connector
+# cnx = mysql.connector.connect(user='uco', 
+#                         password='ucodreamteam',
+#                         host='uco.mysql.pythonanywhere-services.com',
+#                         database='uco$versioning')
+# cursor = cnx.cursor() 
 
 ###################################
 ############ MODELS ###############
 ###################################
 
-class Software(db.Model):
+# class Software(db.Model):
 
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(4096))
-    isApproved = db.Column(db.Boolean)
-    date_added = db.Column(db.DateTime)
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(4096))
+#     isApproved = db.Column(db.Boolean)
+#     date_added = db.Column(db.DateTime)
 
-    versions = db.relationship('Version', backref='software', lazy=True)
+#     versions = db.relationship('Version', backref='software', lazy=True)
 
 
-class Version(db.Model):
+# class Version(db.Model):
 
-    id = db.Column(db.Integer, primary_key=True)
-    software_id = db.Column(db.Integer, db.ForeignKey('software.id'),
-        nullable=False)
+#     id = db.Column(db.Integer, primary_key=True)
+#     software_id = db.Column(db.Integer, db.ForeignKey('software.id'),
+#         nullable=False)
 
-    date_last_checked = db.Column(db.DateTime)
-    date_last_updated = db.Column(db.DateTime)
-    parsed_text = db.Column(db.Text)
+#     date_last_checked = db.Column(db.DateTime)
+#     date_last_updated = db.Column(db.DateTime)
+#     parsed_text = db.Column(db.Text)
     
-    comments = db.relationship('Comment', backref='version', lazy=True)
+#     comments = db.relationship('Comment', backref='version', lazy=True)
 
 
-class Comment(db.Model):
+# class Comment(db.Model):
 
-	id = db.Column(db.Integer, primary_key=True)
-	version_id = db.Column(db.Integer, db.ForeignKey('version.id'), nullable=False)
+# 	id = db.Column(db.Integer, primary_key=True)
+# 	version_id = db.Column(db.Integer, db.ForeignKey('version.id'), nullable=False)
 
-	comment_text = db.Column(db.Text)
-	line_number = db.Column(db.Integer)
+# 	comment_text = db.Column(db.Text)
+# 	line_number = db.Column(db.Integer)
     
 
-class Link(db.Model):
+# class Link(db.Model):
 
-	id = db.Column(db.Integer, primary_key=True)
-	version_id = db.Column(db.Integer, db.ForeignKey('version.id'), nullable=False)
+# 	id = db.Column(db.Integer, primary_key=True)
+# 	version_id = db.Column(db.Integer, db.ForeignKey('version.id'), nullable=False)
 
-	link_type = db.Column(db.String(4096))
-	address = db.Column(db.Text)
-	start_text = db.Column(db.Text)
-	end_text = db.Column(db.Text)
+# 	link_type = db.Column(db.String(4096))
+# 	address = db.Column(db.Text)
+# 	start_text = db.Column(db.Text)
+# 	end_text = db.Column(db.Text)
 
 
 ###################################
@@ -113,38 +113,39 @@ def new():
 	return render_template('new.html')
 
 @app.route('/create', methods=['GET','POST'])
-def create(): 
-
-	name = request.form['name']
-	link = request.form['link'];
-	start = request.form['start'];
-	end = request.form['end'];
-
-	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
-	os.system(scrapy_call)
-
-	# Reads newly scraped file
-	date = datetime.today()
-	new_filename = name+date.strftime("%m_%d_%y")+".txt"
-	f = open(new_filename,"r+")
-	text = f.read()
-	f.close()
-
-	# How to get attributes of a model 
-	software = Software(name=request.form["name"], date_added=datetime.now())
-	
-	cursor.execute("SELECT id FROM software WHERE name='%s'" % name)
-	# result = item[0] for item in cursor.fetchall()
-
-	version = Version(software_id=result, parsed_text=text)
-
-	db.session.add(software)
-	db.session.add(version)
-	db.session.commit()
-
-	
-	# Just need to get this text saved into the database
+def create():
 	return render_template('list.html')
+
+# 	name = request.form['name']
+# 	link = request.form['link'];
+# 	start = request.form['start'];
+# 	end = request.form['end'];
+
+# 	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
+# 	os.system(scrapy_call)
+
+# 	# Reads newly scraped file
+# 	date = datetime.today()
+# 	new_filename = name+date.strftime("%m_%d_%y")+".txt"
+# 	f = open(new_filename,"r+")
+# 	text = f.read()
+# 	f.close()
+
+# 	# How to get attributes of a model 
+# 	software = Software(name=request.form["name"], date_added=datetime.now())
+	
+# 	cursor.execute("SELECT id FROM software WHERE name='%s'" % name)
+# 	# result = item[0] for item in cursor.fetchall()
+
+# 	version = Version(software_id=result, parsed_text=text)
+
+# 	db.session.add(software)
+# 	db.session.add(version)
+# 	db.session.commit()
+
+	
+	# # Just need to get this text saved into the database
+
 
 
 @app.route('/compare', methods=['GET', 'POST'])
