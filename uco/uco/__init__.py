@@ -100,7 +100,7 @@ def new():
 @app.route('/create', methods=['GET','POST'])
 def create(): 
 
-	software = Software(name=request.form["name"], isApproved=false, date_added=datetime.now())
+	software = Software(name=request.form["name"], date_added=datetime.now())
 
 	name = request.form['name']
 	link = request.form['link'];
