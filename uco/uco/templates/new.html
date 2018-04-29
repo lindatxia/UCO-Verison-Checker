@@ -80,7 +80,7 @@
 
 	</script>
 
-	<form role="form" name="myform">
+	<form action="{{ url_for('create') }}" method="post">
         <h3>Add a New Software Info</h3>
         <input type="text" id="name" name="name" placeholder="Software Name" required>
         <input type="text" id="link" name="link" placeholder="Link" required>

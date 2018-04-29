@@ -94,8 +94,19 @@ def results():
 
 @app.route('/new')
 def new(): 
-
 	return render_template('new.html')
+
+@app.route('/create', methods=['POST'])
+def create(): 
+
+	name = request.form['name']
+	link = request.form['link'];
+	start = request.form['start'];
+	end = request.form['end'];
+
+	# Just need to get this text saved into the database
+	return render_template('list.html')
+
 
 @app.route('/compare', methods=['GET', 'POST'])
 def compare():
@@ -107,7 +118,7 @@ def compare():
 	end = request.form['end'];
 	textFile = request.form['textFile'];
 	date = datetime.date.today()
-	# I dont think this global works in this context between routes
+	
 	global new_filename
 	new_filename = name+date.strftime("%m_%d_%y")+".txt"
 
@@ -120,7 +131,6 @@ def compare():
 
 @app.route('/returndownload', methods=['GET', 'POST'])
 def returndownload():
-    # name = session.get('name')
     date = datetime.date.today()
     new_filename = name+date.strftime("%m_%d_%y")+".txt"
     return Response('',mimetype="text/plain", headers={"Content-Disposition":
@@ -133,5 +143,4 @@ def return_files():
 
 
 if __name__ == '__main__':
-	db.create_all()
 	app.run()
