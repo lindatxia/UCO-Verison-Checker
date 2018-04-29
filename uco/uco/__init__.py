@@ -156,15 +156,16 @@ def compare():
 	link = request.form['link'];
 	start = request.form['start'];
 	end = request.form['end'];
+	global textFile
 	textFile = request.form['textFile'];
 	date = datetime.today()
 	
 	global new_filename
 	new_filename = name+date.strftime("%m_%d_%y")+".txt"
 
-	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
+	scrapy_call = '''scrapy runspider scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
 	os.system(scrapy_call)
-	comparison.compare(textFile,new_filename,"uco/uco/templates/changes_table.html")
+	comparison.compare(textFile,new_filename,"templates/changes_table.html")
 	return ""
 
 @app.route('/returndownload', methods=['GET', 'POST'])
@@ -179,6 +180,14 @@ def return_files():
 	#return send_file('%s' % new_filename , attachment_filename=new_filename, as_attachment = True)
 	return ''
 
+@app.route('/display_terms/')
+def display_terms():
+	with open(textFile, "r") as f:
+		old = f.read()
+	with open(new_filename, "r") as f:
+		new = f.read()
+	render_template("alt_display.html", old=old, new=new)
+
 
 if __name__ == '__main__':
-	app.run()
+	app.run(debug=True)

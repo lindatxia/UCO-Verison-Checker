@@ -9,8 +9,8 @@ from scrapy import Request
 from scrapy.spiders import Spider
 
 from difflib import Differ
-from pprint import pprint
-from selenium import webdriver
+# from pprint import pprint
+# from selenium import webdriver
 
 import sys
 

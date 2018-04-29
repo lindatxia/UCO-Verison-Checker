@@ -215,3 +215,22 @@ label {
 	display: none;
 }
 
+/* CHANGES TABLE */
+td.added {
+	color: #68FF7C
+}
+
+td.removed {
+	color: #FF8977
+}
+
+.added {
+	background-color: #68FF7C;
+    display: inline;
+}
+
+.removed {
+	background-color: #FF8977;
+    display: inline;
+}
+
