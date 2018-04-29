@@ -10,6 +10,7 @@ from flask_sqlalchemy import SQLAlchemy
 from . import comparison
 
 app = Flask(__name__)
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
     username="uco",
