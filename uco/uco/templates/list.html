@@ -20,8 +20,11 @@
 		(Demo for basic versioning functionality)
 	</p>
 
-	
 
+	{% for software in softwares %}
+        {{ software.name }}
+        <br/>
+    {% endfor %}
 
 
 	<br/><br/>

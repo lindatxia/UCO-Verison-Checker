@@ -142,11 +142,11 @@ def create():
 	db.session.add(version)
 	db.session.commit()
 
-	return redirect(url_for('list'))
+	return redirect(url_for('list'), software=Software.query.all())
 
 @app.route('/list')
 def list(): 
-	return render_template('list.html')
+	return render_template('list.html', softwares=Software.query.all())
 
 
 @app.route('/compare', methods=['GET', 'POST'])
