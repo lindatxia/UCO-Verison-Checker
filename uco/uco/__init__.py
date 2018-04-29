@@ -133,7 +133,7 @@ def create():
 	software = Software(name=request.form["name"], date_added=datetime.now())
 	
 	cursor.execute("SELECT id FROM software WHERE name='%s'" % name)
-	result = cursor.fetchone()
+	result = cursor.fetchall()[0]
 
 	version = Version(software_id=result, parsed_text=text)
 
