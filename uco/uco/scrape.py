@@ -32,7 +32,7 @@ class S1(Spider):
 
         f= open(new_filename,"w+")
         for line in text:
-            f.write(line.encode('utf-8'))
+            f.write(str(line))
         f.close()
 
 # takes away all text before start and after end
