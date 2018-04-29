@@ -24,6 +24,13 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # Connects to the MySQL database
 db = SQLAlchemy(app)
 
+import mysql.connector
+cnx = mysql.connector.connect(user='uco', 
+                        password='ucodreamteam',
+                        host='uco.mysql.pythonanywhere-services.com',
+                        database='uco$versioning')
+cursor = cnx.cursor() 
+
 ###################################
 ############ MODELS ###############
 ###################################
@@ -125,7 +132,8 @@ def create():
 	# How to get attributes of a model 
 	software = Software(name=request.form["name"], date_added=datetime.now())
 	sql = "SELECT id FROM software WHERE name=%s;"
-	result = db.engine.execute(sql, name)
+	cursor.execute(sql, name)
+	result = cursor.fetchone()
 
 	version = Version(software_id=result, parsed_text=text)
 
