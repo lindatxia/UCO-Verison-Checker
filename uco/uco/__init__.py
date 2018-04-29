@@ -127,10 +127,7 @@ def create():
 	db.session.add(version)
 	db.session.commit()
 
-	cursor.
-
 	
-
 	# Just need to get this text saved into the database
 	return render_template('list.html')
 
