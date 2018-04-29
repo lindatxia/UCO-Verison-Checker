@@ -3,6 +3,7 @@ import subprocess
 import datetime
 import time
 
+from datetime import datetime
 from flask import Flask, render_template, request, json, send_file, make_response, send_from_directory, Response, session
 from flask_sqlalchemy import SQLAlchemy
 
@@ -94,15 +95,27 @@ def results():
 
 @app.route('/new')
 def new(): 
-	return render_template('new.html')
+	return ''
 
-@app.route('/create', methods=['POST'])
+@app.route('/create', methods=['GET','POST'])
 def create(): 
+
+	software = Software(name=request.form["name"], isApproved=false, date_added=datetime.now())
 
 	name = request.form['name']
 	link = request.form['link'];
 	start = request.form['start'];
 	end = request.form['end'];
+	textFile = request.form['textFile'];
+	db.session.add(software)
+	db.session.commit()
+
+	date = datetime.date.today()
+	global new_filename
+	new_filename = name+date.strftime("%m_%d_%y")+".txt"
+
+	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
+	os.system(scrapy_call)
 
 	# Just need to get this text saved into the database
 	return render_template('list.html')
@@ -121,8 +134,6 @@ def compare():
 	
 	global new_filename
 	new_filename = name+date.strftime("%m_%d_%y")+".txt"
-
-	session['name'] = name
 
 	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
 	os.system(scrapy_call)
