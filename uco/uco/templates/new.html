@@ -22,16 +22,10 @@
 
 	<script>
 
-	var color = '',
-	    span = null;
-
-	var oldTerms = '';
-	var newTerms = '';
-
 	/* Creates a fileReader instance and saves the text from the
 	uploaded text file into a variable called textFromFileLoaded.
 	*/
-	function loadFileAsText(){
+	function loadFileAsText() {
 		var fileToLoad = document.getElementById("fileToLoad").files[0];
 		var fileReader = new FileReader();
 
@@ -87,7 +81,7 @@
 	</script>
 
 	<form role="form" name="myform">
-        <h3>Software Info</h3>
+        <h3>Add a New Software Info</h3>
         <input type="text" id="name" name="name" placeholder="Software Name" required>
         <input type="text" id="link" name="link" placeholder="Link" required>
         <input type="text" id="start" name="start" placeholder="Start" required>
@@ -97,17 +91,6 @@
         <p><a onclick="runPyScript2()" href = "/return_files" target="_blank">Download</a></p>
 
     </form>
-
-    <h3>Compare New and Old Terms</h3>
-
-	<h5>Select old terms and conditions</h5>
-	<input type="file" id="fileToLoad" name="fileToLoad">
-	<button onclick="loadFileAsText()">Load selected file</button>
-	<p><a onclick="runPyScript()" href="{{url_for('results', my_var=name|safe)}}">Compare Text</a></p>
-	</br></br>
-
-	<p><a href={{url_for('new')}}>Add new software</a></p>
-
 	<br/><br/>
 
 </div>

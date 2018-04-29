@@ -57,7 +57,6 @@ class Comment(db.Model):
 
 class Link(db.Model):
 
-
 	id = db.Column(db.Integer, primary_key=True)
 	version_id = db.Column(db.Integer, db.ForeignKey('version.id'), nullable=False)
 
@@ -92,6 +91,11 @@ def scrape_only():
 def results():
     my_var = request.args.get('my_var', None)
     return render_template('changes_table.html')
+
+@app.route('/new')
+def new(): 
+
+	return render_template('new.html')
 
 @app.route('/compare', methods=['GET', 'POST'])
 def compare():
