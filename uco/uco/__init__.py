@@ -23,6 +23,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Connects to the MySQL database
 db = SQLAlchemy(app)
+cursor = db.cursor()
 
 class Software(db.Model):
 
@@ -104,21 +105,29 @@ def create():
 	link = request.form['link'];
 	start = request.form['start'];
 	end = request.form['end'];
-	textFile = request.form['textFile'];
 
 	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
 	os.system(scrapy_call)
 
+	# Reads newly scraped file
 	date = datetime.today()
 	new_filename = name+date.strftime("%m_%d_%y")+".txt"
+	f = open(new_filename,"r+")
+	text = f.read()
+	f.close()
 
-
+	# How to get attributes of a model 
 	software = Software(name=request.form["name"], date_added=datetime.now())
-	version = Version(software_id=1, parsed_text="lol")
+	sql = "SELECT id FROM software WHERE name=%s;"
+	result = cursor.execute(sql, name)
+
+	version = Version(software_id=result, parsed_text=text)
 
 	db.session.add(software)
 	db.session.add(version)
 	db.session.commit()
+
+	cursor.
 
 	
 
