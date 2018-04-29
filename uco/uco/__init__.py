@@ -95,7 +95,7 @@ def results():
 
 @app.route('/new')
 def new(): 
-	return ''
+	return render_template('new.html')
 
 @app.route('/create', methods=['GET','POST'])
 def create(): 
