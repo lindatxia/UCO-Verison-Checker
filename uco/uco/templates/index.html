@@ -7,6 +7,7 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/diff.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/animations.js') }}"></script>
 
 	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
 
@@ -39,7 +40,7 @@
 <body>
 
 	<div class="sidenav">
-	  <img class = "logo" src = "/static/logo.png">
+	  <img class = "logo" src = "/static/white.png">
 
 	  <div class = "sidenav-content">
 		  <a href="#"><i class="fas fa-home"></i>  Home</a>
@@ -199,7 +200,7 @@
         <input type="text" id="end" name="end" placeholder="End" required>
         <input type="hidden" id="textFile" name="textFile" type="text" value="0" />
         
-          <a class = "button is-small is-orange" onclick="runPyScript2()" href = "/return_files/" target="blank">Download</a>
+          <a class = "button is-small" onclick="runPyScript2()" href = "/return_files/" target="blank">Download</a>
 
     </form>
 
@@ -207,8 +208,14 @@
     <h3>Step 4: Select Old Terms and Conditions</h3>
 
 	<input type="file" id="fileToLoad" name="fileToLoad">
-	<button onclick="loadFileAsText()">Load selected file</button>
-	<p><a class = "button is-medium is-orange" onclick="runPyScript()" href="{{url_for('results')}}">Compare Text</a></p>
+	<a class = "button is-medium" onclick="loadFileAsText()">Load selected file</a>
+	<p><a class = "button is-medium is-orange" onclick="runPyScript()" href="{{url_for('results')}}">Compare Text</a>
+
+	<div id = "loading"><p><img src="/static/91.gif" /> Please Wait</p></div>
+
+
+	</p>
+
 	</br></br>
 
 	<br/><br/>

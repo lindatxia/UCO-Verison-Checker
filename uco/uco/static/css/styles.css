@@ -156,7 +156,7 @@ label {
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
-    background-color: #FFFFFF; /* Black */
+    background-color: #3E4657; 
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
     box-shadow:  1.5px 1.5px 7px 0px #9B9B9B;
@@ -166,15 +166,20 @@ label {
     padding: 6px 8px 6px 28px;
     text-decoration: none;
     font-size: 16px;
-    color: #818181;
+    /*color: #818181;*/
+    color: white;
     display: block;
 
 }
 
 .sidenav-content {
-	padding-top: 30px;
+	padding-top: 60px;
 	padding-left: 15px;
-	line-height: 24px;
+	line-height: 32px;
+}
+
+.sidenav-content i {
+	padding-right: 15px;
 }
 
 
@@ -186,4 +191,9 @@ label {
 }
 
 /** HEADERS **/
+
+
+#loading {
+	display: none;
+}
 
