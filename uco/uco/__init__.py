@@ -23,7 +23,10 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Connects to the MySQL database
 db = SQLAlchemy(app)
-cursor = db.cursor()
+
+###################################
+############ MODELS ###############
+###################################
 
 class Software(db.Model):
 
@@ -67,7 +70,11 @@ class Link(db.Model):
 	start_text = db.Column(db.Text)
 	end_text = db.Column(db.Text)
 
-    
+
+###################################
+############ ROUTES ###############
+###################################
+
 @app.route('/')
 def main():
 	return render_template('index.html')
@@ -91,7 +98,6 @@ def scrape_only():
 
 @app.route('/results')
 def results():
-    my_var = request.args.get('my_var', None)
     return render_template('changes_table.html')
 
 @app.route('/new')
@@ -119,7 +125,7 @@ def create():
 	# How to get attributes of a model 
 	software = Software(name=request.form["name"], date_added=datetime.now())
 	sql = "SELECT id FROM software WHERE name=%s;"
-	result = cursor.execute(sql, name)
+	result = db.engine.execute(sql, name)
 
 	version = Version(software_id=result, parsed_text=text)
 
