@@ -133,7 +133,7 @@ def create():
 	# How to get attributes of a model 
 	software = Software(name=request.form["name"], date_added=datetime.now())
 	
-	cursor.execute("SELECT id FROM software WHERE name='%s'" % name)
+	cursor.execute("SELECT id FROM software WHERE name='%s'" % (name,))
 	result = [item for item in cursor.fetchall()][0]
 
 	version = Version(software_id=result, parsed_text=text)
