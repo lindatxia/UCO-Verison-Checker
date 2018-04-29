@@ -36,7 +36,7 @@
 		<img class = "logo" src = "/static/white.png">
 		<div class = "sidenav-content">
 			<a href="#"><i class="fas fa-home"></i>  Home</a>
-			<a href="#"><i class="fas fa-list-ul"></i>  Software List</a>
+			<a href="{{url_for('results')}}"><i class="fas fa-list-ul"></i>  Software List</a>
 			<a href="#"><i class="fas fa-question-circle"></i>  Help</a>
 		</div>
 	</div>
@@ -133,7 +133,7 @@
 	</br></br>
 
 	<div id = "loading"><p><img src="/static/91.gif" /> Please Wait</p></div>
-	<p><a href={{url_for('new')}}>Add new software</a></p>
+	<p><a href="{{url_for('new')}}">Add new software</a></p>
 
 	<br/><br/>
 
