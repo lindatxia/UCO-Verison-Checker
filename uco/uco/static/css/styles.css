@@ -234,3 +234,20 @@ td.removed {
     display: inline;
 }
 
+/* SPLIT CHANGES TABLES */
+.side-changes { 
+
+}
+
+#old {
+	width: 40%;
+	height: 80%;
+	overflow: auto;
+}
+
+#new {
+	width: 40%;
+	height: 80%;
+	overflow: auto;
+}
+
