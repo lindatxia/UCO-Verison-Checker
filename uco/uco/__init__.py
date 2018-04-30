@@ -151,6 +151,12 @@ def process():
 	start = request.form['start'];
 	end = request.form['end'];
 
+	print("Does process have any of these?")
+	print(name)
+	print(link)
+	print(start)
+	print(end)
+
 	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
 	os.system(scrapy_call)
 
@@ -186,8 +192,6 @@ def process():
 		# db.session.commit()
 
 		return render_template('upload.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'])
-
-
 
 
 	# We need to find the foreign key (which software) for this version 
