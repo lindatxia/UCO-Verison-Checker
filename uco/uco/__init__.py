@@ -170,13 +170,24 @@ def process():
 		# There is a record in the database! Let's compare it 
 		print("There is an record in the database!")
 		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now())
+
+		# db.session.add(version)
+		# db.session.commit()
 		return render_template('confirm.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'] )
+
+		
 
 
 	else:
 		software = Software(name=request.form["name"], date_added=datetime.now())
 		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now())
+
+		# db.session.add(software)
+		# db.session.commit()
+
 		return render_template('upload.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'])
+
+
 
 
 	# We need to find the foreign key (which software) for this version 
