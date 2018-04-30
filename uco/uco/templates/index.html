@@ -90,7 +90,6 @@
 
     // used for scraping a new software
     function runPyScript2(){
-
 		var name = $('#name').val();
 		var link = $('#link').val();
 		var start = $('#start').val();
@@ -104,11 +103,9 @@
             data: $('form').serialize()
     })};
 
-
 	</script>
 
 	<div class = "box">
-	
 
 	<form action="{{ url_for('process') }}" method="post">
 	<h3>Step 1: Add Software Info</h3>	
@@ -122,10 +119,7 @@
         <!-- <p><a class = "button is-medium is-orange" onclick="runPyScript2()" href = "/return_files" target="_blank">Next</a></p> -->
 
         <input type="submit" class = "button is-medium is-orange" onclick="runPyScript2()" value="Next">
-
     </form>
-
- 
 
 	<br/><br/>
 
