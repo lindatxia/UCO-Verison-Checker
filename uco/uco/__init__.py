@@ -29,7 +29,7 @@ import mysql.connector
 cnx = mysql.connector.connect(user='uco', 
                         password='ucodreamteam',
                         host='uco.mysql.pythonanywhere-services.com',
-                        database='uco$versioning', connection_timeout=1000)
+                        database='uco$versioning')
 cursor = cnx.cursor() 
 
 ##################################
@@ -170,7 +170,7 @@ def process():
 		# There is a record in the database! Let's compare it 
 
 		# Get the date LAST updated and show it 
-		
+		# cursor.execute("SELECT date_last_checked FROM version WHERE software_name='%s'" % (name))
 		
 		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now())
 
