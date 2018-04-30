@@ -186,9 +186,6 @@ def process():
 	# result = [item[0] for item in cursor.fetchall()][0]
 
 
-
-
-
 @app.route('/compare', methods=['GET', 'POST'])
 def compare():
 	message = None
