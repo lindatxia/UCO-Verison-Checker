@@ -38,7 +38,7 @@ cursor = cnx.cursor()
 
 class Software(db.Model):
 
-    id = db.Column(db.Integer, primary_key=True)
+    # id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), primary_key=True)
     isApproved = db.Column(db.Boolean)
     date_added = db.Column(db.DateTime)
@@ -49,7 +49,7 @@ class Software(db.Model):
 class Version(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    software_id = db.Column(db.Integer, db.ForeignKey('software.id'),
+    software_name = db.Column(db.String(100), db.ForeignKey('software.name'),
         nullable=False)
 
     date_last_checked = db.Column(db.DateTime)
@@ -131,12 +131,15 @@ def create():
 	f.close()
 	
 	software = Software(name=request.form["name"], date_added=datetime.now())
+
+	print("this is the name of software: ")
+	print(request.form["name"])
 	
 	# We need to find the foreign key (which software) for this version 
-	cursor.execute("SELECT id FROM software WHERE name='%s'" % (name,))
+	# cursor.execute("SELECT id FROM software WHERE name='%s'" % (name,))
 
 	# Since cursor.fetchall() returns a tuple, use a list comprehension to get the first element of the tuple 
-	result = [item[0] for item in cursor.fetchall()][0]
+	# result = [item[0] for item in cursor.fetchall()][0]
 
 	version = Version(software_id=result, parsed_text=text, date_last_checked=datetime.now())
 
