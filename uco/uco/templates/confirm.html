@@ -106,7 +106,10 @@
 	<form role="form" name="myform">
         <p> Is this the software you are looking for? </p>
 
-        {{ name }}
+        <div class = "box">
+        	{{ name }}
+        	Last updated: 
+        </div>
 
         <input type="hidden" id="name" name="name" value="{{name}}" required>
         <input type="hidden" id="link" name="link" value="{{link}}" required>
