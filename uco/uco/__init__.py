@@ -39,7 +39,7 @@ cursor = cnx.cursor()
 class Software(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(4096))
+    name = db.Column(db.String(4096), primary_key=True)
     isApproved = db.Column(db.Boolean)
     date_added = db.Column(db.DateTime)
 
@@ -129,7 +129,6 @@ def create():
 	f = open(new_filename,"r+")
 	text = f.read()
 	f.close()
-
 	
 	software = Software(name=request.form["name"], date_added=datetime.now())
 	
