@@ -19,7 +19,7 @@ SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostnam
     databasename="uco$versioning",
 )
 app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
-app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
+app.config["SQLALCHEMY_POOL_RECYCLE"] = 499
 app.config['SQLALCHEMY_POOL_TIMEOUT'] = 20
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
@@ -38,7 +38,6 @@ connection = pymysql.connect(user='uco', password='ucodreamteam',
                                  host='uco.mysql.pythonanywhere-services.com',
                                  database='uco$versioning')
 
-cursor = connection.cursor()
 
 
 ##################################
@@ -171,9 +170,10 @@ def process():
 	f.close()
 	
 	# If there is a record in the database for this particular software, automatically go to compare 
-
+	cursor = connection.cursor()
 	cursor.execute("SELECT * FROM software WHERE name='%s'" % (name,))
 	result = [item[0] for item in cursor.fetchall()]
+	cursor.close()
 
 	if len(result) > 0: 
 		# There is a record in the database! Let's compare it 
