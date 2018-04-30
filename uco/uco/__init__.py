@@ -168,12 +168,15 @@ def process():
 
 	if len(result) > 0: 
 		# There is a record in the database! Let's compare it 
-		print("There is an record in the database!")
+
+		# Get the date LAST updated and show it 
+		
+		
 		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now())
 
 		# db.session.add(version)
 		# db.session.commit()
-		return render_template('confirm.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'] )
+		return render_template('confirm.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'])
 
 
 	else:
