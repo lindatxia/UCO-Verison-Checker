@@ -175,8 +175,6 @@ def process():
 		# db.session.commit()
 		return render_template('confirm.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'] )
 
-		
-
 
 	else:
 		software = Software(name=request.form["name"], date_added=datetime.now())

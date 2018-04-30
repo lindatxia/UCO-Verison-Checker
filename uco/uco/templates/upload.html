@@ -72,6 +72,12 @@
 		var start = $('#start').val();
 		var end = $('#end').val();
 		var textFile = $('#textFile').val();
+
+		alert(name);
+		alert(link);
+		alert(start);
+		alert(end);
+
         $.ajax({
             type: "POST",
             url: "/compare",
@@ -98,7 +104,7 @@
 
 	</script>
 
-	<form>
+	<form role="form" name="myform">
         <p> {{name}} is a new software in this system. If you have an old terms and agreements (must be .txt file) for this software, you can compare the terms manually here. </p>
 
         <input type="hidden" id="name" name="name" value="{{name}}" required>
