@@ -110,7 +110,7 @@
 	<div class = "box">
 	
 
-	<form role="form" name="myform">
+	<form action="{{ url_for('process') }}" method="post">
 	<h3>Step 1: Add Software Info</h3>	
         <input type="text" id="name" name="name" placeholder="Software Name" required>
         <input type="text" id="link" name="link" placeholder="Link" required>
@@ -119,7 +119,11 @@
         <input type="text" id="end" name="end" placeholder="End" required>
         <input type="hidden" id="textFile" name="textFile" type="text" value="0" />
 
-        <p><a class = "button is-medium" onclick="runPyScript2()" href = "/return_files" target="_blank">Download</a></p>
+        <!-- <p><a class = "button is-medium is-orange" onclick="runPyScript2()" href = "/return_files" target="_blank">Next</a></p> -->
+
+        <input type="submit" class = "button is-medium is-orange" onclick="runPyScript2()" value="Next">
+
+        <p><a class = "button is-medium is-orange" onclick="runPyScript2()" href = "/return_files" target="_blank">Next</a></p>
 
     </form>
 

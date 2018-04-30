@@ -115,7 +115,7 @@ def new():
 @app.route('/create', methods=['GET','POST'])
 def create(): 
 
-	name = request.form['name']
+	name = request.form['name'];
 	link = request.form['link'];
 	start = request.form['start'];
 	end = request.form['end'];
@@ -131,14 +131,6 @@ def create():
 	f.close()
 	
 	software = Software(name=request.form["name"], date_added=datetime.now())
-
-	
-	# We need to find the foreign key (which software) for this version 
-	# cursor.execute("SELECT id FROM software WHERE name='%s'" % (name,))
-
-	# Since cursor.fetchall() returns a tuple, use a list comprehension to get the first element of the tuple 
-	# result = [item[0] for item in cursor.fetchall()][0]
-
 	version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now())
 
 	db.session.add(software)
@@ -150,6 +142,51 @@ def create():
 @app.route('/list')
 def list(): 
 	return render_template('list.html', softwares=Software.query.all())
+
+@app.route('/process', methods=['GET','POST'])
+def process(): 
+
+	name = request.form['name'];
+	link = request.form['link'];
+	start = request.form['start'];
+	end = request.form['end'];
+
+	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
+	os.system(scrapy_call)
+
+	# New terms will be saved into a file, which we can read to obtain the updated terms of agreement
+	date = datetime.today()
+	new_filename = name+date.strftime("%m_%d_%y")+".txt"
+	f = open(new_filename,"r+")
+	text = f.read()
+	f.close()
+	
+	# If there is a record in the database for this particular software, automatically go to compare 
+
+	cursor.execute("SELECT * FROM software WHERE name='%s'" % (name,))
+	result = [item[0] for item in cursor.fetchall()]
+
+	if len(result) > 0: 
+		# There is a record in the database! Let's compare it 
+		print("There is an record in the database!")
+		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now())
+		return render_template('confirm.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'] )
+
+
+	else:
+		software = Software(name=request.form["name"], date_added=datetime.now())
+		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now())
+		return ''
+
+
+	# We need to find the foreign key (which software) for this version 
+	# cursor.execute("SELECT id FROM software WHERE name='%s'" % (name,))
+
+	# Since cursor.fetchall() returns a tuple, use a list comprehension to get the first element of the tuple 
+	# result = [item[0] for item in cursor.fetchall()][0]
+
+
+
 
 
 @app.route('/compare', methods=['GET', 'POST'])

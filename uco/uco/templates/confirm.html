@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<title> CMU Contracts Versioning Prototype </title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/diff.js') }}"></script>
+
+	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+	<br/><br/>
+	<h2> CMU Contracts Versioning Prototype </h2>
+	<p>
+		(Demo for basic versioning functionality)
+	</p>
+
+	<script>
+
+	/* Creates a fileReader instance and saves the text from the
+	uploaded text file into a variable called textFromFileLoaded.
+	*/
+	function loadFileAsText() {
+		var fileToLoad = document.getElementById("fileToLoad").files[0];
+		var fileReader = new FileReader();
+
+		fileReader.onload = function(fileLoadedEvent){
+			console.log("loading file")
+			var textFromFileLoaded = fileLoadedEvent.target.result;
+			/* Call on the callback */
+			oldTerms = textFromFileLoaded
+			getLoadedText(textFromFileLoaded);
+		};
+
+		fileReader.readAsText(fileToLoad);
+
+		/* Callback definition */
+		var getLoadedText = function(data) {
+			oldTerms = data;
+			// pass text into hidden form input called textFile
+			document.myform.textFile.value = oldTerms;
+		}
+	}
+
+	/* Makes a JQuery AJAX request to Python code. */
+	function runPyScript(){
+		var name = $('#name').val();
+		var link = $('#link').val();
+		var start = $('#start').val();
+		var end = $('#end').val();
+		var textFile = $('#textFile').val();
+        $.ajax({
+            type: "POST",
+            url: "/compare",
+            async: false,
+            dataType: "html",
+            data: $('form').serialize()
+    })};
+
+    // used for scraping a new software
+    function runPyScript2(){
+		var name = $('#name').val();
+		var link = $('#link').val();
+		var start = $('#start').val();
+		var end = $('#end').val();
+		var textFile = $('#textFile').val();
+        $.ajax({
+            type: "POST",
+            url: "/scrape_only",
+            async: false,
+            dataType: "html",
+            data: $('form').serialize()
+    })};
+
+
+	</script>
+
+	<form>
+        <p> Is this the software you are looking for? </p>
+
+        {{ name }}
+
+        <input type="hidden" id="name" name="name" value="{{name}}" required>
+        <input type="hidden" id="link" name="link" value="{{link}}" required>
+        <input type="hidden" id="start" name="start" value="{{start}}" required>
+        <input type="hidden" id="end" name="end" placeholder="{{end}}" required>
+        <input type="hidden" id="textFile" name="textFile" type="text" value="0" />
+
+        <a class = "button is-medium is-orange" onclick="runPyScript()" href="{{url_for('results')}}">Compare Text</a>
+    </form>
+	<br/><br/>
+
+</div>
+
+</body>
+
+
+</html>
