@@ -25,12 +25,20 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # Connects to the MySQL database
 db = SQLAlchemy(app)
 
-import mysql.connector
-cnx = mysql.connector.connect(user='uco', 
-                        password='ucodreamteam',
-                        host='uco.mysql.pythonanywhere-services.com',
-                        database='uco$versioning')
-cursor = cnx.cursor() 
+# import mysql.connector
+# cnx = mysql.connector.connect(user='uco', 
+#                         password='ucodreamteam',
+#                         host='uco.mysql.pythonanywhere-services.com',
+#                         database='uco$versioning')
+# cursor = cnx.cursor() 
+
+import pymysql
+connection = pymysql.connect(user='uco', password='ucodreamteam',
+                                 host='uco.mysql.pythonanywhere-services.com',
+                                 database='uco$versioning')
+
+cursor = connection.cursor()
+
 
 ##################################
 ########### MODELS ###############
