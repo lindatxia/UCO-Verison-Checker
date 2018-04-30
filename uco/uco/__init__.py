@@ -39,7 +39,7 @@ cursor = cnx.cursor()
 class Software(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(4096), primary_key=True)
+    name = db.Column(db.String(100), primary_key=True)
     isApproved = db.Column(db.Boolean)
     date_added = db.Column(db.DateTime)
 
@@ -73,7 +73,7 @@ class Link(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	version_id = db.Column(db.Integer, db.ForeignKey('version.id'), nullable=False)
 
-	link_type = db.Column(db.String(4096))
+	link_type = db.Column(db.String(100))
 	address = db.Column(db.Text)
 	start_text = db.Column(db.Text)
 	end_text = db.Column(db.Text)
