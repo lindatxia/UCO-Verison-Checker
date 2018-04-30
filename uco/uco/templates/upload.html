@@ -52,6 +52,9 @@
 		var fileToLoad = document.getElementById("fileToLoad").files[0];
 		var fileReader = new FileReader();
 
+		/* This is an asynchronous call */
+		fileReader.readAsText(fileToLoad);
+
 		fileReader.onload = function(fileLoadedEvent){
 			console.log("loading file")
 			var textFromFileLoaded = fileLoadedEvent.target.result;
@@ -60,11 +63,10 @@
 			getLoadedText(textFromFileLoaded);
 		};
 
-		fileReader.readAsText(fileToLoad);
-
 		/* Callback definition */
 		var getLoadedText = function(data) {
 			oldTerms = data;
+			alert(oldTerms);
 			// pass text into hidden form input called textFile
 			document.myform.textFile.value = oldTerms;
 		}

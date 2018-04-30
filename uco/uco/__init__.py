@@ -26,12 +26,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # Connects to the MySQL database
 db = SQLAlchemy(app)
 
-# import mysql.connector
-# cnx = mysql.connector.connect(user='uco', 
-#                         password='ucodreamteam',
-#                         host='uco.mysql.pythonanywhere-services.com',
-#                         database='uco$versioning')
-# cursor = cnx.cursor() 
+from sqlalchemy import create_engine
+
 
 import pymysql
 connection = pymysql.connect(user='uco', password='ucodreamteam',
@@ -141,9 +137,9 @@ def create():
 	software = Software(name=request.form["name"], date_added=datetime.now())
 	version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now())
 
-	db.session.add(software)
-	db.session.add(version)
-	db.session.commit()
+	# db.session.add(software)
+	# db.session.add(version)
+	# db.session.commit()
 
 	return redirect(url_for('list'))
 
@@ -178,9 +174,6 @@ def process():
 	if len(result) > 0: 
 		# There is a record in the database! Let's compare it 
 
-		# Get the date LAST updated and show it 
-		# cursor.execute("SELECT date_last_checked FROM version WHERE software_name='%s'" % (name))
-		
 		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now())
 
 		# db.session.add(version)
@@ -198,14 +191,6 @@ def process():
 		# db.session.commit()
 
 		return render_template('upload.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'])
-
-
-	# We need to find the foreign key (which software) for this version 
-	# cursor.execute("SELECT id FROM software WHERE name='%s'" % (name,))
-
-	# Since cursor.fetchall() returns a tuple, use a list comprehension to get the first element of the tuple 
-	# result = [item[0] for item in cursor.fetchall()][0]
-
 
 @app.route('/compare', methods=['GET', 'POST'])
 def compare():
