@@ -182,11 +182,11 @@ def return_files():
 
 @app.route('/display_terms/')
 def display_terms():
-	with open(textFile, "r") as f:
-		old = f.read()
-	with open(new_filename, "r") as f:
-		new = f.read()
-	render_template("alt_display.html", old=old, new=new)
+	# with open(textFile, "r") as f:
+	# 	old = f.read()
+	# with open(new_filename, "r") as f:
+		# new = f.read()
+	return render_template('split_changes.html')
 
 
 if __name__ == '__main__':

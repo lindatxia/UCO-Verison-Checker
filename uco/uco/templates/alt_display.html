@@ -27,8 +27,9 @@
 <body>
 
 <div id="container">
-	<pre>{{ old }}</pre>
-	<pre>{{ new }}</pre>
+	<div id = "changes">
+		{% block changes %}{% endblock %}
+	</div>
 </div>
 
 

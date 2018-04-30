@@ -26,14 +26,14 @@
 
 <body>
 
-<a class = "button is-medium is-orange" href = "/" target="_blank">Back to Form</a>
+<a class = "button is-medium is-orange" href = "{{url_for('main')}}" target="_blank">Back to Form</a>
 
 <div id="container">
 <div class = "changes">
 	<div id="commentable-area">
 		<h1 class = "center-text">Changes</h1>
 		<div class = "description">
-		<a href = "/display_changes/" target="blank">Side by Side Compare</a> | <a href = "/return_files/" target="blank">Download New Terms</a></div>
+		<a href = "{{url_for('display_terms')}}" target="blank">Side by Side Compare</a> | <a href = "/return_files/" target="blank">Download New Terms</a></div>
 		{% block body %}{% endblock %}
 	</div>
 </div>

@@ -17,11 +17,37 @@ def get_differences(old,new):
     old = old.replace("\r","")
     old_list = old.split("\n")
     new_list = split_txt(new)
+    write_html_files(old_list,new_list)
     d = Differ()
     result = list(d.compare(old_list,new_list))
     for i in range(0,len(result)):
         result[i]=result[i].split()
     return result
+
+def write_html_files(old,new):
+    ans = ['''{% extends "alt_display.html" %}\n''','''{% block changes %}\n''','<table id="old">\n']
+    for line in old:
+        front = '\t<tr>\n\t\t<td>'
+        words = line
+        # skip if change only involves a blank line
+        if len(words) == 0:
+            continue
+        else:
+            ans.append(str(add_line(words,front,0,"#")))
+    ans.append('</table>\n')
+
+    ans.append('<table id="new">\n')
+    for line in new:
+        front = '\t<tr>\n\t\t<td>'
+        words = line
+        # skip if change only involves a blank line
+        if len(words) == 0:
+            continue
+        else:
+            ans.append(str(add_line(words,front,0,"#")))
+    ans.append('</table>\n')
+    ans.append('''{% endblock %}''')
+    write_file(ans,"templates/split_changes.html")
 
 def split_txt(txt):
     f = open(txt,"r+")
