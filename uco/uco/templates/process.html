@@ -40,66 +40,6 @@
 
 <div id="container">
 
-	<script>
-
-	/* Creates a fileReader instance and saves the text from the
-	uploaded text file into a variable called textFromFileLoaded.
-	*/
-	function loadFileAsText() {
-		var fileToLoad = document.getElementById("fileToLoad").files[0];
-		var fileReader = new FileReader();
-
-		fileReader.onload = function(fileLoadedEvent){
-			console.log("loading file")
-			var textFromFileLoaded = fileLoadedEvent.target.result;
-			/* Call on the callback */
-			oldTerms = textFromFileLoaded
-			getLoadedText(textFromFileLoaded);
-		};
-
-		fileReader.readAsText(fileToLoad);
-
-		/* Callback definition */
-		var getLoadedText = function(data) {
-			oldTerms = data;
-			// pass text into hidden form input called textFile
-			document.myform.textFile.value = oldTerms;
-		}
-	}
-
-	/* Makes a JQuery AJAX request to Python code. */
-	function runPyScript(){
-		var name = $('#name').val();
-		var link = $('#link').val();
-		var start = $('#start').val();
-		var end = $('#end').val();
-		var textFile = $('#textFile').val();
-        $.ajax({
-            type: "POST",
-            url: "/compare",
-            async: false,
-            dataType: "html",
-            data: $('form').serialize()
-    })};
-
-    // used for scraping a new software
-    function runPyScript2(){
-		var name = $('#name').val();
-		var link = $('#link').val();
-		var start = $('#start').val();
-		var end = $('#end').val();
-		var textFile = $('#textFile').val();
-        $.ajax({
-            type: "POST",
-            url: "/scrape_only",
-            async: false,
-            dataType: "html",
-            data: $('form').serialize()
-    })};
-
-
-	</script>
-
 	
 	<br/><br/>
 

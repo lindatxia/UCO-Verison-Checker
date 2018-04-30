@@ -12,7 +12,11 @@ from difflib import Differ
 from pprint import pprint
 from selenium import webdriver
 
-import sys
+import sys  
+
+reload(sys)  
+sys.setdefaultencoding('utf8')
+
 
 class S1(Spider):
     name = 's1'
