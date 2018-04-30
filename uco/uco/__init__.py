@@ -132,13 +132,14 @@ def create():
 	
 	software = Software(name=request.form["name"], date_added=datetime.now())
 
+	
 	# We need to find the foreign key (which software) for this version 
 	# cursor.execute("SELECT id FROM software WHERE name='%s'" % (name,))
 
 	# Since cursor.fetchall() returns a tuple, use a list comprehension to get the first element of the tuple 
 	# result = [item[0] for item in cursor.fetchall()][0]
 
-	version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now())
+	version = Version(software_name=result, parsed_text=text, date_last_checked=datetime.now())
 
 	db.session.add(software)
 	db.session.add(version)
