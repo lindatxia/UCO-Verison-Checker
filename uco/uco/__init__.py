@@ -123,17 +123,20 @@ def create():
 	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
 	os.system(scrapy_call)
 
-	# Reads newly scraped file
+	# New terms will be saved into a file, which we can read to obtain the updated terms of agreement
 	date = datetime.today()
 	new_filename = name+date.strftime("%m_%d_%y")+".txt"
 	f = open(new_filename,"r+")
 	text = f.read()
 	f.close()
 
-	# How to get attributes of a model 
+	
 	software = Software(name=request.form["name"], date_added=datetime.now())
 	
+	# We need to find the foreign key (which software) for this version 
 	cursor.execute("SELECT id FROM software WHERE name='%s'" % (name,))
+
+	# Since cursor.fetchall() returns a tuple, use a list comprehension to get the first element of the tuple 
 	result = [item[0] for item in cursor.fetchall()][0]
 
 	version = Version(software_id=result, parsed_text=text, date_last_checked=datetime.now())
@@ -142,7 +145,7 @@ def create():
 	db.session.add(version)
 	db.session.commit()
 
-	return redirect(url_for('list'), software=Software.query.all())
+	return redirect(url_for('list'))
 
 @app.route('/list')
 def list(): 
