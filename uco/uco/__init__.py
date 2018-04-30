@@ -29,9 +29,7 @@ import mysql.connector
 cnx = mysql.connector.connect(user='uco', 
                         password='ucodreamteam',
                         host='uco.mysql.pythonanywhere-services.com',
-                        database='uco$versioning', connect_timeout=1000 ,
-                              wait_timeout=28800 ,
-                              interactive_timeout=28800)
+                        database='uco$versioning', connection_timeout=1000)
 cursor = cnx.cursor() 
 
 ##################################
