@@ -26,14 +26,11 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # Connects to the MySQL database
 db = SQLAlchemy(app)
 
-from sqlalchemy import create_engine
-
 
 import pymysql
 connection = pymysql.connect(user='uco', password='ucodreamteam',
                                  host='uco.mysql.pythonanywhere-services.com',
                                  database='uco$versioning')
-
 
 
 ##################################
@@ -145,7 +142,7 @@ def create():
 
 @app.route('/list')
 def list(): 
-	return render_template('list.html', softwares=Software.query.all().store_result())
+	return render_template('list.html', softwares=Software.query.all())
 
 @app.route('/process', methods=['GET','POST'])
 def process(): 
@@ -166,12 +163,14 @@ def process():
 	f.close()
 	
 	# If there is a record in the database for this particular software, automatically go to compare 
-	cursor = connection.cursor()
-	cursor.execute("SELECT * FROM software WHERE name='%s'" % (name,))
-	result = [item[0] for item in cursor.fetchall()]
-	cursor.close()
+	# cursor = connection.cursor()
+	# cursor.execute("SELECT * FROM software WHERE name='%s'" % (name,))
+	# result = [item[0] for item in cursor.fetchall()]
+	# cursor.close()
 
-	if len(result) > 0: 
+	result = Software.query.filter_by(name=request.form['name']).count()
+
+	if result > 0: 
 		# There is a record in the database! Let's compare it 
 
 		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now())
