@@ -8,9 +8,8 @@
 	<script rel="stylesheet" media="all" type="text/css" src="{{ url_for('static', filename='js/release/side-comments.css') }}"></script>
 	<script rel="stylesheet" media="all" type="text/css" src="{{ url_for('static', filename='js/release/themes/default-theme.css') }}"></script> -->
 
-	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+	<link rel="stylesheet" media="all" type="text/css" href="/static/css/styles.css" />
 	<link rel="stylesheet" media="all" type="text/css" href="/static/js/release/side-comments.css">
-
 	<link rel="stylesheet" media="all" type="text/css" href="/static/js/release/themes/default-theme.css">
 
 	<script type="text/javascript" src="{{ url_for('static', filename='js/release/side-comments.js') }}"></script>
@@ -21,25 +20,28 @@
 
 	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
 
+	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
  
 </head>
 
+<style type="text/css">
+	td.added {background-color: #68FF7C}
+	td.removed {background-color: #FF8977}
+</style>
+
 <body>
 
-<a class = "button is-medium is-orange" href = "{{url_for('main')}}" target="_blank">Back to Form</a>
-
-<div id="container">
+<div class="container">
 <div class = "changes">
 	<div id="commentable-area">
-		<h1 class = "center-text">Changes</h1>
-		<div class = "description">
-		<a href = "{{url_for('display_terms')}}" target="blank">Side by Side Compare</a> | <a href = "/return_files/" target="blank">Download New Terms</a></div>
+		<h1>Changes</h1>
+		<a href = "/return_files/" target="blank">Download New Terms</a>
 		{% block body %}{% endblock %}
 	</div>
 </div>
 </div>
 
-<script>
+<!-- <script>
 	var SideComments = require ('side-comments');
 
 	var currentUser = {
@@ -70,7 +72,7 @@
 
 	console.log(sideComments);
 
-</script>
+</script> -->
 
 </body>
 

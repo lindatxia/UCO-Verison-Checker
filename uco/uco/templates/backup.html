@@ -4,7 +4,7 @@
 <head>
 
 	<title> CMU Contracts Versioning</title>
-	
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/diff.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='js/animations.js') }}"></script>
@@ -24,10 +24,9 @@
 	<link rel="stylesheet" media="all" type="text/css" href="../static/css/side-comments.css"/>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="{{
-  		url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
+	<script>window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
 	<script src="{{ url_for('static', filename='../static/js/side-comments.js') }}"></script>
- 
+
 
 </head>
 
@@ -35,9 +34,10 @@
 	<div class="sidenav">
 		<img class = "logo" src = "/static/white.png">
 		<div class = "sidenav-content">
-			<a href="{{url_for('main')}}"><i class="fas fa-home"></i>  Home</a>
+			<a href="/"><i class="fas fa-home"></i>  Home</a>
 			<a href="{{url_for('list')}}"><i class="fas fa-list-ul"></i>  Software List</a>
-			<a href="{{url_for('help')}}"><i class="fas fa-question-circle"></i>  Help</a>
+			<a href="{{url_for('backup')}}"><i class="fas fa-archive"></i>  Backup</a>
+			<a href="#"><i class="fas fa-question-circle"></i>  Help</a>
 		</div>
 	</div>
 
@@ -46,7 +46,7 @@
 	<br/><br/>
 	<h1> <div class = "orange">|</div> Compare Software </h1>
 	<p></p>
-	
+
 	<script>
 
 	/* Creates a fileReader instance and saves the text from the
@@ -55,23 +55,19 @@
 	function loadFileAsText(){
 		var fileToLoad = document.getElementById("fileToLoad").files[0];
 		var fileReader = new FileReader();
-		var element = document.getElementById("feedback");
-		
-
 
 		fileReader.onload = function(fileLoadedEvent){
 			console.log("loading file")
 			var textFromFileLoaded = fileLoadedEvent.target.result;
-			/* Call on the callback */ 
+			/* Call on the callback */
 			oldTerms = textFromFileLoaded
 			getLoadedText(textFromFileLoaded);
-			element.classList.toggle("is-active");
 		};
 
 		fileReader.readAsText(fileToLoad);
 
-		/* Callback definition */ 
-		var getLoadedText = function(data) {			
+		/* Callback definition */
+		var getLoadedText = function(data) {
 			oldTerms = data;
 			// pass text into hidden form input called textFile
 			document.myform.textFile.value = oldTerms;
@@ -87,7 +83,7 @@
 		var textFile = $('#textFile').val();
         $.ajax({
             type: "POST",
-            url: "/compare",
+            url: "/backup_compare",
             async: false,
             dataType: "html",
             data: $('form').serialize()
@@ -102,33 +98,44 @@
 		var textFile = $('#textFile').val();
         $.ajax({
             type: "POST",
-            url: "/scrape_only",
+            url: "/backup_scrape_only",
             async: false,
             dataType: "html",
             data: $('form').serialize()
     })};
 
-
 	</script>
 
 	<div class = "box">
-	
 
-	<form action="{{ url_for('process') }}" method="post">
-		<h3>Step 1: Add Software Info</h3>	
-	        <input type="text" id="name" name="name" placeholder="Software Name" required>
-	        <input type="text" id="link" name="link" placeholder="Link" required>
-	    <h3> Select the beginning and end of the text</h3>
-	        <input type="text" id="start" name="start" placeholder="Start" required>
-	        <input type="text" id="end" name="end" placeholder="End" required>
-	        <input type="hidden" id="textFile" name="textFile" type="text" value="0" />
 
-	        <!-- <p><a class = "button is-medium is-orange" onclick="runPyScript2()" href = "/return_files" target="_blank">Next</a></p> -->
+	<form role="form" name="myform">
+        <h3>Step 1: Add Software Info</h3>
+        <input type="text" id="name" name="name" placeholder="Software Name" required>
+        <input type="text" id="link" name="link" placeholder="Link" required>
+        <h3>Step 2: Enter the beginning and end of the text</h3>
+        <input type="text" id="start" name="start" placeholder="Start" required>
+        <input type="text" id="end" name="end" placeholder="End" required>
+        <input type="hidden" id="textFile" name="textFile" type="text" value="0" /></br>
 
-	        <input type="submit" class = "button is-medium is-orange" onclick="runPyScript2()" value="Next">
+        <a class = "button is-medium is-orange" onclick="runPyScript2()" href = "{{url_for('backup_return_files')}}" target="_blank">Download</a>
+
     </form>
 
+     <p><br /></p>
+    <h3>Step 3: Select Old Terms and Conditions</h3>
+    <h5>*optional</h5>
 
+	<input type="file" id="fileToLoad" name="fileToLoad">
+	<a class = "button is-medium" onclick="loadFileAsText()">Load selected file</a></br>
+	<!-- <button onclick="loadFileAsText()">Load selected file</button> -->
+	<!-- <p><a onclick="runPyScript()" href="{{url_for('results', my_var=name|safe)}}">Compare Text</a></p> -->
+	<a class = "button is-medium is-orange" onclick="runPyScript()" href="{{url_for('backup_results')}}">Compare Text</a>
+	</br></br>
+
+	<!-- <p><a href={{url_for('new')}}>Add new software</a></p> -->
+
+	<br/><br/>
 
 </div>
 
