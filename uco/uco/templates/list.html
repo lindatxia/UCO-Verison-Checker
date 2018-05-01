@@ -32,22 +32,23 @@
 <div class="sidenav">
 	<img class = "logo" src = "/static/white.png">
 	<div class = "sidenav-content">
-		<a href="#"><i class="fas fa-home"></i>  Home</a>
+		<a href="{{url_for('main')}}"><i class="fas fa-home"></i>  Home</a>
 		<a href="{{url_for('list')}}"><i class="fas fa-list-ul"></i>  Software List</a>
-		<a href="#"><i class="fas fa-question-circle"></i>  Help</a>
+		<a href="{{url_for('backup')}}"><i class="fas fa-archive"></i>  Backup</a>
+		<a href="{{url_for('help')}}"><i class="fas fa-question-circle"></i>  Help</a>
 	</div>
 </div>
 
 <div id="container">
 	<h1> <div class = "orange">|</div> List of Software Versions </h1>
 	<br/><br/>
-	
 
+    <div class="box">
 	{% for software in softwares %}
         {{ software.name }}
         <br/>
     {% endfor %}
-
+    </div>
 
 	<br/><br/>
 

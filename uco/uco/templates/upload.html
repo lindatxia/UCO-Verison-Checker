@@ -25,7 +25,7 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
 	<script src="{{ url_for('static', filename='../static/js/side-comments.js') }}"></script>
- 
+
 
 </head>
 
@@ -35,7 +35,8 @@
 	<div class = "sidenav-content">
 	<a href="#"><i class="fas fa-home"></i>  Home</a>
 	<a href="{{url_for('list')}}"><i class="fas fa-list-ul"></i>  Software List</a>
-	<a href="#"><i class="fas fa-question-circle"></i>  Help</a>
+	<a href="{{url_for('backup')}}"><i class="fas fa-archive"></i>  Backup</a>
+	<a href="{{url_for('help')}}"><i class="fas fa-question-circle"></i>  Help</a>
 	</div>
 </div>
 
@@ -111,7 +112,7 @@
 
 	<div class="box">
 	<form role="form" name="myform">
-	
+
         <p> {{name}} is a new software in this system. If you have an old terms and agreements (must be .txt file) for this software, you can compare the terms manually here. </p>
 
         <input type="hidden" id="name" name="name" value="{{name}}" required>
@@ -135,7 +136,7 @@
         <!-- <a class = "button is-medium is-orange" onclick="runPyScript()" href="{{url_for('results')}}">Compare Text</a> -->
 
 
-         
+
 
     </form>
     </div>

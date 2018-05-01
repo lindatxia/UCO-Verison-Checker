@@ -47,7 +47,7 @@ def write_html_files(old,new):
             ans.append(str(add_line(words,front,0,"#")))
     ans.append('</table>\n')
     ans.append('''{% endblock %}''')
-    write_file(ans,"templates/split_changes.html")
+    write_file(ans,"uco/uco/templates/split_changes.html")
 
 def split_txt(txt):
     f = open(txt,"r+")
@@ -94,7 +94,7 @@ def split_changes(out):
     return ans
 
 # takes in a line of old text and new text
-# calculates what's been removed and added 
+# calculates what's been removed and added
 # returns a string with + in front of additions and - in front of deletions
 def word_by_word_changes(old,new):
     ans=[]
@@ -121,7 +121,7 @@ def calc_additions(old,new, ans):
             ans.insert(i+offset,"+"+word)
             offset+=1
     return ans
-            
+
 # created an html table that assigns a class to the rows
 # that have been added and removed
 def make_html_table(l,name):
@@ -168,7 +168,7 @@ def add_line(line,front,section_id,category):
     if category == "+":
         front = front+'<p data-section-id = "%s" class="commentable-section added">' % section_id
     elif category == "-":
-        front = front+'<p data-section-id = "%s" class="commentable-section removed">' % section_id 
+        front = front+'<p data-section-id = "%s" class="commentable-section removed">' % section_id
     else:
         front = front+'<p data-section-id = "%s" class="commentable-section">' % section_id
     end = '</p></td>\n\t</tr>\n'

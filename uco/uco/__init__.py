@@ -222,8 +222,10 @@ def process():
 
 	else:
 		# The system has not seen this
-		software = Software(name=request.form["name"], date_added=datetime.now())
-		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now())
+		software = Software(name=request.form["name"], date_added=datetime.now(), isApproved=None)
+		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now(), date_last_updated=None)
+
+
 
 		db.session.add(software)
 		db.session.add(version)
@@ -295,12 +297,12 @@ def backup_compare():
 	date = datetime.today()
 
 	global new_filename
-	new_filename = "uco/uco"+name+date.strftime("%m_%d_%y")+".txt"
+	new_filename = "uco/uco/"+name+date.strftime("%m_%d_%y")+".txt"
 	session['new_filename'] = new_filename
 
 	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
 	os.system(scrapy_call)
-	comparison.compare(textFile,new_filename,"templates/backup_changes_table.html")
+	comparison.compare(textFile,new_filename,"uco/uco/templates/backup_changes_table.html")
 	return ""
 
 @app.route('/backup_results')
@@ -310,8 +312,8 @@ def backup_results():
 @app.route('/backup_return_files/')
 def backup_return_files():
     new_filename = session.get('new_filename', None)
-    filename = new_filename.replace('/uco/uco','')
-    return send_file('%s' % filename , attachment_filename=filename, as_attachment = True)
+    # filename = new_filename.replace('/uco/uco','')
+    return send_file('%s' % new_filename , attachment_filename=new_filename, as_attachment = True)
 
 if __name__ == '__main__':
 	app.run(threaded=True)

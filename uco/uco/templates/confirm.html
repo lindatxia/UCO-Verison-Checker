@@ -25,7 +25,7 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
 	<script src="{{ url_for('static', filename='../static/js/side-comments.js') }}"></script>
- 
+
 
 </head>
 
@@ -33,9 +33,10 @@
 	<div class="sidenav">
 		<img class = "logo" src = "/static/white.png">
 		<div class = "sidenav-content">
-			<a href="#"><i class="fas fa-home"></i>  Home</a>
+			<a href="{{url_for('main')}}"><i class="fas fa-home"></i>  Home</a>
 			<a href="{{url_for('list')}}"><i class="fas fa-list-ul"></i>  Software List</a>
-			<a href="#"><i class="fas fa-question-circle"></i>  Help</a>
+			<a href="{{url_for('backup')}}"><i class="fas fa-archive"></i>  Backup</a>
+			<a href="{{url_for('help')}}"><i class="fas fa-question-circle"></i>  Help</a>
 		</div>
 	</div>
 
@@ -104,11 +105,11 @@
 	</script>
 
 	<form role="form" name="myform">
-        
+
 
         <div class="box">
         <h4> Is this the software you are looking for? </h4>
-        	{{ name }} 
+        	{{ name }}
         	<br/>
         	Date checked: {{ last_check }}
         	<br/>
@@ -124,7 +125,7 @@
         <a class = "button is-medium is-orange" onclick="runPyScript()" href="{{url_for('results')}}">Compare Text</a>
 
 
-       
+
 
 
 
