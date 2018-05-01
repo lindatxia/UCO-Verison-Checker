@@ -200,7 +200,7 @@ def process():
 	if result > 0:
 		# There is a record in the database! Let's compare it
 
-		last_version = Version.query.filter_by(software_name=request.form["name"]).first()
+		last_version = Version.query.filter_by(software_name=request.form["name"]).order_by(Version.id.desc()).first()
 
 		last_check = Version.get_date_last_checked(last_version)
 
