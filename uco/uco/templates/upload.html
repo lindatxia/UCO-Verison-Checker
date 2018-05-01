@@ -106,7 +106,9 @@
 
 	</script>
 
+	<div class="box">
 	<form role="form" name="myform">
+	
         <p> {{name}} is a new software in this system. If you have an old terms and agreements (must be .txt file) for this software, you can compare the terms manually here. </p>
 
         <input type="hidden" id="name" name="name" value="{{name}}" required>
@@ -121,13 +123,15 @@
         <a class = "button is-medium" onclick="loadFileAsText()">Load selected file</a>
         <!-- <button onclick="loadFileAsText()">Load selected file</button> -->
         <!-- <p><a onclick="runPyScript()" href="{{url_for('results', my_var=name|safe)}}">Compare Text</a></p> -->
-        <p><a class = "button is-medium is-orange" onclick="runPyScript()" href="{{url_for('results')}}">Compare Text</a>
+        <p><a class = "button is-medium is-orange" onclick="runPyScript()" href="{{url_for('results')}}">Compare Text</a></p>
         </br></br>
 
 		<!-- <div id = "loading"><p><img src="/static/91.gif" /> Please Wait</p></div> -->
 
         <!-- <a class = "button is-medium is-orange" onclick="runPyScript()" href="{{url_for('results')}}">Compare Text</a> -->
+
     </form>
+    </div>
 	<br/><br/>
 
 </div>
