@@ -13,8 +13,12 @@
 	<link rel="stylesheet" media="all" type="text/css" href="/static/js/release/themes/default-theme.css">
 
 	<script type="text/javascript" src="{{ url_for('static', filename='js/release/side-comments.js') }}"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- <script type="text/javascript" src="{{ url_for('static', filename='js/diff.js') }}"></script> -->
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/diff.js') }}"></script>
+
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
 
 	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
  
@@ -28,14 +32,16 @@
 <body>
 
 <div class="container">
+<div class = "changes">
 	<div id="commentable-area">
 		<h1>Changes</h1>
 		<a href = "/return_files/" target="blank">Download New Terms</a>
 		{% block body %}{% endblock %}
 	</div>
 </div>
+</div>
 
-<script>
+<!-- <script>
 	var SideComments = require ('side-comments');
 
 	var currentUser = {
@@ -66,7 +72,7 @@
 
 	console.log(sideComments);
 
-</script>
+</script> -->
 
 </body>
 

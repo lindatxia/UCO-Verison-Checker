@@ -1,59 +1,82 @@
 body {
   margin: 0;
-  font-family: 'Whitney HTF ', sans-serif;
-  src: url('../Whitney/Whitney HTF Book.otf');
-  color: #414141;
+  font-family: 'Fira Sans';
+/*  src: {{ url_for('static', filename= 'FiraSans-Book.otf') }}; 
+*/color: #414141;
   font-size: 0.9em;
   background-color: #FBFDFF;
+  
 }
 
 
 /*@font-face { 
-  font-family: 'Whitney'; 
-  src: url('../fonts/AvenirNextLTPro-Regular.otf'); 
+  font-family: Fira; 
+  src: {{ url_for('static', filename= 'FiraSans-Book.otf') }}; 
+  src: url('FiraSans-Book.otf');
 } */
 
-/*CHANGES DISPLAY*/
-td.added {
-	color: #68FF7C
-}
-
-td.removed {
-	color: #FF8977
-}
-
-.added {
-	background-color: #68FF7C;
-    display: inline;
-}
-
-.removed {
-	background-color: #FF8977;
-    display: inline;
-}
 
 /*CONTAINER/GRIDS */
-#container {
-	background-color: #FFFFFF;
-	width: 60%;
+.box {
+	background-color: #ffffff;
+	width: 100%;
 	margin: auto;
-	margin-top: 200px;
-	padding: 20px;
+	margin-top: 40px;
+	padding: 20px 25px;
 	/*vertical-align: middle;*/
 	border-radius: 1px;
 	box-shadow: 1.5px 5px 14px #B2B2B2;
 }
 
-#container a {
-	color: #4F8BD2;
+.box a {
+	/*color: white;*/
 	text-decoration: none;
-	font-weight: bold;
+	/*font-weight: bold;*/
 }
 
-#container a:hover {
+box a:hover {
 	color: #7fb6f7;
 }
 
+#container {
+	margin: auto;
+	margin-top: 40px;
+	width: 55%;
+}
+
+.changes {
+	line-height: 24px;
+}
+
+.changes th {
+	height: 150px;
+}
+
+
+
+/* HEADERS */
+
+h1 {
+	font-weight: 400;
+}
+
+
+h2 {
+
+}
+
+h3 {
+	font-weight: 400;
+}
+
+h4 {
+	/*color: #FB9D13;*/
+}
+
+.orange {
+	color: #FB9D13;
+	display: inline;
+}
 
 /*BUTTONS */
 
@@ -71,7 +94,13 @@ td.removed {
 	font-size: 0.9em;
 	margin-top: 1em;
 	margin-bottom: 1em;
+	color: white;
 }
+
+.button a {
+	color: white;
+}
+
 
 .button:hover {
 	background-color: #8B97A8;
@@ -81,9 +110,14 @@ td.removed {
 	width: 80px;
 }
 
-.is-green {
-	background-color: #56D379;
+.is-orange {
+	background-color: #FB9D13;
 }
+
+.is-button .is-green a {
+	color: white;
+}
+
 
 .is-green:hover {
 	/*background-color: #49B166;*/
@@ -97,7 +131,7 @@ td.removed {
 /*FORMS*/
 
 input {
-	width: 50%;
+	width: 30%;
 	padding: 12px 20px;
     margin: 8px 0;
     border: none;
@@ -111,4 +145,73 @@ label {
 	color: #747476;
 	/*font-weight: bold;*/
 	font-size: 1.2em;
+}
+
+/** NAV BAR **/
+
+.sidenav {
+	height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 250px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #3E4657; 
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+    box-shadow:  1.5px 1.5px 7px 0px #9B9B9B;
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 28px;
+    text-decoration: none;
+    font-size: 16px;
+    /*color: #818181;*/
+    color: white;
+    display: block;
+
+}
+
+.sidenav-content {
+	padding-top: 60px;
+	padding-left: 15px;
+	line-height: 32px;
+}
+
+.sidenav-content i {
+	padding-right: 15px;
+}
+
+
+/** IMAGES **/
+
+.sidenav .logo {
+	width: 90%;
+	padding: 12px;
+}
+
+/** HEADERS **/
+
+
+#loading {
+	display: none;
+}
+
+/* CHANGES TABLE */
+td.added {
+	color: #68FF7C
+}
+
+td.removed {
+	color: #FF8977
+}
+
+.added {
+	background-color: #68FF7C;
+    display: inline;
+}
+
+.removed {
+	background-color: #FF8977;
+    display: inline;
 }
