@@ -11,6 +11,7 @@ from . import comparison
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
     username="uco",
@@ -253,7 +254,56 @@ def return_files():
 	#return send_file('%s' % new_filename , attachment_filename=new_filename, as_attachment = True)
 	return ''
 
+@app.route('/backup')
+def backup():
+	return render_template('backup.html')
+
+@app.route('/backup_scrape_only', methods=['GET','POST'])
+def backup_scrape_only():
+	message = None
+	global name
+	name = request.form['name'];
+	link = request.form['link'];
+	start = request.form['start'];
+	end = request.form['end'];
+	textFile = request.form['textFile'];
+	date = datetime.today()
+	global new_filename
+	new_filename = name+date.strftime("%m_%d_%y")+".txt"
+	session['new_filename'] = new_filename
+	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
+	os.system(scrapy_call)
+	return ""
+
+@app.route('/backup_compare', methods=['GET', 'POST'])
+def backup_compare():
+	message = None
+	global name
+	name = request.form['name'];
+	link = request.form['link'];
+	start = request.form['start'];
+	end = request.form['end'];
+	textFile = request.form['textFile'];
+	date = datetime.today()
+
+	global new_filename
+	new_filename = "uco/uco"+name+date.strftime("%m_%d_%y")+".txt"
+	session['new_filename'] = new_filename
+
+	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
+	os.system(scrapy_call)
+	comparison.compare(textFile,new_filename,"templates/backup_changes_table.html")
+	return ""
+
+@app.route('/backup_results')
+def backup_results():
+    return render_template('backup_changes_table.html')
+
+@app.route('/backup_return_files/')
+def backup_return_files():
+    new_filename = session.get('new_filename', None)
+    filename = new_filename.replace('/uco/uco','')
+    return send_file('%s' % filename , attachment_filename=filename, as_attachment = True)
 
 if __name__ == '__main__':
 	app.run(threaded=True)
-
