@@ -112,6 +112,10 @@ def results():
 def new(): 
 	return render_template('new.html')
 
+@app.route('/help')
+def help():
+	return render_template('help.html')
+
 @app.route('/create', methods=['GET','POST'])
 def create():
 	return render_template('list.html')

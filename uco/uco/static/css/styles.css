@@ -34,6 +34,11 @@ body {
 	/*font-weight: bold;*/
 }
 
+.box p {
+	line-height: 28px;
+	width: 90%;
+}
+
 box a:hover {
 	color: #7fb6f7;
 }
@@ -190,6 +195,18 @@ label {
 
 }
 
+.sidenav .indented {
+	color: #B1B9CD;
+	padding-left: 60px;
+	/*font-size: 14px;*/
+}
+
+
+
+.sidenav .selected {
+	color: #FB9D13 ;
+}
+
 .sidenav-content {
 	padding-top: 60px;
 	padding-left: 15px;
@@ -216,6 +233,7 @@ label {
 }
 
 /* CHANGES TABLE */
+
 td.added {
 	color: #68FF7C
 }
@@ -249,5 +267,37 @@ td.removed {
 	width: 40%;
 	height: 80%;
 	overflow: auto;
+}
+
+
+#feedback {
+	/*display: none;*/
+}
+
+#load {
+	display: block;
+}
+
+.fileloaded.is-active {
+	display: inline-block;
+	padding-left: 40px;
+}
+
+.fileloaded {
+	display: none;
+}
+
+.is-green {
+	color: #7FD69C;
+}
+
+.is-full {
+	width: 70%;
+	padding: 10px;
+	/*border: gray 1px;*/
+}
+
+.is-half {
+	width: 45%;
 }
 
