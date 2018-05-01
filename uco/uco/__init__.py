@@ -47,9 +47,9 @@ class Software(db.Model):
     versions = db.relationship('Version', backref='software', lazy=True)
 
     def __init__(self, name, isApproved, date_added):
-        self.name = name
-        self.isApproved = isApproved
-        self.date_added = date_added
+    	self.name = name
+    	self.isApproved = isApproved
+    	self.date_added = date_added
 
 
 class Version(db.Model):
@@ -65,10 +65,10 @@ class Version(db.Model):
     comments = db.relationship('Comment', backref='version', lazy=True)
 
     def __init__(self, software_name, date_last_checked, date_last_updated, parsed_text):
-        self.software_name = software_name
-        self.date_last_checked = date_last_checked
-        self.date_last_updated = date_last_updated
-        self.parsed_text = parsed_text
+    	self.software_name = software_name
+    	self.date_last_checked = date_last_checked
+    	self.date_last_updated = date_last_updated
+    	self.parsed_text = parsed_text
 
     def get_date_last_checked(self):
     	return self.date_last_updated
@@ -83,9 +83,9 @@ class Comment(db.Model):
 	line_number = db.Column(db.Integer)
 
 	def __init__(self, version_id, comment_text, line_number):
-        self.version_id = version_id
-        self.comment_text = comment_text
-        self.line_number = line_number
+		self.version_id = version_id
+		self.comment_text = comment_text
+		self.line_number = line_number
     
 
 class Link(db.Model):
@@ -99,11 +99,11 @@ class Link(db.Model):
 	end_text = db.Column(db.Text)
 
 	def __init__(self, version_id, link_type, address, start_text, end_text):
-        self.version_id = version_id
-        self.link_type = link_type
-        self.address = address
-        self.start_text = start_text
-        self.end_text = end_text
+		self.version_id = version_id
+		self.link_type = link_type
+		self.address = address
+		self.start_text = start_text
+		self.end_text = end_text
 
 
 ###################################
