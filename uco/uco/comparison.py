@@ -6,6 +6,8 @@ from difflib import SequenceMatcher
 def compare(old,new,filename):
     print("it's reaching here")
     print(old)
+    print("/////")
+    print(new)
     out = get_differences(old,new)
     out_new = compute_word_diffs(out)
     make_html_table(out_new,filename)
