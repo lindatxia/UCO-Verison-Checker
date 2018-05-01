@@ -70,8 +70,8 @@ class Version(db.Model):
         self.date_last_updated = date_last_updated
         self.parsed_text = parsed_text
 
-    def get_date_last_checked:
-    	return date_last_updated
+    def get_date_last_checked(self):
+    	return self.date_last_updated
 
 
 class Comment(db.Model):
