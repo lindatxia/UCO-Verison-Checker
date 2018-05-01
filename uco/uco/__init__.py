@@ -231,17 +231,6 @@ def process():
 
 		return render_template('upload.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'])
 
-	else:
-		# The system has not seen this
-		software = Software(name=request.form["name"], date_added=datetime.now())
-		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now())
-
-		db.session.add(software)
-		db.session.add(version)
-		db.session.commit()
-
-		return render_template('upload.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'])
-
 @app.route('/compare', methods=['GET', 'POST'])
 def compare():
 	message = None
