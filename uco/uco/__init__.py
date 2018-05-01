@@ -195,16 +195,15 @@ def process():
 	# cursor.close()
 
 	result = Software.query.filter_by(name=request.form['name']).count()
-	last_check= Version.query.filter_by(software_name=request.form['name']).
+	last_check= Version.query.filter_by(software_name=request.form['name']).get_date_last_checked;
 
 	if result > 0: 
 		# There is a record in the database! Let's compare it 
-
 		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now())
 
 		db.session.add(version)
 		db.session.commit()
-		return render_template('confirm.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'], last_check=)
+		return render_template('confirm.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'], last_check=last_check)
 
 
 	else:
