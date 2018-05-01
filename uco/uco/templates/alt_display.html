@@ -1,0 +1,42 @@
+<!DOCTYPE html> 
+<html lang="en">
+
+<head> 
+
+	<title> CMU Contracts Versioning Prototype </title>
+	<!-- <script rel="stylesheet" media="all" type="text/css" src="{{ url_for('static', filename='css/styles.css') }}"></script>
+	<script rel="stylesheet" media="all" type="text/css" src="{{ url_for('static', filename='js/release/side-comments.css') }}"></script>
+	<script rel="stylesheet" media="all" type="text/css" src="{{ url_for('static', filename='js/release/themes/default-theme.css') }}"></script> -->
+
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+	<!-- <link rel="stylesheet" media="all" type="text/css" href="{{ url_for('static',filename='js/release/side-comments.css')}}">
+
+	<link rel="stylesheet" media="all" type="text/css" href="{{ url_for('static',filename='js/release/themes/default-theme.css') }}">
+
+	<script type="text/javascript" src="{{ url_for('static', filename='js/release/side-comments.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/diff.js') }}"></script> -->
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/diff.js') }}"></script>
+
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+
+ 
+</head>
+
+<body>
+
+<h1 class = "center-text">Changes</h1>
+<div class = "description">
+	<a href = "{{url_for('main')}}" target="blank">Back to Form</a> | <a href = "{{url_for('results')}}" target="blank">Back to Combined Changes</a></div>
+</div>
+
+<div id = "side-changes">
+	{% block changes %}{% endblock %}
+</div>
+
+
+</body>
+
+
+</html>

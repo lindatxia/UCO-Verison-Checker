@@ -27,13 +27,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # Connects to the MySQL database
 db = SQLAlchemy(app)
 
-
-# import pymysql
-# connection = pymysql.connect(user='uco', password='ucodreamteam',
-#                                  host='uco.mysql.pythonanywhere-services.com',
-#                                  database='uco$versioning')
-
-
 ##################################
 ########### MODELS ###############
 ##################################
@@ -140,6 +133,11 @@ def results():
 def new():
 	return render_template('new.html')
 
+@app.route('/help')
+def help():
+	return render_template('help.html')
+
+
 @app.route('/create', methods=['GET','POST'])
 def create():
 
@@ -211,6 +209,27 @@ def process():
 
 		return render_template('confirm.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'], last_check=last_check)
 
+		last_version = Version.query.filter_by(software_name=request.form["name"]).order_by(Version.id.desc()).first()
+
+		last_check = Version.get_date_last_checked(last_version)
+
+		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now(), date_last_updated=None)
+		db.session.add(version)
+		db.session.commit()
+
+		return render_template('confirm.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'], last_check=last_check)
+
+
+	else:
+		# The system has not seen this
+		software = Software(name=request.form["name"], date_added=datetime.now())
+		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now())
+
+		db.session.add(software)
+		db.session.add(version)
+		db.session.commit()
+
+		return render_template('upload.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'])
 
 	else:
 		# The system has not seen this

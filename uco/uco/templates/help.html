@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<title> CMU Contracts Versioning</title>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/diff.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/animations.js') }}"></script>
+
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+
+	<!-- <link type="text/css" rel="stylesheet" href=" {{ url_for('static', filename='FiraSans-Book.otf')}}"/>  -->
+
+	<link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,600" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+
+	<!-- <link rel="stylesheet" media="all" type="text/css" href="../static/css/styles.css?q=1280549780"/> -->
+
+	<link rel="stylesheet" media="all" type="text/css" href="../static/css/default-theme.css"/>
+
+	<link rel="stylesheet" media="all" type="text/css" href="../static/css/side-comments.css"/>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="{{
+  		url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
+	<script src="{{ url_for('static', filename='../static/js/side-comments.js') }}"></script>
+ 
+
+</head>
+
+<body>
+	<div class="sidenav">
+		<img class = "logo" src = "/static/white.png">
+		<div class = "sidenav-content">
+			<a href="{{url_for('main')}}"><i class="fas fa-home"></i>  Home</a>
+			<a href="#"><i class="fas fa-list-ul"></i>  Software List</a>
+			<a href="{{url_for('help')}}"><i class="fas fa-question-circle"></i>  Help</a>
+			<a class = "indented selected" href="#"></i>  Documentation</a>
+			<a class = "indented" href="#"></i>  Download Files</a>
+			<a class = "indented" href="#"></i>  Videos</a>
+		</div>
+	</div>
+
+<div id="container">
+
+	<br/><br/>
+	<h1> <div class = "orange">|</div> Help + Documentation </h1>
+	<p></p>
+
+
+
+	<div class = "box">
+		<h2>How to Use</h2>
+
+		<p>To get started with our application, have the link of the software agremeent you are using at hand. First enter the name of the software (if you are entering for a specific agreement type, add the type into this name. For example "asana-eula") and the link to the specific agreement you want to compare.
+		</p>
+
+		<img class = "is-full" src = "/static/step1.png">
+
+		<p><br />Next you will need to enter in the starting section and ending section of the document. <br /><br /></p>
+
+		<img class = "is-full" src = "/static/step2.png">
+		<img class = "is-half" src = "/static/highlightbeg.png">
+		<img class = "is-half" src = "/static/highlightend.png">
+
+		<p><br />If you have exisiting software in the system that matches, the system will identify it for you and ask if you would like to compare the text. <br /></p>
+
+		<img class = "is-full" src = "/static/exisiting.png">
+
+		<p>If the software is a new software in the system, you are able to manually load in the old file that may exisit on your file system. Click Choose file to insert it in. Then click load selected file to load the file and then click Continue.
+		</p>
+
+		<img class = "is-full" src = "/static/newsoftware.png">
+
+	</div>
+	
+
+
+
+
+
+</div>
+
+</body>
+
+
+</html>
