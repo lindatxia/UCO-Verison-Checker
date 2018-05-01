@@ -4,13 +4,6 @@ from difflib import SequenceMatcher
 # compares a and b and outputs a HTML table of the changes.
 
 def compare(old,new,filename):
-<<<<<<< HEAD
-    print("it's reaching here")
-    print(old)
-    print("/////")
-    print(new)
-=======
->>>>>>> 18a4908650bc709d68605835e8dc748a1f652bba
     out = get_differences(old,new)
     out_new = compute_word_diffs(out)
     make_html_table(out_new,filename)
