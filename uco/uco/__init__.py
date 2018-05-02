@@ -119,7 +119,7 @@ def scrape_only():
 	textFile = request.form['textFile'];
 	date = datetime.today()
 	global new_filename
-	new_filename = name+date.strftime("%m_%d_%y")+".txt"
+	new_filename = "uco/uco/"+name+date.strftime("%m_%d_%y")+".txt"
 
 	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
 	os.system(scrapy_call)
@@ -151,7 +151,7 @@ def create():
 
 	# New terms will be saved into a file, which we can read to obtain the updated terms of agreement
 	date = datetime.today()
-	new_filename = name+date.strftime("%m_%d_%y")+".txt"
+	new_filename = "uco/uco/"+name+date.strftime("%m_%d_%y")+".txt"
 	f = open(new_filename,"r+")
 	text = f.read()
 	f.close()
@@ -182,7 +182,7 @@ def process():
 
 	# New terms will be saved into a file, which we can read to obtain the updated terms of agreement
 	date = datetime.today()
-	new_filename = name+date.strftime("%m_%d_%y")+".txt"
+	new_filename = "uco/uco/"+name+date.strftime("%m_%d_%y")+".txt"
 	f = open(new_filename,"r+")
 	text = f.read()
 	f.close()
@@ -245,17 +245,18 @@ def compare():
 	date = datetime.today()
 
 	global new_filename
-	new_filename = name+date.strftime("%m_%d_%y")+".txt"
+	new_filename = "uco/uco/"+name+date.strftime("%m_%d_%y")+".txt"
+	print(new_filename)
 
 	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
 	os.system(scrapy_call)
-	comparison.compare(textFile,new_filename,"uco/uco/templates/changes_table.html")
+	comparison.compare("uco/uco/"+textFile,new_filename,"uco/uco/templates/changes_table.html")
 	return ""
 
 @app.route('/returndownload', methods=['GET', 'POST'])
 def returndownload():
     date = datetime.today()
-    new_filename = name+date.strftime("%m_%d_%y")+".txt"
+    new_filename = "uco/uco/"+name+date.strftime("%m_%d_%y")+".txt"
     return Response('',mimetype="text/plain", headers={"Content-Disposition":
                                     "attachment; filename=%s" % new_filename})
 
@@ -263,6 +264,10 @@ def returndownload():
 def return_files():
 	#return send_file('%s' % new_filename , attachment_filename=new_filename, as_attachment = True)
 	return ''
+
+@app.route('/display_terms/')
+def display_terms():
+	return render_template('split_changes.html')
 
 @app.route('/backup')
 def backup():
@@ -279,7 +284,7 @@ def backup_scrape_only():
 	textFile = request.form['textFile'];
 	date = datetime.today()
 	global new_filename
-	new_filename = name+date.strftime("%m_%d_%y")+".txt"
+	new_filename = "uco/uco/"+name+date.strftime("%m_%d_%y")+".txt"
 	session['new_filename'] = new_filename
 	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
 	os.system(scrapy_call)

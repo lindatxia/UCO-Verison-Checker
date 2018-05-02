@@ -25,7 +25,7 @@ def get_differences(old,new):
     return result
 
 def write_html_files(old,new):
-    ans = ['''{% extends "alt_display.html" %}\n''','''{% block changes %}\n''','<table id="old">\n']
+    ans = ['''{% extends "alt_display.html" %}\n''','''{% block changes %}\n''','<table class="box" id="old">\n']
     for line in old:
         front = '\t<tr>\n\t\t<td>'
         words = line
@@ -36,7 +36,7 @@ def write_html_files(old,new):
             ans.append(str(add_line(words,front,0,"#")))
     ans.append('</table>\n')
 
-    ans.append('<table id="new">\n')
+    ans.append('<table class="box" id="new">\n')
     for line in new:
         front = '\t<tr>\n\t\t<td>'
         words = line

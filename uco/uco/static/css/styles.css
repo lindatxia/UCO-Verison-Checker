@@ -1,17 +1,17 @@
 body {
   margin: 0;
   font-family: 'Fira Sans';
-/*  src: {{ url_for('static', filename= 'FiraSans-Book.otf') }}; 
+/*  src: {{ url_for('static', filename= 'FiraSans-Book.otf') }};
 */color: #414141;
   font-size: 0.9em;
   background-color: #FBFDFF;
-  
+
 }
 
 
-/*@font-face { 
-  font-family: Fira; 
-  src: {{ url_for('static', filename= 'FiraSans-Book.otf') }}; 
+/*@font-face {
+  font-family: Fira;
+  src: {{ url_for('static', filename= 'FiraSans-Book.otf') }};
   src: url('FiraSans-Book.otf');
 } */
 
@@ -151,6 +151,11 @@ h5 {
 	width: 220px;
 }
 
+.sticky {
+  position: fixed;
+  top: 0;
+}
+
 /*FORMS*/
 
 input {
@@ -179,7 +184,7 @@ label {
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
-    background-color: #3E4657; 
+    background-color: #3E4657;
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
     box-shadow:  1.5px 1.5px 7px 0px #9B9B9B;
@@ -232,11 +237,11 @@ label {
 	display: none;
 }
 
-/* CHANGES TABLE */
-<<<<<<< HEAD
-=======
+/* CHANGES */
+#description a {
+	font-size: 14pt;
+}
 
->>>>>>> 18a4908650bc709d68605835e8dc748a1f652bba
 td.added {
 	color: #68FF7C
 }
@@ -248,32 +253,47 @@ td.removed {
 .added {
 	background-color: #68FF7C;
     display: inline;
+    font-size: 14pt
 }
 
 .removed {
 	background-color: #FF8977;
     display: inline;
+    font-size: 14pt;
 }
-<<<<<<< HEAD
-=======
+
+#changes_body p {
+	font-size: 14pt;
+}
+
+#stick a {
+	text-decoration: none;
+}
 
 /* SPLIT CHANGES TABLES */
-.side-changes { 
-
+.side-changes {
+	margin: auto;
+	margin-top: 40px;
+	width: 75%;
 }
 
 #old {
 	width: 40%;
-	height: 80%;
 	overflow: auto;
+	float: left;
+	background-color: #FFE2E2;
 }
 
 #new {
 	width: 40%;
-	height: 80%;
 	overflow: auto;
+	float: right;
+	background-color: #DBFFE6;
 }
 
+
+
+/* LOADING STUFF */
 
 #feedback {
 	/*display: none;*/
@@ -306,4 +326,4 @@ td.removed {
 	width: 45%;
 }
 
->>>>>>> 18a4908650bc709d68605835e8dc748a1f652bba
+

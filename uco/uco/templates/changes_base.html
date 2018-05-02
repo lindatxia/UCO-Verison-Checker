@@ -1,15 +1,16 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 
-<head> 
+<head>
 
 	<title> CMU Contracts Versioning Prototype </title>
 	<!-- <script rel="stylesheet" media="all" type="text/css" src="{{ url_for('static', filename='css/styles.css') }}"></script>
 	<script rel="stylesheet" media="all" type="text/css" src="{{ url_for('static', filename='js/release/side-comments.css') }}"></script>
 	<script rel="stylesheet" media="all" type="text/css" src="{{ url_for('static', filename='js/release/themes/default-theme.css') }}"></script> -->
 
-	<link rel="stylesheet" media="all" type="text/css" href="/static/css/styles.css" />
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
 	<link rel="stylesheet" media="all" type="text/css" href="/static/js/release/side-comments.css">
+
 	<link rel="stylesheet" media="all" type="text/css" href="/static/js/release/themes/default-theme.css">
 
 	<script type="text/javascript" src="{{ url_for('static', filename='js/release/side-comments.js') }}"></script>
@@ -20,59 +21,84 @@
 
 	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
 
-	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
- 
-</head>
 
-<style type="text/css">
-	td.added {background-color: #68FF7C}
-	td.removed {background-color: #FF8977}
-</style>
+</head>
 
 <body>
 
-<div class="container">
+<div id = "stick">
+<a class = "button is-medium is-orange" href = "{{url_for('main')}}" target="_self">Back to Form</a>
+<a class = "button is-medium back-to-top" href = "#container" target="_self">Back to Top</a>
+</div>
+
+<div id="container">
 <div class = "changes">
-	<div id="commentable-area">
-		<h1>Changes</h1>
-		<a href = "/return_files/" target="blank">Download New Terms</a>
-		{% block body %}{% endblock %}
+	<div class="box">
+		<h1 class = "center-text">Changes</h1>
+		<div class = "description">
+			<a href = "{{url_for('display_terms')}}" target="_self">Side by Side Compare</a> | <a href = "/return_files/" target="blank">Download New Terms</a>
+		</div>
+		<div id="commentable-area">
+			<div id = "changes_body">
+				{% block body %}{% endblock %}
+			</div>
+		</div>
 	</div>
 </div>
-</div>
 
-<!-- <script>
-	var SideComments = require ('side-comments');
+ <!-- // <script>
+// 	var SideComments = require ('side-comments');
 
-	var currentUser = {
-		id: 1,
-		avatarUrl: "",
-  		name: "You"
-	};
+// 	var currentUser = {
+// 		id: 1,
+// 		avatarUrl: "",
+//   		name: "You"
+// 	};
 
-	var existingComments = [
-		  {
-		    "sectionId": "1",
-		    "comments": [
-		      {
-		        "authorAvatarUrl": "",
-		        "authorName": "Jon Sno",
-		        "comment": "I'm Ned Stark's bastard. Related: I know nothing."
-		      },
-		      {
-		        "authorAvatarUrl": "",
-		        "authorName": "Donald Draper",
-		        "comment": "I need a scotch."
-		      }
-		    ]
-		  },
-		];
+// 	var existingComments = [
+// 		  {
+// 		    "sectionId": "1",
+// 		    "comments": [
+// 		      {
+// 		        "authorAvatarUrl": "",
+// 		        "authorName": "Jon Sno",
+// 		        "comment": "I'm Ned Stark's bastard. Related: I know nothing."
+// 		      },
+// 		      {
+// 		        "authorAvatarUrl": "",
+// 		        "authorName": "Donald Draper",
+// 		        "comment": "I need a scotch."
+// 		      }
+// 		    ]
+// 		  },
+// 		];
 
-	sideComments = new SideComments('#commentable-area', currentUser, existingComments);
+// 	sideComments = new SideComments('#commentable-area', currentUser, existingComments);
 
-	console.log(sideComments);
+// 	console.log(sideComments);
 
-</script> -->
+// </script> -->
+
+<script>
+
+// When the user scrolls the page, execute myFunction
+window.onscroll = function() {myFunction()};
+
+// Get the navbar
+var buttons = document.getElementById("stick");
+
+// Get the offset position of the navbar
+var sticky = buttons.offsetTop;
+
+// Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    buttons.classList.add("sticky")
+  } else {
+    buttons.classList.remove("sticky");
+  }
+}
+ </script>
 
 </body>
 
