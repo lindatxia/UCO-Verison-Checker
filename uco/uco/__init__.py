@@ -167,7 +167,7 @@ def create():
 
 @app.route('/list')
 def list():
-	return render_template('list.html', softwares=Software.query.all())
+	return render_template('list.html', softwares=Software.query.order_by(models.Sofware.name).all())
 
 @app.route('/process', methods=['GET','POST'])
 def process():

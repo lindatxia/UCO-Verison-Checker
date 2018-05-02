@@ -43,11 +43,42 @@
 	<h1> <div class = "orange">|</div> List of Software Versions </h1>
 	<br/><br/>
 
-    <div class="box">
-	{% for software in softwares %}
-        {{ software.name }}
-        <br/>
+    <form id="software-search">
+    	<select id='software-select'>
+    		{% for software in softwares %}
+    			<option value = "#{{software.name}}">{{ software.name}}</option>
+    		{% endfor %}
+    	</select>
+    	<a class="button" onclick="myFunction()">Search</a>
+	</form>
+
+	<script>
+	   // var search_value = document.getElementById('software-search').value;
+	   // console.log(search_value)
+	   // window.location.href = search_value;
+	   function myFunction() {
+            var x = document.getElementById("software-search");
+            var text = "";
+            var i;
+            text += x.elements[0].value;
+            console.log(text);
+            window.location.href = text;
+        }
+	</script>
+
+    <div class="box" id = "software-list">
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Date Added</th>
+		</tr>
+		{% for software in softwares %}
+		<tr id = "{{software.name}}">
+        	<td>{{ software.name }}</td>
+        	<td>{{ software.date_added}}</td>
+        </tr>
     {% endfor %}
+   	</table>
     </div>
 
 	<br/><br/>

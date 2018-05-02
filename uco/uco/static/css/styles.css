@@ -326,4 +326,8 @@ td.removed {
 	width: 45%;
 }
 
+/* LIST */
+#software-list tr {
+    height: 300px;
+}
 
