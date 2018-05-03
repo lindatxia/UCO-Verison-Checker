@@ -187,14 +187,7 @@ def process():
 	text = f.read()
 	f.close()
 
-	# If there is a record in the database for this particular software, automatically go to compare
-	# cursor = connection.cursor()
-	# cursor.execute("SELECT * FROM software WHERE name='%s'" % (name,))
-	# result = [item[0] for item in cursor.fetchall()]
-	# cursor.close()
-
 	result = Software.query.filter_by(name=request.form['name']).count()
-
 
 	if result > 0:
 		# There is a record in the database! Let's compare it
@@ -224,8 +217,6 @@ def process():
 		# The system has not seen this
 		software = Software(name=request.form["name"], date_added=datetime.now(), isApproved=None)
 		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now(), date_last_updated=None)
-
-
 
 		db.session.add(software)
 		db.session.add(version)
@@ -259,11 +250,12 @@ def returndownload():
     new_filename = "uco/uco/"+name+date.strftime("%m_%d_%y")+".txt"
     return Response('',mimetype="text/plain", headers={"Content-Disposition":
                                     "attachment; filename=%s" % new_filename})
-
+	#return send_file('%s' % new_filename , attachment_filename=new_filename, as_attachment = True)
 @app.route('/return_files/')
 def return_files():
-	#return send_file('%s' % new_filename , attachment_filename=new_filename, as_attachment = True)
-	return ''
+    date = datetime.today()
+    new_filename = name+date.strftime("%m_%d_%y")+".txt"
+    return Response('',mimetype="text/plain", headers={"Content-Disposition":"attachment; filename=%s" % new_filename})
 
 @app.route('/display_terms/')
 def display_terms():

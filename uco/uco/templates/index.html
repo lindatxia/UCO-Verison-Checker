@@ -101,21 +101,24 @@
 		var start = $('#start').val();
 		var end = $('#end').val();
 		var textFile = $('#textFile').val();
+		$("#software-info").submit(function() {
+            $('body').addClass("loading")
+		});
         $.ajax({
             type: "POST",
             url: "/scrape_only",
             async: false,
             dataType: "html",
             data: $('form').serialize()
-    })};
-
+    })
+    };
 
 	</script>
 
 	<div class = "box">
 
 
-	<form action="{{ url_for('process') }}" method="post">
+	<form action="{{ url_for('process') }}" method="post" id="software-info">
 		<h3>Step 1: Add Software Info</h3>
 	        <input type="text" id="name" name="name" placeholder="Software Name" required>
 	        <input type="text" id="link" name="link" placeholder="Link" required>
@@ -127,6 +130,7 @@
 	        <!-- <p><a class = "button is-medium is-orange" onclick="runPyScript2()" href = "/return_files" target="_blank">Next</a></p> -->
 
 	        <input type="submit" class = "button is-medium is-orange" onclick="runPyScript2()" value="Next">
+	        <div class = "modal"></div>
     </form>
 
 

@@ -274,18 +274,18 @@ td.removed {
 .side-changes {
 	margin: auto;
 	margin-top: 40px;
-	width: 75%;
+	width: 85%;
 }
 
 #old {
-	width: 40%;
+	width: 30%;
 	overflow: auto;
 	float: left;
 	background-color: #FFE2E2;
 }
 
 #new {
-	width: 40%;
+	width: 30%;
 	overflow: auto;
 	float: right;
 	background-color: #DBFFE6;
@@ -329,5 +329,25 @@ td.removed {
 /* LIST */
 #software-list tr {
     height: 300px;
+}
+
+/* LOADING BUTTONS */
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 )
+                url('loading.gif')
+                50% 50%
+                no-repeat;
+}
+
+
+body.loading .modal {
+    display: block;
 }
 
