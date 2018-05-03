@@ -129,41 +129,9 @@ def scrape_only():
 def results():
     return render_template('changes_table.html')
 
-@app.route('/new')
-def new():
-	return render_template('new.html')
-
 @app.route('/help')
 def help():
 	return render_template('help.html')
-
-
-@app.route('/create', methods=['GET','POST'])
-def create():
-
-	name = request.form['name'];
-	link = request.form['link'];
-	start = request.form['start'];
-	end = request.form['end'];
-
-	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
-	os.system(scrapy_call)
-
-	# New terms will be saved into a file, which we can read to obtain the updated terms of agreement
-	date = datetime.today()
-	new_filename = "uco/uco/"+name+date.strftime("%m_%d_%y")+".txt"
-	f = open(new_filename,"r+")
-	text = f.read()
-	f.close()
-
-	software = Software(name=request.form["name"], date_added=datetime.now())
-	version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now())
-
-	# db.session.add(software)
-	# db.session.add(version)
-	# db.session.commit()
-
-	return redirect(url_for('list'))
 
 @app.route('/list')
 def list():
@@ -201,17 +169,6 @@ def process():
 		db.session.commit()
 
 		return render_template('confirm.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'], last_check=last_check)
-
-		last_version = Version.query.filter_by(software_name=request.form["name"]).order_by(Version.id.desc()).first()
-
-		last_check = Version.get_date_last_checked(last_version)
-
-		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now(), date_last_updated=None)
-		db.session.add(version)
-		db.session.commit()
-
-		return render_template('confirm.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'], last_check=last_check)
-
 
 	else:
 		# The system has not seen this

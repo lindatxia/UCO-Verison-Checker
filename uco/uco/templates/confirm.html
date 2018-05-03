@@ -112,7 +112,9 @@
         	{{ name }}
         	<br/>
         	Date checked: {{ last_check }}
-        	<br/>
+        	<br/><p><br /></p>
+        	<a class = "button is-medium is-orange" onclick="runPyScript()" href="{{url_for('results')}}">Compare Text</a>
+
         </div>
 
         <input type="hidden" id="name" name="name" value="{{name}}" required>
@@ -122,7 +124,6 @@
         <input type="hidden" id="textFile" name="textFile" type="text" value="0" />
 
         <br/><br/>
-        <a class = "button is-medium is-orange" onclick="runPyScript()" href="{{url_for('results')}}">Compare Text</a>
 
 
 
