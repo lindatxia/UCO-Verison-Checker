@@ -155,31 +155,30 @@ def process():
 	text = f.read()
 	f.close()
 
-	result = Software.query.filter_by(name=request.form['name']).count()
+	result = Software.query.filter_by(name=name).count()
 
+    # There exists a record in the database for this particular software
 	if result > 0:
-		# There is a record in the database! Let's compare it
 
 		last_version = Version.query.filter_by(software_name=request.form["name"]).order_by(Version.id.desc()).first()
-
 		last_check = Version.get_date_last_checked(last_version)
 
 		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now(), date_last_updated=None)
 		db.session.add(version)
 		db.session.commit()
 
-		return render_template('confirm.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'], last_check=last_check)
+		return render_template('confirm.html', name=name, link=link, start=start, end=end, last_check=last_check)
 
+    # This is a new software being entered into the system/databases
 	else:
-		# The system has not seen this
-		software = Software(name=request.form["name"], date_added=datetime.now(), isApproved=None)
-		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now(), date_last_updated=None)
+		software = Software(name=name, date_added=datetime.now(), isApproved=None)
+		version = Version(software_name=name, parsed_text=text, date_last_checked=datetime.now(), date_last_updated=None)
 
 		db.session.add(software)
 		db.session.add(version)
 		db.session.commit()
 
-		return render_template('upload.html', name=request.form["name"], link = request.form['link'], start = request.form['start'],end = request.form['end'])
+		return render_template('upload.html', name=name, link=link, start=start, end=end)
 
 @app.route('/compare', methods=['GET', 'POST'])
 def compare():
