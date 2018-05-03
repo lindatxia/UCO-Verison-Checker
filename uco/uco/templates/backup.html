@@ -55,6 +55,7 @@
 	function loadFileAsText(){
 		var fileToLoad = document.getElementById("fileToLoad").files[0];
 		var fileReader = new FileReader();
+		var element = document.getElementById("feedback");
 
 		fileReader.onload = function(fileLoadedEvent){
 			console.log("loading file")
@@ -62,6 +63,7 @@
 			/* Call on the callback */
 			oldTerms = textFromFileLoaded
 			getLoadedText(textFromFileLoaded);
+			element.classList.toggle("is-active");
 		};
 
 		fileReader.readAsText(fileToLoad);
@@ -71,6 +73,7 @@
 			oldTerms = data;
 			// pass text into hidden form input called textFile
 			document.myform.textFile.value = oldTerms;
+
 		}
 	}
 
@@ -127,7 +130,7 @@
     <h5>*optional</h5>
 
 	<input type="file" id="fileToLoad" name="fileToLoad">
-	<a class = "button is-medium" onclick="loadFileAsText()">Load selected file</a></br>
+	<a class = "button is-medium" onclick="loadFileAsText()">Load selected file</a><div id = "feedback" class = "fileloaded"> <i class="fas fa-check is-green"></i> File Loaded</div></br>
 	<!-- <button onclick="loadFileAsText()">Load selected file</button> -->
 	<!-- <p><a onclick="runPyScript()" href="{{url_for('results', my_var=name|safe)}}">Compare Text</a></p> -->
 	<a class = "button is-medium is-orange" onclick="runPyScript()" href="{{url_for('backup_results')}}">Compare Text</a>
