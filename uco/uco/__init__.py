@@ -182,6 +182,7 @@ def process():
 		db.session.commit()
 		return render_template('upload.html', name=name, link=link, start=start, end=end)
 
+
 @app.route('/compare', methods=['GET', 'POST'])
 def compare():
 	name = request.form['name'];
@@ -193,9 +194,6 @@ def compare():
 	date = datetime.today()
 
 	new_filename = "uco/uco/"+name+date.strftime("%m_%d_%y")+".txt"
-
-# 	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
-# 	os.system(scrapy_call)
 
     # at this point the software is already in the database whether new or not
     # if it is new it was added to the db in the process route
@@ -279,6 +277,13 @@ def backup_compare():
 
 @app.route('/backup_results')
 def backup_results():
+    name = request.form['name'];
+    new_filename = name+date.strftime("%m_%d_%y")+".txt"
+    try:
+        os.remove(new_filename)
+    except OSError:
+        pass
+
     return render_template('backup_changes_table.html')
 
 @app.route('/backup_return_files/')
