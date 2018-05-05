@@ -25,7 +25,7 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
 	<script src="{{ url_for('static', filename='../static/js/side-comments.js') }}"></script>
- 
+
 
 </head>
 
@@ -35,7 +35,8 @@
 	<div class = "sidenav-content">
 	<a href="#"><i class="fas fa-home"></i>  Home</a>
 	<a href="{{url_for('list')}}"><i class="fas fa-list-ul"></i>  Software List</a>
-	<a href="#"><i class="fas fa-question-circle"></i>  Help</a>
+	<a href="{{url_for('backup')}}"><i class="fas fa-archive"></i>  Backup</a>
+	<a href="{{url_for('help')}}"><i class="fas fa-question-circle"></i>  Help</a>
 	</div>
 </div>
 
@@ -51,6 +52,7 @@
 	function loadFileAsText() {
 		var fileToLoad = document.getElementById("fileToLoad").files[0];
 		var fileReader = new FileReader();
+		var element = document.getElementById("feedback");
 
 		/* This is an asynchronous call */
 		fileReader.readAsText(fileToLoad);
@@ -61,12 +63,13 @@
 			/* Call on the callback */
 			oldTerms = textFromFileLoaded
 			getLoadedText(textFromFileLoaded);
+			element.classList.toggle("is-active");
+
 		};
 
 		/* Callback definition */
 		var getLoadedText = function(data) {
 			oldTerms = data;
-			alert(oldTerms);
 			// pass text into hidden form input called textFile
 			document.myform.textFile.value = oldTerms;
 		}
@@ -108,7 +111,7 @@
 
 	<div class="box">
 	<form role="form" name="myform">
-	
+
         <p> {{name}} is a new software in this system. If you have an old terms and agreements (must be .txt file) for this software, you can compare the terms manually here. </p>
 
         <input type="hidden" id="name" name="name" value="{{name}}" required>
@@ -120,7 +123,8 @@
         <p><br /></p>
 
         <input type="file" id="fileToLoad" name="fileToLoad">
-        <a class = "button is-medium" onclick="loadFileAsText()">Load selected file</a>
+        <a class = "button is-medium" onclick="loadFileAsText()">Load selected file</a><div id = "feedback" class = "fileloaded"> <i class="fas fa-check is-green"></i> File Loaded</div></br>
+
         <!-- <button onclick="loadFileAsText()">Load selected file</button> -->
         <!-- <p><a onclick="runPyScript()" href="{{url_for('results', my_var=name|safe)}}">Compare Text</a></p> -->
         <p><a class = "button is-medium is-orange" onclick="runPyScript()" href="{{url_for('results')}}">Compare Text</a></p>
@@ -129,6 +133,9 @@
 		<!-- <div id = "loading"><p><img src="/static/91.gif" /> Please Wait</p></div> -->
 
         <!-- <a class = "button is-medium is-orange" onclick="runPyScript()" href="{{url_for('results')}}">Compare Text</a> -->
+
+
+
 
     </form>
     </div>

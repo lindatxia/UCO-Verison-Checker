@@ -29,23 +29,18 @@
 <body>
 
 <div id = "stick">
-<a class = "button is-medium is-orange" href = "{{url_for('main')}}" target="_self">Back to Form</a>
-<a class = "button is-medium back-to-top" href = "#container" target="_self">Back to Top</a>
+<a class = "button is-medium is-orange" href = "{{url_for('main')}}" target="_self">Back to Form</a></br>
+<a class = "button is-medium back-to-top" href = "#side-changes" target="_self">Back to Top</a></br>
+<a class = "button is-medium back-to-top" href = "{{url_for('results')}}" target="_self">Back to Combined Changes</a>
 </div>
 
-<div id="container">
-<div class = "changes">
-	<div class="box">
+<div class = "side-changes" id="side-changes">
 		<h1 class = "center-text">Changes</h1>
-		<div class = "description">
-			<a href = "{{url_for('display_terms')}}" target="_self">Side by Side Compare</a> | <a href = "/return_files/" target="blank">Download New Terms</a>
-		</div>
 		<div id="commentable-area">
 			<div id = "changes_body">
-				{% block body %}{% endblock %}
+				{% block changes %}{% endblock %}
 			</div>
 		</div>
-	</div>
 </div>
 
  <!-- // <script>

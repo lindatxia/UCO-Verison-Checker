@@ -12,9 +12,9 @@ from difflib import Differ
 from pprint import pprint
 from selenium import webdriver
 
-import sys  
+import sys
 
-reload(sys)  
+reload(sys)
 sys.setdefaultencoding('utf8')
 
 
@@ -32,7 +32,7 @@ class S1(Spider):
         text = response.xpath("//body//text()").extract()
         text = ''.join(text)
         text = clean_text(text,self.start,self.end)
-        new_filename = self.name+datetime.date.today().strftime("%m_%d_%y")+".txt"
+        new_filename = "uco/uco/"+self.name+datetime.date.today().strftime("%m_%d_%y")+".txt"
 
         f= open(new_filename,"w+")
         for line in text:

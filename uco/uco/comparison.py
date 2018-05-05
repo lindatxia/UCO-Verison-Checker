@@ -4,10 +4,6 @@ from difflib import SequenceMatcher
 # compares a and b and outputs a HTML table of the changes.
 
 def compare(old,new,filename):
-    print("it's reaching here")
-    print(old)
-    print("/////")
-    print(new)
     out = get_differences(old,new)
     out_new = compute_word_diffs(out)
     make_html_table(out_new,filename)
@@ -21,11 +17,37 @@ def get_differences(old,new):
     old = old.replace("\r","")
     old_list = old.split("\n")
     new_list = split_txt(new)
+    write_html_files(old_list,new_list)
     d = Differ()
     result = list(d.compare(old_list,new_list))
     for i in range(0,len(result)):
         result[i]=result[i].split()
     return result
+
+def write_html_files(old,new):
+    ans = ['''{% extends "alt_display.html" %}\n''','''{% block changes %}\n''','<table class="box" id="old">\n']
+    for line in old:
+        front = '\t<tr>\n\t\t<td>'
+        words = line
+        # skip if change only involves a blank line
+        if len(words) == 0:
+            continue
+        else:
+            ans.append(str(add_line(words,front,0,"#")))
+    ans.append('</table>\n')
+
+    ans.append('<table class="box" id="new">\n')
+    for line in new:
+        front = '\t<tr>\n\t\t<td>'
+        words = line
+        # skip if change only involves a blank line
+        if len(words) == 0:
+            continue
+        else:
+            ans.append(str(add_line(words,front,0,"#")))
+    ans.append('</table>\n')
+    ans.append('''{% endblock %}''')
+    write_file(ans,"uco/uco/templates/split_changes.html")
 
 def split_txt(txt):
     f = open(txt,"r+")
@@ -72,7 +94,7 @@ def split_changes(out):
     return ans
 
 # takes in a line of old text and new text
-# calculates what's been removed and added 
+# calculates what's been removed and added
 # returns a string with + in front of additions and - in front of deletions
 def word_by_word_changes(old,new):
     ans=[]
@@ -99,7 +121,7 @@ def calc_additions(old,new, ans):
             ans.insert(i+offset,"+"+word)
             offset+=1
     return ans
-            
+
 # created an html table that assigns a class to the rows
 # that have been added and removed
 def make_html_table(l,name):
@@ -146,7 +168,7 @@ def add_line(line,front,section_id,category):
     if category == "+":
         front = front+'<p data-section-id = "%s" class="commentable-section added">' % section_id
     elif category == "-":
-        front = front+'<p data-section-id = "%s" class="commentable-section removed">' % section_id 
+        front = front+'<p data-section-id = "%s" class="commentable-section removed">' % section_id
     else:
         front = front+'<p data-section-id = "%s" class="commentable-section">' % section_id
     end = '</p></td>\n\t</tr>\n'

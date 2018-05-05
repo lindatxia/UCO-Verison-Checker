@@ -1,17 +1,17 @@
 body {
   margin: 0;
   font-family: 'Fira Sans';
-/*  src: {{ url_for('static', filename= 'FiraSans-Book.otf') }}; 
+/*  src: {{ url_for('static', filename= 'FiraSans-Book.otf') }};
 */color: #414141;
   font-size: 0.9em;
   background-color: #FBFDFF;
-  
+
 }
 
 
-/*@font-face { 
-  font-family: Fira; 
-  src: {{ url_for('static', filename= 'FiraSans-Book.otf') }}; 
+/*@font-face {
+  font-family: Fira;
+  src: {{ url_for('static', filename= 'FiraSans-Book.otf') }};
   src: url('FiraSans-Book.otf');
 } */
 
@@ -32,6 +32,11 @@ body {
 	/*color: white;*/
 	text-decoration: none;
 	/*font-weight: bold;*/
+}
+
+.box p {
+	line-height: 28px;
+	width: 90%;
 }
 
 box a:hover {
@@ -73,9 +78,27 @@ h4 {
 	/*color: #FB9D13;*/
 }
 
+h5 {
+	color: #FB9D13;
+}
+
 .orange {
 	color: #FB9D13;
 	display: inline;
+}
+
+.center-text {
+	text-align: center;
+}
+
+.description {
+	text-align: center;
+	font-size: 14px;
+}
+
+.description a {
+	color: #FB9D13;
+	text-decoration: none;
 }
 
 /*BUTTONS */
@@ -128,6 +151,11 @@ h4 {
 	width: 220px;
 }
 
+.sticky {
+  position: fixed;
+  top: 0;
+}
+
 /*FORMS*/
 
 input {
@@ -156,7 +184,7 @@ label {
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
-    background-color: #3E4657; 
+    background-color: #3E4657;
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20px;
     box-shadow:  1.5px 1.5px 7px 0px #9B9B9B;
@@ -170,6 +198,18 @@ label {
     color: white;
     display: block;
 
+}
+
+.sidenav .indented {
+	color: #B1B9CD;
+	padding-left: 60px;
+	/*font-size: 14px;*/
+}
+
+
+
+.sidenav .selected {
+	color: #FB9D13 ;
 }
 
 .sidenav-content {
@@ -197,7 +237,11 @@ label {
 	display: none;
 }
 
-/* CHANGES TABLE */
+/* CHANGES */
+#description a {
+	font-size: 14pt;
+}
+
 td.added {
 	color: #68FF7C
 }
@@ -209,9 +253,101 @@ td.removed {
 .added {
 	background-color: #68FF7C;
     display: inline;
+    font-size: 14pt
 }
 
 .removed {
 	background-color: #FF8977;
     display: inline;
+    font-size: 14pt;
 }
+
+#changes_body p {
+	font-size: 14pt;
+}
+
+#stick a {
+	text-decoration: none;
+}
+
+/* SPLIT CHANGES TABLES */
+.side-changes {
+	margin: auto;
+	margin-top: 40px;
+	width: 85%;
+}
+
+#old {
+	width: 30%;
+	overflow: auto;
+	float: left;
+	background-color: #FFE2E2;
+}
+
+#new {
+	width: 30%;
+	overflow: auto;
+	float: right;
+	background-color: #DBFFE6;
+}
+
+
+
+/* LOADING STUFF */
+
+#feedback {
+	/*display: none;*/
+}
+
+#load {
+	display: block;
+}
+
+.fileloaded.is-active {
+	display: inline-block;
+	padding-left: 40px;
+}
+
+.fileloaded {
+	display: none;
+}
+
+.is-green {
+	color: #7FD69C;
+}
+
+.is-full {
+	width: 70%;
+	padding: 10px;
+	/*border: gray 1px;*/
+}
+
+.is-half {
+	width: 45%;
+}
+
+/* LIST */
+#software-list tr {
+    height: 300px;
+}
+
+/* LOADING BUTTONS */
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 )
+                url('loading.gif')
+                50% 50%
+                no-repeat;
+}
+
+
+body.loading .modal {
+    display: block;
+}
+
