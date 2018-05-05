@@ -37,6 +37,7 @@ class Software(db.Model):
     name = db.Column(db.String(100), primary_key=True)
     isApproved = db.Column(db.Boolean)
     date_added = db.Column(db.DateTime)
+    description = db.Column(db.Text, nullable=True)
 
     versions = db.relationship('Version', backref='software', lazy=True)
 
@@ -180,7 +181,7 @@ def process():
 		db.session.add(version)
 		db.session.commit()
 
-		return render_template('upload.html', name=name, link=link, start=start, end=end)
+	return render_template('upload.html', name=name, link=link, start=start, end=end)
 
 @app.route('/compare', methods=['GET', 'POST'])
 def compare():
@@ -228,6 +229,16 @@ def return_files():
 @app.route('/display_terms/')
 def display_terms():
 	return render_template('split_changes.html')
+
+@app.route('/add_desc/')
+def add_desc():
+    name = request.form['name'];
+    desc = request.form['desc'];
+
+    sofware = Software.query.filter_by(name=name).first()
+    software.description = desc;
+    db.session.commit()
+    return ""
 
 @app.route('/backup')
 def backup():

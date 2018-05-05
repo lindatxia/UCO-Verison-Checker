@@ -31,7 +31,9 @@
 
 <body>
 <div class="sidenav">
-	<img class = "logo" src = "/static/white.png">
+    <a href="{{url_for('main')}}">
+        <img class = "logo" src = "/static/white.png">
+    </a>
 	<div class = "sidenav-content">
 	<a href="{{url_for('main')}}"><i class="fas fa-home"></i>  Home</a>
 	<a href="{{url_for('list')}}"><i class="fas fa-list-ul"></i>  Software List</a>

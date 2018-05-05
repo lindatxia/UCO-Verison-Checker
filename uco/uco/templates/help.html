@@ -10,17 +10,9 @@
 	<script type="text/javascript" src="{{ url_for('static', filename='js/animations.js') }}"></script>
 
 	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
-
-	<!-- <link type="text/css" rel="stylesheet" href=" {{ url_for('static', filename='FiraSans-Book.otf')}}"/>  -->
-
 	<link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,600" rel="stylesheet">
-
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-
-	<!-- <link rel="stylesheet" media="all" type="text/css" href="../static/css/styles.css?q=1280549780"/> -->
-
 	<link rel="stylesheet" media="all" type="text/css" href="../static/css/default-theme.css"/>
-
 	<link rel="stylesheet" media="all" type="text/css" href="../static/css/side-comments.css"/>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -33,10 +25,12 @@
 
 <body>
 	<div class="sidenav">
-		<img class = "logo" src = "/static/white.png">
+	    <a href="{{url_for('main')}}">
+	        <img class = "logo" src = "/static/white.png">
+	    </a>
 		<div class = "sidenav-content">
 			<a href="{{url_for('main')}}"><i class="fas fa-home"></i>  Home</a>
-			<a href="#"><i class="fas fa-list-ul"></i>  Software List</a>
+			<a href="{{url_for('list')}}"><i class="fas fa-list-ul"></i>  Software List</a>
 			<a href="{{url_for('backup')}}"><i class="fas fa-archive"></i>  Backup</a>
 			<a href="{{url_for('help')}}"><i class="fas fa-question-circle"></i>  Help</a>
 			<a class = "indented selected" href="#"></i>  Documentation</a>
@@ -51,12 +45,10 @@
 	<h1> <div class = "orange">|</div> Help + Documentation </h1>
 	<p></p>
 
-
-
 	<div class = "box">
 		<h2>How to Use</h2>
 
-		<p>To get started with our application, have the link of the software agremeent you are using at hand. First enter the name of the software (if you are entering for a specific agreement type, add the type into this name. For example "asana-eula") and the link to the specific agreement you want to compare.
+		<p>To get started with our application, have the link of the software agreement you are using at hand. Make sure to include the https://. First enter the name of the software (if you are entering for a specific agreement type, add the type into this name. For example, "asana-eula", and the link to the specific agreement you want to compare.
 		</p>
 
 		<img class = "is-full" src = "/static/step1.png">

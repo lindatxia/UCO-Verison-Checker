@@ -9,17 +9,9 @@
 	<script type="text/javascript" src="{{ url_for('static', filename='js/animations.js') }}"></script>
 
 	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
-
-	<!-- <link type="text/css" rel="stylesheet" href=" {{ url_for('static', filename='FiraSans-Book.otf')}}"/>  -->
-
 	<link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,600" rel="stylesheet">
-
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-
-	<!-- <link rel="stylesheet" media="all" type="text/css" href="../static/css/styles.css?q=1280549780"/> -->
-
 	<link rel="stylesheet" media="all" type="text/css" href="../static/css/default-theme.css"/>
-
 	<link rel="stylesheet" media="all" type="text/css" href="../static/css/side-comments.css"/>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -30,7 +22,9 @@
 
 <body>
 <div class="sidenav">
-	<img class = "logo" src = "/static/white.png">
+    <a href="{{url_for('main')}}">
+        <img class = "logo" src = "/static/white.png">
+    </a>
 	<div class = "sidenav-content">
 		<a href="{{url_for('main')}}"><i class="fas fa-home"></i>  Home</a>
 		<a href="{{url_for('list')}}"><i class="fas fa-list-ul"></i>  Software List</a>
@@ -46,7 +40,7 @@
     <form id="software-search">
     	<select id='software-select'>
     		{% for software in softwares %}
-    			<option value = "#{{software.name}}">{{ software.name}}</option>
+    			<option value = "#{{software.name}}">{{ software.name }}</option>
     		{% endfor %}
     	</select>
     	<a class="button" onclick="myFunction()">Search</a>
@@ -71,11 +65,13 @@
 		<tr>
 			<th>Name</th>
 			<th>Date Added</th>
+			<th>Description</th>
 		</tr>
 		{% for software in softwares %}
 		<tr id = "{{software.name}}">
         	<td>{{ software.name }}</td>
         	<td>{{ software.date_added.strftime('%m-%d-%Y')}}</td>
+        	<td>{{ software.description }}</td>
         </tr>
     {% endfor %}
    	</table>
