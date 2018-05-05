@@ -75,7 +75,7 @@
 		{% for software in softwares %}
 		<tr id = "{{software.name}}">
         	<td>{{ software.name }}</td>
-        	<td>{{ software.date_added}}</td>
+        	<td>{{ software.date_added.strftime('%m-%d-%Y')}}</td>
         </tr>
     {% endfor %}
    	</table>

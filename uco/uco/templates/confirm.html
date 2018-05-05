@@ -105,13 +105,11 @@
 	</script>
 
 	<form role="form" name="myform">
-
-
         <div class="box">
         <h4> Is this the software you are looking for? </h4>
         	{{ name }}
-        	<br/>
-        	Date checked: {{ last_check }}
+        	<br/></br>
+        	Date Checked: {{ last_check.strftime('%m-%d-%Y') }}
         	<br/><p><br /></p>
         	<a class = "button is-medium is-orange" onclick="runPyScript()" href="{{url_for('results')}}">Compare Text</a>
 
@@ -124,11 +122,6 @@
         <input type="hidden" id="textFile" name="textFile" type="text" value="0" />
 
         <br/><br/>
-
-
-
-
-
 
     </form>
 	<br/><br/>

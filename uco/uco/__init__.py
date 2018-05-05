@@ -67,6 +67,8 @@ class Version(db.Model):
     def get_date_last_checked(self):
     	return self.date_last_checked
 
+    def get_parsed_text(self):
+        return self.parsed_text
 
 class Comment(db.Model):
 
@@ -182,31 +184,41 @@ def process():
 
 @app.route('/compare', methods=['GET', 'POST'])
 def compare():
-	message = None
-	global name
 	name = request.form['name'];
 	link = request.form['link'];
 	start = request.form['start'];
 	end = request.form['end'];
+	# textFile is the loaded in old terms if applicable
 	textFile = request.form['textFile'];
 	date = datetime.today()
 
-	global new_filename
 	new_filename = "uco/uco/"+name+date.strftime("%m_%d_%y")+".txt"
-	print(new_filename)
 
-	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
-	os.system(scrapy_call)
-	comparison.compare("uco/uco/"+textFile,new_filename,"uco/uco/templates/changes_table.html")
+# 	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
+# 	os.system(scrapy_call)
+
+    # at this point the software is already in the database whether new or not
+    # if it is new it was added to the db in the process route
+	num_versions = Version.query.filter_by(software_name=request.form["name"]).count()
+	# if it's already in the system it will have at least two versions, including the one just scraped
+	if num_versions > 1:
+	    last_version = Version.query.filter_by(software_name=request.form["name"]).order_by(Version.id.desc()).first()
+	    text = Version.get_parsed_text(last_version)
+	# if it's new in the system it will have only one version, the one just scraped
+	else:
+	    text = textFile
+
+	comparison.compare(text,new_filename,"uco/uco/templates/changes_table.html")
 	return ""
 
 @app.route('/returndownload', methods=['GET', 'POST'])
 def returndownload():
     date = datetime.today()
-    new_filename = "uco/uco/"+name+date.strftime("%m_%d_%y")+".txt"
+    new_filename = name+date.strftime("%m_%d_%y")+".txt"
     return Response('',mimetype="text/plain", headers={"Content-Disposition":
                                     "attachment; filename=%s" % new_filename})
 	#return send_file('%s' % new_filename , attachment_filename=new_filename, as_attachment = True)
+
 @app.route('/return_files/')
 def return_files():
     date = datetime.today()
@@ -232,7 +244,7 @@ def backup_scrape_only():
 	textFile = request.form['textFile'];
 	date = datetime.today()
 	global new_filename
-	new_filename = "uco/uco/"+name+date.strftime("%m_%d_%y")+".txt"
+	new_filename = name+date.strftime("%m_%d_%y")+".txt"
 	session['new_filename'] = new_filename
 	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
 	os.system(scrapy_call)
@@ -249,8 +261,10 @@ def backup_compare():
 	textFile = request.form['textFile'];
 	date = datetime.today()
 
+	print(textFile)
+
 	global new_filename
-	new_filename = "uco/uco/"+name+date.strftime("%m_%d_%y")+".txt"
+	new_filename = name+date.strftime("%m_%d_%y")+".txt"
 	session['new_filename'] = new_filename
 
 	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
