@@ -111,17 +111,16 @@ class Link(db.Model):
 def main():
 	return render_template('index.html')
 
+# This route is called after the client enters in details for the software form and clicks "next."
+# The terms are scraped from the website that the client enters.
 @app.route('/scrape_only', methods=['GET','POST'])
 def scrape_only():
-	message = None
-	global name
 	name = request.form['name'];
 	link = request.form['link'];
 	start = request.form['start'];
 	end = request.form['end'];
 	textFile = request.form['textFile'];
 	date = datetime.today()
-	global new_filename
 	new_filename = "uco/uco/"+name+date.strftime("%m_%d_%y")+".txt"
 
 	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
@@ -142,34 +141,35 @@ def list():
 
 @app.route('/process', methods=['GET','POST'])
 def process():
-
 	name = request.form['name'];
 	link = request.form['link'];
 	start = request.form['start'];
 	end = request.form['end'];
 
-	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
-	os.system(scrapy_call)
-
-	# New terms will be saved into a file, which we can read to obtain the updated terms of agreement
+	# New terms will be saved into a file, which we can read to obtain the updated terms of agreement. The text file should already exist
+	# because of the previous route run, scrape_only().
 	date = datetime.today()
 	new_filename = "uco/uco/"+name+date.strftime("%m_%d_%y")+".txt"
 	f = open(new_filename,"r+")
 	text = f.read()
 	f.close()
 
+    # Since we don't want to clutter up our PythonAnywhere directory... let's just delete the file we made. It's already saved to database.
+	try:
+	    os.remove(new_filename)
+	except OSError:
+	    pass
+
 	result = Software.query.filter_by(name=name).count()
 
     # There exists a record in the database for this particular software
 	if result > 0:
-
 		last_version = Version.query.filter_by(software_name=request.form["name"]).order_by(Version.id.desc()).first()
 		last_check = Version.get_date_last_checked(last_version)
 
 		version = Version(software_name=request.form["name"], parsed_text=text, date_last_checked=datetime.now(), date_last_updated=None)
 		db.session.add(version)
 		db.session.commit()
-
 		return render_template('confirm.html', name=name, link=link, start=start, end=end, last_check=last_check)
 
     # This is a new software being entered into the system/databases
@@ -180,8 +180,7 @@ def process():
 		db.session.add(software)
 		db.session.add(version)
 		db.session.commit()
-
-	return render_template('upload.html', name=name, link=link, start=start, end=end)
+		return render_template('upload.html', name=name, link=link, start=start, end=end)
 
 @app.route('/compare', methods=['GET', 'POST'])
 def compare():
@@ -235,7 +234,7 @@ def add_desc():
     name = request.form['name'];
     desc = request.form['desc'];
 
-    sofware = Software.query.filter_by(name=name).first()
+    software = Software.query.filter_by(name=name).first()
     software.description = desc;
     db.session.commit()
     return ""
@@ -246,15 +245,13 @@ def backup():
 
 @app.route('/backup_scrape_only', methods=['GET','POST'])
 def backup_scrape_only():
-	message = None
-	global name
 	name = request.form['name'];
 	link = request.form['link'];
 	start = request.form['start'];
 	end = request.form['end'];
 	textFile = request.form['textFile'];
 	date = datetime.today()
-	global new_filename
+
 	new_filename = name+date.strftime("%m_%d_%y")+".txt"
 	session['new_filename'] = new_filename
 	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
@@ -263,8 +260,6 @@ def backup_scrape_only():
 
 @app.route('/backup_compare', methods=['GET', 'POST'])
 def backup_compare():
-	message = None
-	global name
 	name = request.form['name'];
 	link = request.form['link'];
 	start = request.form['start'];
@@ -272,15 +267,14 @@ def backup_compare():
 	textFile = request.form['textFile'];
 	date = datetime.today()
 
-	print(textFile)
-
-	global new_filename
 	new_filename = name+date.strftime("%m_%d_%y")+".txt"
 	session['new_filename'] = new_filename
 
-	scrapy_call = '''scrapy runspider uco/uco/scrape.py -a name=%s -a link=%s -a start='%s' -a end='%s' ''' % (name,link,start,end)
-	os.system(scrapy_call)
 	comparison.compare(textFile,new_filename,"uco/uco/templates/backup_changes_table.html")
+	try:
+	    os.remove(new_filename)
+	except OSError:
+	    pass
 	return ""
 
 @app.route('/backup_results')
@@ -290,7 +284,6 @@ def backup_results():
 @app.route('/backup_return_files/')
 def backup_return_files():
     new_filename = session.get('new_filename', None)
-    # filename = new_filename.replace('/uco/uco','')
     return send_file('%s' % new_filename , attachment_filename=new_filename, as_attachment = True)
 
 if __name__ == '__main__':
