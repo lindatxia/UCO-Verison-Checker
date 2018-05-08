@@ -16,7 +16,8 @@ def compare(old,new,filename):
 def get_differences(old,new):
     old = old.replace("\r","")
     old_list = old.split("\n")
-    new_list = split_txt(new)
+    new = new.replace("\r","")
+    new_list = new.split("\n")
     write_html_files(old_list,new_list)
     d = Differ()
     result = list(d.compare(old_list,new_list))
@@ -49,11 +50,11 @@ def write_html_files(old,new):
     ans.append('''{% endblock %}''')
     write_file(ans,"uco/uco/templates/split_changes.html")
 
-def split_txt(txt):
-    f = open(txt,"r+")
-    ans = f.read().splitlines()
-    f.close()
-    return ans
+# def split_txt(txt):
+#     f = open(txt,"r+")
+#     ans = f.read().splitlines()
+#     f.close()
+#     return ans
 
 def compute_word_diffs(out):
     # out is of the format

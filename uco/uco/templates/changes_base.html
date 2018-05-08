@@ -19,15 +19,33 @@
 	<script type="text/javascript" src="{{ url_for('static', filename='js/diff.js') }}"></script>
 
 	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styles.css') }}">
+	<link rel="shortcut icon" href="/static/favicon.png">
 
 
 </head>
 
 <body>
 
+<script>
+    function downloadComments(){
+		var comments = $('#comments')
+        $.ajax({
+            type: "POST",
+            url: "/get_comments",
+            async: false,
+            dataType: "html",
+            data: $('form').serialize()
+    })
+    };
+</script>
+
 <div id = "stick">
 <a class = "button is-medium is-orange" href = "{{url_for('main')}}" target="_self">Back to Form</a>
-<a class = "button is-medium back-to-top" href = "#container" target="_self">Back to Top</a>
+<a class = "button is-medium back-to-top" href = "#container" target="_self">Back to Top</a></br>
+<textarea rows="4" cols="40" name="comments" form="comments-form">Enter Comments Here</textarea></br>
+<form role="form" id="comments-form">
+    <a class = "button is-medium is-orange" onclick="downloadComments()" href = "{{url_for('return_comments')}}" target="_blank">Download Comments</a>
+</form>
 </div>
 
 <div id="container">
@@ -35,7 +53,7 @@
 	<div class="box">
 		<h1 class = "center-text">Changes</h1>
 		<div class = "description">
-			<a href = "{{url_for('display_terms')}}" target="_self">Side by Side Compare</a> | <a href = "/return_files/" target="blank">Download New Terms</a>
+			<a href = "{{url_for('display_terms')}}" target="_self">Side by Side Compare</a> | <a onclick="downloadComments()" href = "{{url_for('return_comments')}}" target="_blank">Download Comments</a>
 		</div>
 		<div id="commentable-area">
 			<div id = "changes_body">

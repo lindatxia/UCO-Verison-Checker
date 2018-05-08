@@ -25,6 +25,8 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
 	<script src="{{ url_for('static', filename='../static/js/side-comments.js') }}"></script>
+		<link rel="shortcut icon" href="/static/favicon.png">
+
 
 
 </head>
@@ -112,12 +114,14 @@
     function addDescToDB(){
         var name = $('#name').val();
 		var desc = $('#desc').val();
+		var element = document.getElementById("feedback2");
+		element.classList.toggle("is-active");
         $.ajax({
             type: "POST",
             url: "/add_desc",
             async: false,
             dataType: "html",
-            data: $('add_desc').serialize()
+            data: $('form').serialize()
     })};
 
 
@@ -126,10 +130,10 @@
 	<div class="box">
 	    <p> {{name}} is a new software in this system, and has been added to the database.</p>
         <p>Add a description if desired</p>
-        <form role="add_desc" name="add_desc">
+        <form role="form" name="add_desc">
             <input type="text" id="desc" name="desc" value = "Description" required>
             <input type="hidden" id="name" name="name" value="{{name}}" required>
-            <a class="button is-medium" onclick="addDescToDB">Add Description</a>
+            <a class="button is-medium" onclick="addDescToDB()">Add Description</a><div id = "feedback2" class = "fileloaded"> <i class="fas fa-check is-green"></i> Description Added</div></br>
         </form>
         <p>If you don't have any old terms to compare it to you can go back the form.</p>
         <a class = "button is-medium" href="{{url_for('main')}}">Back to Form</a></br>
